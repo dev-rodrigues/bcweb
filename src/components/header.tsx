@@ -2,6 +2,7 @@ import { Separator } from '@radix-ui/react-separator'
 import { ClipboardList, Home, Users } from 'lucide-react'
 
 import { NavLink } from '@/components/nav-link.tsx'
+import {ThemeToggle} from "@/components/theme/theme-toggle.tsx";
 
 export function Header() {
   return (
@@ -22,6 +23,9 @@ export function Header() {
             Alunos
           </NavLink>
         </nav>
+        <div className="ml-auto flex items-center gap-2">
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   )
