@@ -1,8 +1,9 @@
 import { Separator } from '@radix-ui/react-separator'
 import { ClipboardList, Home, Users } from 'lucide-react'
 
+import { AccountMenu } from '@/components/account-menu.tsx'
 import { NavLink } from '@/components/nav-link.tsx'
-import {ThemeToggle} from "@/components/theme/theme-toggle.tsx";
+import { ThemeToggle } from '@/components/theme/theme-toggle.tsx'
 
 export function Header() {
   return (
@@ -18,13 +19,14 @@ export function Header() {
             Início
           </NavLink>
 
-          <NavLink to="/sign-up">
+          <NavLink to="/teams">
             <Users className={'h-4 w-4'} />
-            Alunos
+            Teams
           </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
+          <AccountMenu />
         </div>
       </div>
     </div>
