@@ -1,7 +1,9 @@
 import { ArrowRight, Search, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
+import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
 import { TableCell, TableRow } from '@/components/ui/table.tsx'
+import { TeamDetails } from '@/pages/app/teams/team-details.tsx'
 
 type TeamTableRowProps = {
   key: number
@@ -11,10 +13,15 @@ export function TeamTableRow({ key }: TeamTableRowProps) {
   return (
     <TableRow key={key}>
       <TableCell>
-        <Button variant="outline" size="xs">
-          <Search className="h-3 w-3" />
-          <span className="sr-only">Detalhes do pedido</span>
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="xs">
+              <Search className="h-3 w-3" />
+              <span className="sr-only">Detalhes do pedido</span>
+            </Button>
+          </DialogTrigger>
+          <TeamDetails />
+        </Dialog>
       </TableCell>
 
       <TableCell className="font-mono text-xs font-medium">1</TableCell>
