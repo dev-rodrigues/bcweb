@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -7,12 +7,20 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select.tsx'
 
 const SignUpForm = z.object({
   teamName: z.string(),
   managerName: z.string(),
   phone: z.string(),
   email: z.string().email(),
+  service: z.string(),
 })
 
 type SignUpFormType = z.infer<typeof SignUpForm>
@@ -23,6 +31,7 @@ export function SignUp() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { isSubmitting },
   } = useForm<SignUpFormType>()
 
@@ -58,12 +67,7 @@ export function SignUp() {
           onSubmit={handleSubmit(handleSignUp)}
           className="flex flex-col gap-4"
         >
-          <div className="mt-4 space-y-2">
-            <Label htmlFor="teamName">Nome do seu time</Label>
-            <Input id="teamName" type="text" {...register('teamName')} />
-          </div>
-
-          <div className="space-y-2">
+          <div className="mt-12 space-y-2">
             <Label htmlFor="managerName">Seu nome</Label>
             <Input id="managerName" type="text" {...register('managerName')} />
           </div>
@@ -76,6 +80,27 @@ export function SignUp() {
           <div className="space-y-2">
             <Label htmlFor="email">Seu e-mail</Label>
             <Input id="email" type="email" {...register('email')} />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="service">Serviço</Label>
+
+            <Controller
+              name="service"
+              control={control}
+              render={({ field }) => (
+                <Select onValueChange={field.onChange}>
+                  <SelectTrigger className="h-8">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent id="service">
+                    <SelectItem value="1">Ed. Fisíca</SelectItem>
+                    <SelectItem value="2">Nutrição</SelectItem>
+                    <SelectItem value="3">Endocrinologia</SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
           </div>
 
           <Button disabled={isSubmitting} className="w-full" type="submit">
