@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 
 import { MonthRevenueUsersCard } from '@/pages/app/dashboard/month-revenue-users-card.tsx'
+import { PopularTeamsChart } from '@/pages/app/dashboard/popular-teams-chart.tsx'
 import { RevenueChart } from '@/pages/app/dashboard/revenue-chart.tsx'
 
 export function Dashboard() {
@@ -15,6 +16,7 @@ export function Dashboard() {
         </div>
         <div className="grid grid-cols-9 gap-4">
           <RevenueChart />
+          <PopularTeamsChart />
         </div>
       </div>
     </>
