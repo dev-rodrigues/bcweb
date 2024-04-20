@@ -1,9 +1,10 @@
+import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
+import { createTeam } from '@/api/sign-up.ts'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
@@ -14,16 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
-
-const SignUpForm = z.object({
-  teamName: z.string(),
-  managerName: z.string(),
-  phone: z.string(),
-  email: z.string().email(),
-  service: z.string(),
-})
-
-type SignUpFormType = z.infer<typeof SignUpForm>
+import { SignUpFormType } from '@/types/commons-signup.ts'
 
 export function SignUp() {
   const navigate = useNavigate()
@@ -35,15 +27,27 @@ export function SignUp() {
     formState: { isSubmitting },
   } = useForm<SignUpFormType>()
 
-  async function handleSignUp(data: SignUpFormType) {
-    console.log(data)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    toast.success('Restaurante cadastrado com sucesso!', {
-      action: {
-        label: 'Login',
-        onClick: () => navigate('/sign-in'),
-      },
-    })
+  const { mutate } = useMutation({
+    mutationFn: createTeam,
+    onSuccess: () => {
+      toast.success('Time cadastrado com sucesso!', {
+        action: {
+          label: 'Login',
+          onClick: () => navigate('/sign-in'),
+        },
+      })
+
+      setTimeout(() => {
+        navigate('/sign-in')
+      }, 2000)
+    },
+    onError: () => {
+      toast.error('Erro ao cadastrar time')
+    },
+  })
+
+  const onSubmit = (form: SignUpFormType) => {
+    mutate(form)
   }
 
   return (
@@ -63,13 +67,24 @@ export function SignUp() {
             Seja um parceiro e acompanhe seus alunos pelo painel
           </p>
         </div>
-        <form
-          onSubmit={handleSubmit(handleSignUp)}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="mt-12 space-y-2">
+            <Label htmlFor="teamname">Nome do time</Label>
+            <Input id="teamname" type="text" {...register('teamName')} />
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="managerName">Seu nome</Label>
             <Input id="managerName" type="text" {...register('managerName')} />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="managerPassword">Sua senha</Label>
+            <Input
+              id="managerPassword"
+              type="password"
+              {...register('password')}
+            />
           </div>
 
           <div className="space-y-2">

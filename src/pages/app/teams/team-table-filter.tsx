@@ -13,7 +13,6 @@ import {
 export function TeamTableFilter() {
   return (
     <form className={'flex gap-2'}>
-      {/* <span className="text-sm font-semibold">Filtros</span> */}
       <Input placeholder="Id" className="h-8 w-auto" />
       <Input placeholder="Nome do time" className="h-8 w-[320px]" />
       <Select defaultValue="none">

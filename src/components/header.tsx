@@ -1,5 +1,5 @@
 import { Separator } from '@radix-ui/react-separator'
-import { ClipboardList, Home, Users } from 'lucide-react'
+import { ClipboardList, DumbbellIcon, Home, Users } from 'lucide-react'
 
 import { AccountMenu } from '@/components/account-menu.tsx'
 import { NavLink } from '@/components/nav-link.tsx'
@@ -22,6 +22,16 @@ export function Header() {
           <NavLink to="/teams">
             <Users className={'h-4 w-4'} />
             Teams
+          </NavLink>
+
+          <NavLink to="/users">
+            <Users className={'h-4 w-4'} />
+            Users
+          </NavLink>
+
+          <NavLink to="/exercises">
+            <DumbbellIcon className={'h-4 w-4'} />
+            Exercises
           </NavLink>
         </nav>
         <div className="ml-auto flex items-center gap-2">

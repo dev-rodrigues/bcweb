@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { Pagination } from '@/components/pagination.tsx'
@@ -10,13 +11,19 @@ import {
 } from '@/components/ui/table.tsx'
 import { TeamTableFilter } from '@/pages/app/teams/team-table-filter.tsx'
 import { TeamTableRow } from '@/pages/app/teams/team-table-row.tsx'
+import { useTeamPaged } from '@/services/team-hook.ts'
 
 export function Teams() {
+  const [page] = useState(0)
+  const size = 10
+
+  const { data } = useTeamPaged(page, size)
+
   return (
     <>
       <Helmet title="Teams" />
       <div className="flex flex-col gap-4">
-        <h1 className={'text-3xl font-bold tracking-tight'}>Times</h1>
+        <h1 className={'text-3xl font-bold tracking-tight'}>Teams</h1>
         <div className="space-y-2.5">
           <TeamTableFilter />
 
@@ -34,13 +41,18 @@ export function Teams() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }).map((_, i) => {
-                  return <TeamTableRow key={i} />
+                {data?.content.map((it, i) => {
+                  return <TeamTableRow key={i} data={it} />
                 })}
               </TableBody>
             </Table>
           </div>
-          <Pagination pageIndex={0} totalCount={105} perPage={10} />
+
+          <Pagination
+            pageIndex={page}
+            totalCount={data?.total ? data.total : 0}
+            perPage={10}
+          />
         </div>
       </div>
     </>

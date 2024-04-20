@@ -1,35 +1,47 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
+import { useAuth } from '@/context/AuthContext.tsx'
 
 const signInForm = z.object({
   email: z.string().email(),
+  password: z.string().min(6),
 })
 
 type SignInFormType = z.infer<typeof signInForm>
 
 export function SignIn() {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<SignInFormType>()
+  } = useForm<SignInFormType>({
+    resolver: zodResolver(signInForm),
+  })
 
   async function handleSignIn(data: SignInFormType) {
-    console.log(data)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    toast.success('Enviamos um link de autenticação para o seu e-mail', {
-      action: {
-        label: 'Reenviar',
-        onClick: () => handleSignIn(data),
-      },
-    })
+    try {
+      await login({
+        login: data.email,
+        password: data.password,
+      })
+
+      navigate('/')
+
+      toast.success('Seja Bem-vindo')
+    } catch (error) {
+      toast.error('Erro ao enviar link de autenticação')
+    }
   }
 
   return (
@@ -55,6 +67,10 @@ export function SignIn() {
           <div className="space-y-2">
             <Label htmlFor="email">Seu e-mail</Label>
             <Input id="email" type="email" {...register('email')} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="email">Sua senha</Label>
+            <Input id="password" type="password" {...register('password')} />
           </div>
           <Button disabled={isSubmitting} className="w-full" type="submit">
             Acessar painel

@@ -4,7 +4,9 @@ import { AppLayout } from '@/pages/_layouts/app.tsx'
 import { AuthLayout } from '@/pages/_layouts/auth.tsx'
 import { NotFound } from '@/pages/404.tsx'
 import { Dashboard } from '@/pages/app/dashboard/dashboard.tsx'
+import { Exercises } from '@/pages/app/exercises/exercises.tsx'
 import { Teams } from '@/pages/app/teams/teams.tsx'
+import { Users } from '@/pages/app/users/users.tsx'
 import { SignIn } from '@/pages/auth/sign-in.tsx'
 import { SignUp } from '@/pages/auth/sign-up.tsx'
 
@@ -16,6 +18,8 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Dashboard /> },
       { path: '/teams', element: <Teams /> },
+      { path: '/users', element: <Users /> },
+      { path: '/exercises', element: <Exercises /> },
     ],
   },
   {

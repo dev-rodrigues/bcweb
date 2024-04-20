@@ -10,12 +10,20 @@ import {
   TableCell,
   TableRow,
 } from '@/components/ui/table.tsx'
+import { mapService } from '@/pages/app/common/serviceMap.ts'
+import { ContentItemSchemaType } from '@/types/common-team.ts'
 
-export function TeamDetails() {
+type Props = {
+  data: ContentItemSchemaType
+}
+
+export function TeamDetails({ data }: Props) {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Requisição de acesso a plataforma: 1</DialogTitle>
+        <DialogTitle>
+          {`Requisição de acesso a plataforma: ${data.id}`}
+        </DialogTitle>
         <DialogDescription>Detalhes do time</DialogDescription>
       </DialogHeader>
       <div className="space-x-6">
@@ -27,7 +35,7 @@ export function TeamDetails() {
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className={'font-medium text-muted-foreground'}>
-                    Pendente
+                    {data.status}
                   </span>
                 </div>
               </TableCell>
@@ -38,7 +46,7 @@ export function TeamDetails() {
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    Team Braga
+                    {data.name}
                   </span>
                 </div>
               </TableCell>
@@ -51,7 +59,7 @@ export function TeamDetails() {
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    Erick Braga
+                    {data.owner.name}
                   </span>
                 </div>
               </TableCell>
@@ -62,7 +70,7 @@ export function TeamDetails() {
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    (21) 99999-9999
+                    {data.owner.customerPhone}
                   </span>
                 </div>
               </TableCell>
@@ -73,7 +81,7 @@ export function TeamDetails() {
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    erick@braga.com.br
+                    {data.owner.customerEmail}
                   </span>
                 </div>
               </TableCell>
@@ -84,7 +92,8 @@ export function TeamDetails() {
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    Ed. Física
+                    {/* {data ? mapService(data.service) : '---'} */}
+                    {mapService(data.service.toString())}
                   </span>
                 </div>
               </TableCell>

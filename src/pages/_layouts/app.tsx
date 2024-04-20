@@ -1,9 +1,15 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import { Header } from '@/components/header.tsx'
+import { useAuth } from '@/context/AuthContext.tsx'
 
 export function AppLayout() {
-  return (
+  const location = useLocation()
+  const { isAuthenticated } = useAuth()
+
+  debugger
+
+  return isAuthenticated() ? (
     <div className="flex min-h-screen flex-col antialiased">
       <Header />
 
@@ -11,5 +17,13 @@ export function AppLayout() {
         <Outlet />
       </div>
     </div>
+  ) : (
+    <Navigate
+      to={'/sign-in'}
+      replace
+      state={{
+        from: location,
+      }}
+    />
   )
 }
