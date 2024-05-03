@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -155,6 +156,7 @@ export function ExerciseCreate({
           </div>
 
           <Button disabled={isSubmitting} className="w-full" type="submit">
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Salvar
           </Button>
         </form>
