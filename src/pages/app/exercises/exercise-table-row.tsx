@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { Search, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { deleteExercise } from '@/api/exercise.ts'
@@ -20,6 +21,7 @@ export function ExerciseTableRow({
   data,
   currentPage,
 }: ExerciseTableRowProps) {
+  const [onExcluding, setOnExcluding] = useState(false)
   const mutation = useMutation({
     mutationFn: deleteExercise,
     onSuccess: () => {
@@ -30,10 +32,14 @@ export function ExerciseTableRow({
         .then(() => {
           toast.success('Exercício excluído com sucesso')
         })
+        .finally(() => {
+          setOnExcluding(false)
+        })
     },
   })
 
   const onSubmit = () => {
+    setOnExcluding(true)
     mutation.mutate(data.id)
   }
 
@@ -54,7 +60,11 @@ export function ExerciseTableRow({
       <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
       <TableCell>
-        <Button variant="outline" onClick={() => onSubmit()}>
+        <Button
+          disabled={onExcluding}
+          variant="outline"
+          onClick={() => onSubmit()}
+        >
           <Trash2 className="mr-2 h-3 w-3" />
           Excluir
         </Button>

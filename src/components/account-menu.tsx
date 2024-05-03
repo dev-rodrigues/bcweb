@@ -13,12 +13,16 @@ import {
 import { useAuth } from '@/context/AuthContext.tsx'
 
 export function AccountMenu() {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   const navigate = useNavigate()
 
   function handleLogout() {
     logout()
     navigate('/sign-in')
+  }
+
+  function handleProfile() {
+    navigate('/profile')
   }
 
   return (
@@ -34,13 +38,13 @@ export function AccountMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col ">
-          <span>Carlos Henrique</span>
+          <span>{user?.name}</span>
           <span className="text-xs font-normal text-muted-foreground">
-            carlos.hrq.rodrigues@gmail.com
+            {user?.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleProfile()}>
           <Building className="mr-2 h-4 w-4" />
           <span>Perfil</span>
         </DropdownMenuItem>

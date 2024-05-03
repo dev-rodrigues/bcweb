@@ -7,6 +7,7 @@ const ContentItemSchema = z.object({
   name: z.string(),
   typeId: z.number(),
   typeName: z.string(),
+  muscleGroups: z.array(z.string()),
 })
 
 export const GetExercises = z.object({

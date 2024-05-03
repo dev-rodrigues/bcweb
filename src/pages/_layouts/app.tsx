@@ -7,8 +7,6 @@ export function AppLayout() {
   const location = useLocation()
   const { isAuthenticated } = useAuth()
 
-  debugger
-
   return isAuthenticated() ? (
     <div className="flex min-h-screen flex-col antialiased">
       <Header />

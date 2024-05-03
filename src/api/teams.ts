@@ -1,4 +1,4 @@
-import { api } from '@/api/api.ts'
+import { api } from '@/lib/axios.ts'
 import { GetTeamType } from '@/types/common-team.ts'
 
 export const getTeamPaged = async (

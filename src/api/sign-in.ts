@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 
-import { api } from '@/api/api.ts'
+import { api } from '@/lib/axios.ts'
 
 export interface SignInBody {
   login: string

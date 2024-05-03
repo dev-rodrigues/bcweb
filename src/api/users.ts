@@ -1,4 +1,4 @@
-import { api } from '@/api/api.ts'
+import { api } from '@/lib/axios.ts'
 import { GetUsersType } from '@/types/common-users.ts'
 
 export const getUsersPaged = async (

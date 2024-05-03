@@ -1,4 +1,4 @@
-import { api } from '@/api/api.ts'
+import { api } from '@/lib/axios.ts'
 import { SignUpFormType } from '@/types/commons-signup.ts'
 
 export const createTeam = async (data: SignUpFormType): Promise<void> => {

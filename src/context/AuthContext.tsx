@@ -7,8 +7,8 @@ import React, {
   useState,
 } from 'react'
 
-import { api } from '@/api/api.ts'
 import { signIn, SignInBody } from '@/api/sign-in.ts'
+import { api } from '@/lib/axios.ts'
 import { localStorageName } from '@/types/common.ts'
 import { ContentItemSchemaType } from '@/types/common-users.ts'
 
@@ -17,6 +17,7 @@ interface AuthContextData {
   login(credentials: SignInBody): Promise<void>
   logout(): void
   isAuthenticated(): boolean
+  hasPermission(roles: string[]): boolean
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -49,7 +50,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [data, setData] = useState<ContentItemSchemaType | null>(() => {
     const authorization = localStorage.getItem(localStorageName)
 
-    debugger
     if (authorization) {
       const decodedObject = getDecodedData(authorization)
 
@@ -95,6 +95,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return JSON.parse(replacedString) as JwtDataProps
   }
 
+  function hasPermission(roles: string[]): boolean {
+    if (!data) {
+      return false
+    }
+
+    return data.roles.some((role) => roles.includes(role))
+  }
+
   function isAuthenticated(): boolean {
     return !!data
   }
@@ -107,7 +115,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: data, login, logout, isAuthenticated }}
+      value={{ user: data, login, logout, isAuthenticated, hasPermission }}
     >
       {children}
     </AuthContext.Provider>

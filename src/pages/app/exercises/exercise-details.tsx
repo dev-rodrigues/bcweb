@@ -30,7 +30,6 @@ export function ExerciseDetails({ data }: Props) {
               <TableCell className="text-muted-foreground">Nome</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-slate-400" />
                   <span className={'font-medium text-muted-foreground'}>
                     {data.name}
                   </span>
@@ -50,14 +49,34 @@ export function ExerciseDetails({ data }: Props) {
             </TableRow>
 
             <TableRow>
-              <TableCell className="text-muted-foreground">
-                Tipo de exercicío
-              </TableCell>
+              <TableCell className="text-muted-foreground">Exercicío</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
-                    {data.typeId} - {data.typeName}
+                    {data.typeName}
                   </span>
+                </div>
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className="text-muted-foreground">Grupos</TableCell>
+              <TableCell className="flex justify-end">
+                <div className="flex items-center gap-2">
+                  {data.muscleGroups.map((it, i) => {
+                    return (
+                      <>
+                        <span className="h-2 w-2 rounded-full bg-slate-400" />
+
+                        <span
+                          key={i}
+                          className={'font-medium text-muted-foreground'}
+                        >
+                          {it}
+                        </span>
+                      </>
+                    )
+                  })}
                 </div>
               </TableCell>
             </TableRow>

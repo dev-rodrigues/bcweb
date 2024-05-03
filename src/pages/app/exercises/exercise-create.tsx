@@ -42,16 +42,11 @@ export function ExerciseCreate({
   currentPage,
 }: ExerciseCreateProps) {
   const [groups, setGroups] = useState<number[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const { data: exercisesType } = useExercisesType()
   const { data: muscleGroups } = useExerciseMuscleGroup()
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { isSubmitting },
-  } = useForm<ExerciseFormType>()
+  const { register, handleSubmit, control, reset } = useForm<ExerciseFormType>()
 
   const { mutate } = useMutation({
     mutationFn: createExercise,
@@ -70,6 +65,7 @@ export function ExerciseCreate({
           setModalOpen(false)
           reset()
           toast.success('Exercicío cadastrado com sucesso!')
+          setIsSubmitting(false)
         })
     },
     onError: () => {
@@ -79,6 +75,7 @@ export function ExerciseCreate({
 
   const onSubmit = (form: ExerciseFormType) => {
     form.groups = groups
+    setIsSubmitting(true)
     mutate(form)
   }
 

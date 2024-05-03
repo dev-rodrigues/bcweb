@@ -1,4 +1,4 @@
-import { api } from '@/api/api.ts'
+import { api } from '@/lib/axios.ts'
 import { ExerciseFormType, GetExercisesType } from '@/types/common-exercise.ts'
 import { GetExerciseMuscleGroupType } from '@/types/common-exercise-muscle-group-type.ts'
 import { GetExerciseTypeType } from '@/types/common-exercise-type.ts'
