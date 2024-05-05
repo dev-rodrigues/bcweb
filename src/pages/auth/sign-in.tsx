@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { MailIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { PasswordInput } from '@/components/password-input.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
@@ -66,11 +68,16 @@ export function SignIn() {
         >
           <div className="space-y-2">
             <Label htmlFor="email">Seu e-mail</Label>
-            <Input id="email" type="email" {...register('email')} />
+            <Input
+              id="email"
+              type="email"
+              {...register('email')}
+              suffix={<MailIcon />}
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Sua senha</Label>
-            <Input id="password" type="password" {...register('password')} />
+            <PasswordInput id="password" {...register('password')} useIcon />
           </div>
           <Button disabled={isSubmitting} className="w-full" type="submit">
             Acessar painel

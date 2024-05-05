@@ -1,10 +1,14 @@
 import { useMutation } from '@tanstack/react-query'
+import { MailIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTeam } from '@/api/sign-up.ts'
+import { FormField } from '@/components/form.tsx'
+import { PasswordInput } from '@/components/password-input.tsx'
+import { PhoneInput } from '@/components/phone-input.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
@@ -80,26 +84,36 @@ export function SignUp() {
 
           <div className="space-y-2">
             <Label htmlFor="managerPassword">Sua senha</Label>
-            <Input
+            <PasswordInput
               id="managerPassword"
-              type="password"
               {...register('password')}
+              useIcon={true}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="phone">Telefone</Label>
-            <Input id="phone" type="tel" {...register('phone')} />
+            <FormField
+              control={control}
+              name="phone"
+              render={({ field }) => (
+                <PhoneInput placeholder="Enter a phone number" {...field} />
+              )}
+            />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="email">Seu e-mail</Label>
-            <Input id="email" type="email" {...register('email')} />
+            <Input
+              id="email"
+              type="email"
+              {...register('email')}
+              suffix={<MailIcon />}
+            />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="service">Serviço</Label>
-
             <Controller
               name="service"
               control={control}

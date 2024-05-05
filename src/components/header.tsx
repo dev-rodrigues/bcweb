@@ -32,7 +32,7 @@ export function Header() {
             </NavLink>
           )}
 
-          {canViewEditUsers && (
+          {canViewEditExercises && (
             <NavLink to="/users">
               <Users className={'h-4 w-4'} />
               Users

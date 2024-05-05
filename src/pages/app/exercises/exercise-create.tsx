@@ -1,8 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { z } from 'zod'
 
 import { createExercise } from '@/api/exercise.ts'
 import { queryClient } from '@/app.tsx'
@@ -38,16 +40,31 @@ type ExerciseCreateProps = {
   currentPage: number
 }
 
+const createExerciseForm = z.object({
+  name: z.string().min(3).max(255),
+  type: z.string(),
+  // groups: z.array(z.number()).min(1),
+})
+
 export function ExerciseCreate({
   setModalOpen,
   currentPage,
 }: ExerciseCreateProps) {
-  const [groups, setGroups] = useState<number[]>([])
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const { data: exercisesType } = useExercisesType()
   const { data: muscleGroups } = useExerciseMuscleGroup()
 
-  const { register, handleSubmit, control, reset } = useForm<ExerciseFormType>()
+  const [groups, setGroups] = useState<number[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const {
+    register,
+    formState: { isValid },
+    handleSubmit,
+    control,
+    reset,
+  } = useForm<ExerciseFormType>({
+    resolver: zodResolver(createExerciseForm),
+  })
 
   const { mutate } = useMutation({
     mutationFn: createExercise,
@@ -155,7 +172,7 @@ export function ExerciseCreate({
             </Table>
           </div>
 
-          <Button disabled={isSubmitting} className="w-full" type="submit">
+          <Button disabled={!isValid} className="w-full" type="submit">
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Salvar
           </Button>
