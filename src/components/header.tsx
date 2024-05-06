@@ -1,5 +1,5 @@
 import { Separator } from '@radix-ui/react-separator'
-import { ClipboardList, DumbbellIcon, Home, Users } from 'lucide-react'
+import { DumbbellIcon, Home, Users } from 'lucide-react'
 import { FaUsers } from 'react-icons/fa'
 
 import { AccountMenu } from '@/components/account-menu.tsx'
@@ -16,7 +16,6 @@ export function Header() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6">
-        {/* <ClipboardList className="h-6 w-6" /> */}
         BC.team
         <Separator orientation="vertical" className="h-6" />
         <nav className="flex items-center space-x-4 lg:space-x-6">

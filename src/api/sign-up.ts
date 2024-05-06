@@ -3,7 +3,14 @@ import { ContentUserSchemaType } from '@/types/common-user.ts'
 import { SignUpFormType } from '@/types/commons-signup.ts'
 
 export const createTeam = async (data: SignUpFormType): Promise<void> => {
-  const { data: response } = await api.post('/team/register', data)
+  const { data: response } = await api.post('/team/register', {
+    teamName: data.teamName,
+    managerName: data.managerName,
+    phone: data.phone,
+    email: data.email.toLowerCase(),
+    service: data.service,
+    password: data.password,
+  })
   return response.data
 }
 
