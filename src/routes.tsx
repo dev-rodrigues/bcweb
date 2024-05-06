@@ -6,6 +6,7 @@ import { NotFound } from '@/pages/404.tsx'
 import { Dashboard } from '@/pages/app/dashboard/dashboard.tsx'
 import { Exercises } from '@/pages/app/exercises/exercises.tsx'
 import { Profile } from '@/pages/app/profile/profile.tsx'
+import { Students } from '@/pages/app/students'
 import { Teams } from '@/pages/app/teams/teams.tsx'
 import { Users } from '@/pages/app/users/users.tsx'
 import { SignIn } from '@/pages/auth/sign-in.tsx'
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: '/users', element: <Users /> },
       { path: '/exercises', element: <Exercises /> },
       { path: '/profile', element: <Profile /> },
+      { path: '/students', element: <Students /> },
     ],
   },
   {

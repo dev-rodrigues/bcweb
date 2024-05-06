@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
+import Loading from '@/components/loading.tsx'
 import { Pagination } from '@/components/pagination.tsx'
-import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import {
   Table,
   TableBody,
@@ -26,9 +26,7 @@ export function Users() {
         <div className="space-y-2.5">
           <div className="rounded-md border">
             {isFetching ? (
-              <div className="mb-4 mt-4 flex justify-center">
-                <LoadingSpinner />
-              </div>
+              <Loading />
             ) : (
               <Table>
                 <TableHeader>

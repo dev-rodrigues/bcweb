@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { Pagination } from '@/components/pagination.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
+import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import {
   Table,
   TableBody,
@@ -19,7 +20,7 @@ export function Exercises() {
   const [open, setOpen] = useState(false)
   const [page, setPage] = useState(0)
   const size = 10
-  const { data } = useExercises(page, size)
+  const { data, isFetching } = useExercises(page, size)
 
   const handleOpen = () => {
     setOpen(!open)
@@ -43,23 +44,29 @@ export function Exercises() {
 
         <div className="space-y-2.5">
           <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[24px]"></TableHead>
-                  <TableHead className="w-[140px]">#</TableHead>
-                  <TableHead className="w-[180px]">Nome</TableHead>
-                  <TableHead className="w-[132px]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data?.content.map((it, i) => {
-                  return (
-                    <ExerciseTableRow key={i} data={it} currentPage={page} />
-                  )
-                })}
-              </TableBody>
-            </Table>
+            {isFetching ? (
+              <div className="mb-4 mt-4 flex justify-center">
+                <LoadingSpinner />
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[24px]"></TableHead>
+                    <TableHead className="w-[140px]">#</TableHead>
+                    <TableHead className="w-[180px]">Nome</TableHead>
+                    <TableHead className="w-[132px]"></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {data?.content.map((it, i) => {
+                    return (
+                      <ExerciseTableRow key={i} data={it} currentPage={page} />
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            )}
           </div>
 
           <Pagination

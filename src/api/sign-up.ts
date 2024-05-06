@@ -1,9 +1,16 @@
 import { api } from '@/lib/axios.ts'
+import { ContentUserSchemaType } from '@/types/common-user.ts'
 import { SignUpFormType } from '@/types/commons-signup.ts'
 
 export const createTeam = async (data: SignUpFormType): Promise<void> => {
   const { data: response } = await api.post('/team/register', data)
   return response.data
+}
+
+export const updateProfile = async (
+  data: ContentUserSchemaType,
+): Promise<void> => {
+  console.log(data)
 }
 
 export const updateStatus = async (

@@ -22,7 +22,6 @@ export function UserTableRow({ key, data }: UserTableRowProps) {
               <span className="sr-only">Detalhes do pedido</span>
             </Button>
           </DialogTrigger>
-          {/* <ExerciseDetails data={data} /> */}
         </Dialog>
       </TableCell>
 

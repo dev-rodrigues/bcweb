@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { MailIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
@@ -19,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
+import { GenericAppError } from '@/types/common.ts'
 import { SignUpFormType } from '@/types/commons-signup.ts'
 
 export function SignUp() {
@@ -45,8 +47,8 @@ export function SignUp() {
         navigate('/sign-in')
       }, 2000)
     },
-    onError: () => {
-      toast.error('Erro ao cadastrar time')
+    onError: (e: AxiosError<GenericAppError>) => {
+      toast.error(e.response?.data.message)
     },
   })
 

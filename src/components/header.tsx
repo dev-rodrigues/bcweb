@@ -1,5 +1,6 @@
 import { Separator } from '@radix-ui/react-separator'
 import { ClipboardList, DumbbellIcon, Home, Users } from 'lucide-react'
+import { FaUsers } from 'react-icons/fa'
 
 import { AccountMenu } from '@/components/account-menu.tsx'
 import { NavLink } from '@/components/nav-link.tsx'
@@ -15,14 +16,13 @@ export function Header() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center gap-6 px-6">
-        <ClipboardList className="h-6 w-6" />
-
+        {/* <ClipboardList className="h-6 w-6" /> */}
+        BC.team
         <Separator orientation="vertical" className="h-6" />
-
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <NavLink to="/">
             <Home className={'h-4 w-4'} />
-            Início
+            Home
           </NavLink>
 
           {canViewEditUsers && (
@@ -32,7 +32,7 @@ export function Header() {
             </NavLink>
           )}
 
-          {canViewEditExercises && (
+          {canViewEditUsers && (
             <NavLink to="/users">
               <Users className={'h-4 w-4'} />
               Users
@@ -43,6 +43,13 @@ export function Header() {
             <NavLink to="/exercises">
               <DumbbellIcon className={'h-4 w-4'} />
               Exercises
+            </NavLink>
+          )}
+
+          {canViewEditExercises && (
+            <NavLink to="/students">
+              <FaUsers className={'h-4 w-4'} />
+              Students
             </NavLink>
           )}
         </nav>

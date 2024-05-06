@@ -10,3 +10,8 @@ export const PageableSchema = z.object({
 })
 
 export const localStorageName = '@bc.token'
+
+export type GenericAppError = {
+  message: string
+  code: number
+}

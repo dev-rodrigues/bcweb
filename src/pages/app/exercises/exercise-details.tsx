@@ -1,3 +1,5 @@
+import React from 'react'
+
 import {
   DialogContent,
   DialogDescription,
@@ -38,18 +40,7 @@ export function ExerciseDetails({ data }: Props) {
             </TableRow>
 
             <TableRow>
-              <TableCell className="text-muted-foreground">Time</TableCell>
-              <TableCell className="flex justify-end">
-                <div className="flex items-center gap-2">
-                  <span className={'font-medium text-muted-foreground'}>
-                    {data.name}
-                  </span>
-                </div>
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell className="text-muted-foreground">Exercicío</TableCell>
+              <TableCell className="text-muted-foreground">Exercício</TableCell>
               <TableCell className="flex justify-end">
                 <div className="flex items-center gap-2">
                   <span className={'font-medium text-muted-foreground'}>
@@ -59,22 +50,26 @@ export function ExerciseDetails({ data }: Props) {
               </TableCell>
             </TableRow>
 
+            <span className="h-2 w-2 rounded-full bg-slate-400" />
+
             <TableRow>
               <TableCell className="text-muted-foreground">Grupos</TableCell>
               <TableCell className="flex justify-end">
-                <div className="flex items-center gap-2">
+                <div
+                  className="flex flex-wrap items-center gap-2"
+                  style={{ maxWidth: '300px' }}
+                >
                   {data.muscleGroups.map((it, i) => {
                     return (
-                      <>
-                        <span className="h-2 w-2 rounded-full bg-slate-400" />
-
-                        <span
-                          key={i}
-                          className={'font-medium text-muted-foreground'}
-                        >
-                          {it}
-                        </span>
-                      </>
+                      <React.Fragment key={i}>
+                        <div style={{ marginBottom: '5px' }}>
+                          <span className="h-2 w-2 rounded-full bg-slate-400" />
+                          <span className={'font-medium text-muted-foreground'}>
+                            {it}
+                          </span>
+                        </div>
+                        {(i + 1) % 3 === 0 && <br />}{' '}
+                      </React.Fragment>
                     )
                   })}
                 </div>
