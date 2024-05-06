@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { AxiosError } from 'axios'
 import { MailIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import { useAuth } from '@/context/AuthContext.tsx'
+import { GenericAppError } from '@/types/common.ts'
 
 const signInForm = z.object({
   email: z.string().email(),
@@ -41,8 +43,10 @@ export function SignIn() {
       navigate('/')
 
       toast.success('Seja Bem-vindo')
-    } catch (error) {
-      toast.error('Erro ao enviar link de autenticação')
+    } catch (error: any) {
+      const re = error as AxiosError<GenericAppError>
+
+      toast.error(re.response?.data.message || 'Erro ao fazer login')
     }
   }
 
