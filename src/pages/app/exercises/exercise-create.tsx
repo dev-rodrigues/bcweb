@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -74,9 +74,6 @@ export function ExerciseCreate({
         .invalidateQueries({
           queryKey: ['exercise-paged', currentPage, 10],
         })
-        .then(() => {
-          console.log('invalidateQueries')
-        })
         .catch(() => {
           toast.error('Erro ao atualizar lista de exercicíos')
         })
@@ -88,8 +85,9 @@ export function ExerciseCreate({
         })
     },
     onError: (e: AxiosError<GenericAppError>) => {
-      toast.error(e.response?.data.message || 'Erro ao cadastrar exercicío')
       setIsSubmitting(false)
+      setModalOpen(false)
+      toast.error(e.response?.data.message || 'Erro ao cadastrar exercicío')
     },
   })
 
@@ -109,6 +107,10 @@ export function ExerciseCreate({
   const handleRemoveGroup = (id: number) => {
     setGroups(groups.filter((it) => it !== id))
   }
+
+  useEffect(() => {
+    reset()
+  }, [reset])
 
   return (
     <DialogContent>
