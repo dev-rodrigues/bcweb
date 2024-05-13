@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 
 import { AuthProvider } from '@/context/AuthContext.tsx'
+import { DeviceProvider } from '@/context/DeviceContext.tsx'
 
 import { ThemeProvider } from './components/theme/theme-provider.tsx'
 import { router } from './routes.tsx'
@@ -21,15 +22,17 @@ export const queryClient = new QueryClient({
 export function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider defaultTheme="dark" storageKey="bc.team">
-        <AuthProvider>
-          <Helmet titleTemplate="%s | bc.team" />
-          <Toaster richColors />
-          <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-          </QueryClientProvider>
-        </AuthProvider>
-      </ThemeProvider>
+      <DeviceProvider>
+        <ThemeProvider defaultTheme="dark" storageKey="bc.team">
+          <AuthProvider>
+            <Helmet titleTemplate="%s | bc.team" />
+            <Toaster richColors />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+            </QueryClientProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </DeviceProvider>
     </HelmetProvider>
   )
 }

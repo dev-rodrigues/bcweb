@@ -50,7 +50,7 @@ export function Profile() {
         service: user?.service,
       })
     }
-  }, [isLoading, reset, user])
+  }, [isFetching, isLoading, reset, user])
 
   const { mutate } = useMutation({
     mutationFn: updateProfile,
