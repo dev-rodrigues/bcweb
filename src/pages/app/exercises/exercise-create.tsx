@@ -89,13 +89,15 @@ export function ExerciseCreate({
     },
     onError: (e: AxiosError<GenericAppError>) => {
       toast.error(e.response?.data.message || 'Erro ao cadastrar exercicío')
+      setIsSubmitting(false)
     },
   })
 
   const onSubmit = (form: ExerciseFormType) => {
-    form.groups = groups
+    const modifiedForm = { ...form, groups }
+    modifiedForm.name = modifiedForm.name.trimEnd()
     setIsSubmitting(true)
-    mutate(form)
+    mutate(modifiedForm)
   }
 
   const handleAddGroup = (id: number) => {
