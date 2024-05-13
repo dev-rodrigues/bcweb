@@ -38,6 +38,7 @@ import { GenericAppError } from '@/types/common.ts'
 import { ExerciseFormType } from '@/types/common-exercise.ts'
 
 type ExerciseCreateProps = {
+  modalOpen: boolean
   setModalOpen: (value: boolean) => void
   currentPage: number
 }
@@ -48,6 +49,7 @@ const createExerciseForm = z.object({
 })
 
 export function ExerciseCreate({
+  modalOpen,
   setModalOpen,
   currentPage,
 }: ExerciseCreateProps) {
@@ -66,6 +68,12 @@ export function ExerciseCreate({
   } = useForm<ExerciseFormType>({
     resolver: zodResolver(createExerciseForm),
   })
+
+  useEffect(() => {
+    if (modalOpen) {
+      reset()
+    }
+  }, [modalOpen, reset])
 
   const { mutate } = useMutation({
     mutationFn: createExercise,

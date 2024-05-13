@@ -37,7 +37,11 @@ export function Exercises() {
               <DialogTrigger asChild>
                 <Button size="xs">Novo</Button>
               </DialogTrigger>
-              <ExerciseCreate setModalOpen={setOpen} currentPage={page} />
+              <ExerciseCreate
+                modalOpen={open}
+                setModalOpen={setOpen}
+                currentPage={page}
+              />
             </Dialog>
           </Button>
         </div>
