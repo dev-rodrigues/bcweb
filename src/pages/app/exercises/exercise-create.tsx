@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -33,6 +34,7 @@ import {
 import { ExerciseCreateMuscleGroupRow } from '@/pages/app/exercises/exercise-create-muscle-group-row.tsx'
 import { useExerciseMuscleGroup } from '@/services/exercise-muscle-group-hook.ts'
 import { useExercisesType } from '@/services/exercise-type-hook.ts'
+import { GenericAppError } from '@/types/common.ts'
 import { ExerciseFormType } from '@/types/common-exercise.ts'
 
 type ExerciseCreateProps = {
@@ -43,7 +45,6 @@ type ExerciseCreateProps = {
 const createExerciseForm = z.object({
   name: z.string().min(3).max(255),
   type: z.string(),
-  // groups: z.array(z.number()).min(1),
 })
 
 export function ExerciseCreate({
@@ -86,8 +87,8 @@ export function ExerciseCreate({
           setIsSubmitting(false)
         })
     },
-    onError: () => {
-      toast.error('Erro ao cadastrar exercicío')
+    onError: (e: AxiosError<GenericAppError>) => {
+      toast.error(e.response?.data.message || 'Erro ao cadastrar exercicío')
     },
   })
 
@@ -148,7 +149,7 @@ export function ExerciseCreate({
               overflowY: 'auto',
             }}
           >
-            <Label htmlFor="tipo">Grupos</Label>
+            <Label htmlFor="tipo">Grupo Muscular</Label>
             <Table>
               <TableHeader>
                 <TableRow>
