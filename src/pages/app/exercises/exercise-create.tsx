@@ -86,7 +86,7 @@ export function ExerciseCreate({
     },
     onError: (e: AxiosError<GenericAppError>) => {
       setIsSubmitting(false)
-      setModalOpen(false)
+      reset()
       toast.error(e.response?.data.message || 'Erro ao cadastrar exercicío')
     },
   })
@@ -107,10 +107,6 @@ export function ExerciseCreate({
   const handleRemoveGroup = (id: number) => {
     setGroups(groups.filter((it) => it !== id))
   }
-
-  useEffect(() => {
-    reset()
-  }, [reset])
 
   return (
     <DialogContent>
