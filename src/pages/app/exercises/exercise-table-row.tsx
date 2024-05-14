@@ -16,6 +16,7 @@ type ExerciseTableRowProps = {
   data: ContentItemSchemaType
   currentPage: number
 }
+
 export function ExerciseTableRow({
   key,
   data,

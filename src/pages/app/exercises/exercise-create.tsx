@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select.tsx'
+import { Separator } from '@/components/ui/separator.tsx'
 import {
   Table,
   TableBody,
@@ -128,7 +129,7 @@ export function ExerciseCreate({
             <Input id="teamname" type="text" {...register('name')} />
           </div>
 
-          <div className="space-y-2">
+          <div className="mb-4 space-y-2">
             <Label htmlFor="tipo">Tipo</Label>
             <Controller
               name="type"
@@ -149,6 +150,13 @@ export function ExerciseCreate({
               )}
             />
           </div>
+
+          <Separator
+            className={'mb-5'}
+            style={{
+              color: 'var(--color-neutral-500)',
+            }}
+          />
 
           <div
             className="space-y-2"
