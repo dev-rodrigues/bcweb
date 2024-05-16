@@ -51,9 +51,7 @@
     "sort-by": "^1.2.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.22.4",
-    "@react-buddy/ide-toolbox": "^2.4.0",
-    "@react-buddy/palette-chakra-ui": "^2.3.1"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",

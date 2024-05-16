@@ -17,7 +17,6 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Label } from '@radix-ui/react-label'
-import { MotionConfig } from 'framer-motion'
 import { ArrowBigDownDash, ArrowLeft, Plus, Search } from 'lucide-react'
 import { useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
@@ -32,14 +31,29 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx'
-import { StudentsTableRow } from '@/pages/app/students/students-table-row.tsx'
-import { CreateTraining } from '@/pages/app/training/create'
 import { useSeries } from '@/services/series-hook.ts'
 
-export function Training() {
-  const { series, addSeries } = useSeries()
+type Filter = {
+  name: string
+  selected: boolean
+}
 
-  const [select, setSelect] = useState<string>('A')
+export function Training() {
+  const {
+    series,
+    addSeries,
+    addDraft,
+    exercisesByTab,
+    handleSeries,
+    selectedSerie,
+    handleTabSelected,
+  } = useSeries()
+
+  const [exercises, setExercises] = useState<Filter[]>([
+    { name: 'teste 1', selected: false },
+    { name: 'teste 2', selected: false },
+    { name: 'teste 3', selected: false },
+  ])
 
   function goBack() {
     if (series.length === 0) {
@@ -85,7 +99,7 @@ export function Training() {
               <Select
                 width={'100px'}
                 onChange={(e) => {
-                  setSelect(e.target.value)
+                  handleTabSelected(e.target.value)
                 }}
                 icon={<MdArrowDropDown />}
                 id={'serie'}
@@ -105,16 +119,18 @@ export function Training() {
                   C
                 </option>
               </Select>
-              <Button
-                _hover={{
-                  opacity: 0.8,
-                }}
-                onClick={() => {
-                  addSeries(select)
-                }}
-              >
-                <Plus />
-              </Button>
+              <Tooltip label="Adicionar série">
+                <Button
+                  _hover={{
+                    opacity: 0.8,
+                  }}
+                  onClick={() => {
+                    addSeries(selectedSerie)
+                  }}
+                >
+                  <Plus />
+                </Button>
+              </Tooltip>
             </HStack>
 
             <HStack gap={5} mb={12} alignItems={'start'}>
@@ -150,16 +166,18 @@ export function Training() {
               </div>
 
               <div className="mt-8">
-                <Button
-                  _hover={{
-                    opacity: 0.8,
-                  }}
-                  onClick={() => {
-                    console.log('cuco')
-                  }}
-                >
-                  <Search />
-                </Button>
+                <Tooltip label="Buscar">
+                  <Button
+                    _hover={{
+                      opacity: 0.8,
+                    }}
+                    onClick={() => {
+                      console.log('cuco')
+                    }}
+                  >
+                    <Search />
+                  </Button>
+                </Tooltip>
               </div>
             </HStack>
 
@@ -174,33 +192,59 @@ export function Training() {
                       <TableHead className="w-auto"></TableHead>
                     </TableRow>
                   </TableHeader>
-                  {Array(3)
-                    .fill(null)
-                    .map((_, i) => {
-                      return (
-                        <TableBody key={i}>
-                          <TableRow>
-                            <TableCell>
-                              <Checkbox size="lg" />
-                            </TableCell>
-                            <TableCell>
-                              <p>1</p>
-                            </TableCell>
-                            <TableCell>
-                              <p>{`teste ${i}`}</p>
-                            </TableCell>
-                            <TableCell>
-                              <p>teste</p>
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      )
-                    })}
+                  {exercises.map((it, i) => {
+                    return (
+                      <TableBody key={i}>
+                        <TableRow>
+                          <TableCell>
+                            <Checkbox
+                              isChecked={it.selected}
+                              size="lg"
+                              onChange={() => {
+                                const added = addDraft(it.name)
+                                if (added) {
+                                  setExercises((prev) => {
+                                    return prev.map((item) => {
+                                      if (item.name === it.name) {
+                                        return {
+                                          ...item,
+                                          selected: !item.selected,
+                                        }
+                                      }
+                                      return item
+                                    })
+                                  })
+                                }
+                              }}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <p>{i + 1}</p>
+                          </TableCell>
+                          <TableCell>
+                            <p>{`${it.name}`}</p>
+                          </TableCell>
+                          <TableCell>
+                            <p>teste</p>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    )
+                  })}
                 </Table>
               </div>
               <VStack alignItems={'end'} mt={3}>
                 <Tooltip label="Adicionar">
                   <Button
+                    onClick={() => {
+                      handleSeries()
+                      setExercises(
+                        exercises.map((exercise) => ({
+                          ...exercise,
+                          selected: false,
+                        })),
+                      )
+                    }}
                     _hover={{
                       opacity: 0.8,
                     }}
@@ -212,6 +256,9 @@ export function Training() {
             </Container>
 
             <Tabs
+              onChange={(e) => {
+                console.log(e)
+              }}
               isFitted
               variant="enclosed"
               style={{
@@ -232,7 +279,9 @@ export function Training() {
                 {series.map((it) => {
                   return (
                     <TabPanel key={it}>
-                      <CreateTraining />
+                      {exercisesByTab.map((it) => {
+                        return <p key={it}>{it}</p>
+                      })}
                     </TabPanel>
                   )
                 })}
