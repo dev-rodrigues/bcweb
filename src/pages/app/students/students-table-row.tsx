@@ -1,4 +1,5 @@
-import { Search, Trash2 } from 'lucide-react'
+import { Edit, Search } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
@@ -12,6 +13,12 @@ type StudentsTableRowProps = {
 }
 
 export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
+  const navigate = useNavigate()
+
+  const handleEditClick = () => {
+    navigate(`/training/${data.id}`)
+  }
+
   return (
     <TableRow key={key}>
       <TableCell>
@@ -26,16 +33,18 @@ export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
         </Dialog>
       </TableCell>
 
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
+      <TableCell className="font-mono text-xs font-medium md:text-sm">
+        {data.id}
+      </TableCell>
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
-      <TableCell>
+      <TableCell className="w-[132px] md:table-cell">
         <Button
           // disabled={onExcluding}
           variant="outline"
-          // onClick={() => onSubmit()}
+          onClick={handleEditClick}
         >
-          <Trash2 className="mr-2 h-3 w-3" />
-          Remover
+          <Edit className="mr-2 h-3 w-3" />
+          Edit
         </Button>
       </TableCell>
     </TableRow>

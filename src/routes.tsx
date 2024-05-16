@@ -8,6 +8,7 @@ import { Exercises } from '@/pages/app/exercises/exercises.tsx'
 import { Profile } from '@/pages/app/profile/profile.tsx'
 import { Students } from '@/pages/app/students'
 import { Teams } from '@/pages/app/teams/teams.tsx'
+import { Training } from '@/pages/app/training'
 import { Users } from '@/pages/app/users/users.tsx'
 import { SignIn } from '@/pages/auth/sign-in.tsx'
 import { SignUp } from '@/pages/auth/sign-up.tsx'
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
       { path: '/exercises', element: <Exercises /> },
       { path: '/profile', element: <Profile /> },
       { path: '/students', element: <Students /> },
+      { path: '/training/:studentId', element: <Training /> },
     ],
   },
   {

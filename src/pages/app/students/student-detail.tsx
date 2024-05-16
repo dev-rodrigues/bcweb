@@ -18,13 +18,13 @@ type Props = {
 
 export function StudentDetail({ data }: Props) {
   return (
-    <DialogContent>
+    <DialogContent className="mx-auto w-full text-center md:w-auto">
       <DialogHeader>
         <DialogTitle>{`Matricula: ${data.registration}`}</DialogTitle>
         <DialogDescription>Detalhes da matricula</DialogDescription>
       </DialogHeader>
       <div className="space-x-6">
-        <Table>
+        <Table className="w-full md:w-auto">
           <TableBody>
             <TableRow>
               <TableCell className="text-muted-foreground">Nome</TableCell>
