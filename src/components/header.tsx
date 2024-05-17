@@ -19,7 +19,15 @@ export default function Header() {
   })
 
   return (
-    <Flex as="header" marginLeft={5} justifyContent={'space-between'}>
+    <Flex
+      as="header"
+      marginLeft={5}
+      justifyContent={{
+        base: 'space-between',
+        lg: 'flex-end',
+      }}
+      marginRight={15}
+    >
       {!isWideVersion && (
         <Tooltip label={'Menu'}>
           <IconButton

@@ -67,9 +67,14 @@ export function SidebarNavigation() {
 
       <Section>
         <Button
+          marginLeft={{
+            base: 0,
+            lg: 8,
+          }}
+          width={'120px'}
           color={'white'}
           onClick={logout}
-          bg={'gray.500'}
+          bg={'#E11D48'}
           rightIcon={<Icon as={BiExit} size="20px" color={'white'} />}
         >
           Sair
