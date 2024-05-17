@@ -1,21 +1,23 @@
-import { ClipboardList } from 'lucide-react'
+import { Flex } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 
 export function AuthLayout() {
   return (
-    <div className="grid min-h-screen grid-cols-2 antialiased">
-      <div className="flex h-full flex-col justify-between border-r border-foreground/5 bg-muted p-10 text-muted-foreground">
-        <div className="flex items-center gap-3 text-lg text-foreground">
-          <ClipboardList className="h-5 w-5" />
-          <span className="font-semibold">bc.team</span>
-        </div>
-        <footer className="text-sm">
-          Painel do parceiro &copy; bc.team - {new Date().getFullYear()}
-        </footer>
-      </div>
-      <div className="relative flex flex-col items-center justify-center">
+    <Flex
+      width="100vw"
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Flex
+        width="100%"
+        maxWidth={400}
+        p="8"
+        borderRadius={8}
+        flexDirection="column"
+      >
         <Outlet />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   )
 }

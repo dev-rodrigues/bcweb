@@ -54,17 +54,11 @@ export function SignIn() {
     <>
       <Helmet title={'Login'} />
       <div className="p-8">
-        <Button variant="ghost" asChild className="absolute right-8 top-8">
-          <Link to="/sign-up">Cadastre-se</Link>
-        </Button>
         <div className="flex w-[350px] flex-col justify-center gap-6"></div>
-        <div className="flex flex-col gap-2 text-center">
+        <div className="mb-4 flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
-            Acessar painel
+            Painel do Parceiro
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Acompanhe seus alunos pelo painel do parceiro
-          </p>
         </div>
         <form
           onSubmit={handleSubmit(handleSignIn)}
@@ -85,6 +79,10 @@ export function SignIn() {
           </div>
           <Button disabled={isSubmitting} className="w-full" type="submit">
             Acessar painel
+          </Button>
+
+          <Button variant="secondary">
+            <Link to="/sign-up">Cadastre-se</Link>
           </Button>
         </form>
       </div>
