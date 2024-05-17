@@ -9,13 +9,12 @@ export function Dashboard() {
   return (
     <>
       <Helmet title={'Dashboard'} />
-      <Container display={'flex'} flexDirection={'column'} gap={4}>
-        <Container gap={2}>
+      <Container display={'flex'} flexDirection={'column'}>
+        <Container>
           <Heading size="2xl" fontWeight="normal">
             Dashboard
           </Heading>
           <MonthRevenueUsersCard />
-
           <RevenueChart />
           <PopularTeamsChart />
         </Container>

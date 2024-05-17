@@ -5,6 +5,7 @@ import { AuthLayout } from '@/pages/_layouts/auth.tsx'
 import { NotFound } from '@/pages/404.tsx'
 import { Dashboard } from '@/pages/app/dashboard/dashboard.tsx'
 import { Exercises } from '@/pages/app/exercises/exercises.tsx'
+import { Plans } from '@/pages/app/plans'
 import { Profile } from '@/pages/app/profile/profile.tsx'
 import { Students } from '@/pages/app/students'
 import { Teams } from '@/pages/app/teams/teams.tsx'
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
       { path: '/profile', element: <Profile /> },
       { path: '/students', element: <Students /> },
       { path: '/training/:studentId', element: <Training /> },
+      { path: '/plans', element: <Plans /> },
     ],
   },
   {

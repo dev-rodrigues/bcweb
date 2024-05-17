@@ -1,6 +1,6 @@
 import { Button, Divider, Icon, Stack } from '@chakra-ui/react'
 import { DumbbellIcon, Users } from 'lucide-react'
-import { BiExit } from 'react-icons/bi'
+import { BiExit, BiMoney } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
 import { RiDashboardLine } from 'react-icons/ri'
 
@@ -18,6 +18,10 @@ export function SidebarNavigation() {
   return (
     <>
       <Stack
+        marginTop={{
+          base: 8,
+          lg: 10,
+        }}
         marginLeft={{
           base: 0,
           lg: 8,
@@ -48,6 +52,12 @@ export function SidebarNavigation() {
           {canViewEditExercises && (
             <Item icon={FaUsers} href="/students">
               Students
+            </Item>
+          )}
+
+          {canViewEditExercises && (
+            <Item icon={BiMoney} href="/plans">
+              Plans
             </Item>
           )}
         </Section>
