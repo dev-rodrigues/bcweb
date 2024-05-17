@@ -9,7 +9,7 @@ import {
 
 export function MonthRevenueUsersCard() {
   return (
-    <Card>
+    <Card className={'mb-4'}>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-base font-semibold">
           Total de times

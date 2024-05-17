@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react'
 import { RiMenuLine } from 'react-icons/ri'
 
+import { AccountMenu } from '@/components/account-menu.tsx'
 import { useBarraLateralNavegacao } from '@/context/BarraLateralNavegacaoContext.tsx'
 
 export default function Header2() {
@@ -18,14 +19,7 @@ export default function Header2() {
   })
 
   return (
-    <Flex
-      as="header"
-      width="100%"
-      maxWidth={1480}
-      marginX="auto"
-      // paddingX="6"
-      // align="center"
-    >
+    <Flex as="header" width="100%" maxWidth={1480} marginX="auto">
       {!isWideVersion && (
         <Tooltip label={'Menu'}>
           <IconButton
@@ -37,6 +31,10 @@ export default function Header2() {
           />
         </Tooltip>
       )}
+      <div className="ml-auto flex items-center gap-2">
+        {/* <ThemeToggle /> */}
+        <AccountMenu />
+      </div>
     </Flex>
   )
 }

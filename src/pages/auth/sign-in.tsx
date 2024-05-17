@@ -85,6 +85,9 @@ export function SignIn() {
             <Link to="/sign-up">Cadastre-se</Link>
           </Button>
         </form>
+        <footer className="mt-24 text-sm">
+          Painel do parceiro &copy; bc.team - {new Date().getFullYear()}
+        </footer>
       </div>
     </>
   )

@@ -52,9 +52,10 @@ export function SidebarNavigation() {
 
       <Section>
         <Button
+          color={'white'}
           onClick={logout}
           bg={'gray.500'}
-          leftIcon={<Icon as={BiExit} size="20px" />}
+          rightIcon={<Icon as={BiExit} size="20px" color={'white'} />}
         >
           Sair
         </Button>
