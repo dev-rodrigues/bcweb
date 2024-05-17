@@ -19,7 +19,7 @@ export default function Header2() {
   })
 
   return (
-    <Flex as="header" width="100%" maxWidth={1480} marginX="auto">
+    <Flex as="header" maxWidth={1480} marginLeft={5}>
       {!isWideVersion && (
         <Tooltip label={'Menu'}>
           <IconButton
@@ -32,7 +32,6 @@ export default function Header2() {
         </Tooltip>
       )}
       <div className="ml-auto flex items-center gap-2">
-        {/* <ThemeToggle /> */}
         <AccountMenu />
       </div>
     </Flex>

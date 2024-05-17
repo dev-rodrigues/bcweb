@@ -17,7 +17,12 @@ export function SidebarNavigation() {
 
   return (
     <>
-      <Stack>
+      <Stack
+        marginLeft={{
+          base: 0,
+          lg: 8,
+        }}
+      >
         <Section title="GERAL">
           <Item icon={RiDashboardLine} href="/">
             Home

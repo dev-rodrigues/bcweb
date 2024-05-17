@@ -10,16 +10,9 @@ export function AppLayout() {
   const { isAuthenticated } = useAuth()
 
   return isAuthenticated() ? (
-    <HStack padding={10} alignItems={'start'}>
+    <HStack alignItems={'start'} flexDirection={'row'}>
       <BarraLateral />
-      <Container
-        flex={1}
-        display={'flex'}
-        flexDirection={'column'}
-        gap={4}
-        padding={8}
-        pt={6}
-      >
+      <Container display={'flex'} flexDirection={'column'} pt={6} pb={6}>
         <Header2 />
         <Outlet />
       </Container>
