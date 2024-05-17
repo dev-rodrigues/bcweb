@@ -17,7 +17,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { Label } from '@radix-ui/react-label'
-import { ArrowBigDownDash, ArrowLeft, Plus, Search } from 'lucide-react'
+import { ArrowBigDownDash, ArrowLeft, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { MdArrowDropDown } from 'react-icons/md'
 import { toast } from 'sonner'
@@ -125,7 +125,7 @@ export function Training() {
                     opacity: 0.8,
                   }}
                   onClick={() => {
-                    addSeries(selectedSerie)
+                    addSeries(selectedSerie.name)
                   }}
                 >
                   <Plus />
@@ -164,26 +164,11 @@ export function Training() {
                   </option>
                 </Select>
               </div>
-
-              <div className="mt-8">
-                <Tooltip label="Buscar">
-                  <Button
-                    _hover={{
-                      opacity: 0.8,
-                    }}
-                    onClick={() => {
-                      console.log('cuco')
-                    }}
-                  >
-                    <Search />
-                  </Button>
-                </Tooltip>
-              </div>
             </HStack>
 
             <Container>
               <div className="w-full min-w-full rounded-md border">
-                <Table className="mx-auto w-full md:max-w-[750px]">
+                <Table className="bg mx-auto w-full md:max-w-[750px]">
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-auto"></TableHead>
@@ -233,6 +218,7 @@ export function Training() {
                   })}
                 </Table>
               </div>
+
               <VStack alignItems={'end'} mt={3}>
                 <Tooltip label="Adicionar">
                   <Button
@@ -256,9 +242,7 @@ export function Training() {
             </Container>
 
             <Tabs
-              onChange={(e) => {
-                console.log(e)
-              }}
+              // onChange={handleTabChange}
               isFitted
               variant="enclosed"
               style={{
@@ -276,15 +260,11 @@ export function Training() {
                 })}
               </TabList>
               <TabPanels>
-                {series.map((it) => {
-                  return (
-                    <TabPanel key={it}>
-                      {exercisesByTab.map((it) => {
-                        return <p key={it}>{it}</p>
-                      })}
-                    </TabPanel>
-                  )
-                })}
+                <TabPanel>
+                  {exercisesByTab.map((it) => {
+                    return <p key={it}>{it}</p>
+                  })}
+                </TabPanel>
               </TabPanels>
             </Tabs>
           </>

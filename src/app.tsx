@@ -7,6 +7,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 
 import { AuthProvider } from '@/context/AuthContext.tsx'
+import { BarraLateralNavegacaoProvider } from '@/context/BarraLateralNavegacaoContext.tsx'
 import { DeviceProvider } from '@/context/DeviceContext.tsx'
 import { theme } from '@/styles/theme.ts'
 
@@ -28,11 +29,13 @@ export function App() {
         <ThemeProvider defaultTheme="dark" storageKey="bc.team">
           <ChakraProvider theme={theme}>
             <AuthProvider>
-              <Helmet titleTemplate="%s | bc.team" />
-              <Toaster richColors />
-              <QueryClientProvider client={queryClient}>
-                <RouterProvider router={router} />
-              </QueryClientProvider>
+              <BarraLateralNavegacaoProvider>
+                <Helmet titleTemplate="%s | bc.team" />
+                <Toaster richColors />
+                <QueryClientProvider client={queryClient}>
+                  <RouterProvider router={router} />
+                </QueryClientProvider>
+              </BarraLateralNavegacaoProvider>
             </AuthProvider>
           </ChakraProvider>
         </ThemeProvider>

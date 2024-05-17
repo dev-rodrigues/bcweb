@@ -1,89 +1,102 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
+type Tab = {
+  index: number
+  name: string
+}
+
 type SelectedTabExercise = {
-  tab: string
+  tab: Tab
   exercises: string[]
 }
 
 export function useSeries() {
-  const [selectedSerie, setSelectedSerie] = useState<string>('A')
-  const [selectedTab, setSelectedTab] = useState<string>('A')
-
-  const [series, setSeries] = useState<string[]>([])
-  const [draft, setDraft] = useState<string[]>([])
-  const [selectedExercises, setSelectedExercises] = useState<
-    SelectedTabExercise[]
-  >([])
-  const [exercisesByTab, setExercisesByTab] = useState<string[]>([])
+  const [state, setState] = useState({
+    selectedSerie: {
+      index: 0,
+      name: 'A',
+    } as Tab,
+    series: [] as string[],
+    draft: [] as string[],
+    exercisesByTab: [] as string[],
+    selectedExercises: [] as SelectedTabExercise[],
+  })
 
   useEffect(() => {
-    const filteredExercises = selectedExercises.filter(
-      (exercise) => exercise.tab === selectedTab,
+    const filteredExercises = state.selectedExercises.filter(
+      (exercise) => exercise.tab === state.selectedSerie,
     )
 
     const exercisesList = filteredExercises.flatMap(
       (exercise) => exercise.exercises,
     )
 
-    setExercisesByTab(exercisesList)
-  }, [selectedTab, selectedExercises])
+    setState((prevState) => ({ ...prevState, exercisesByTab: exercisesList }))
+  }, [state.selectedSerie, state.selectedExercises])
 
   const addSeries = (newSeries: string) => {
-    if (series[series.length - 1] === newSeries) {
+    if (state.series[state.series.length - 1] === newSeries) {
       toast.error('Série já adicionada')
       return
     }
-    setSeries((prevSeries) => [...prevSeries, newSeries])
+    setState((prevState) => ({
+      ...prevState,
+      series: [...prevState.series, newSeries],
+    }))
   }
 
   const addDraft = (it: string): boolean => {
-    if (series.length === 0) {
+    if (state.series.length === 0) {
       toast.error('Adicione uma série')
       return false
     }
 
-    setDraft([...draft, it])
+    setState((prevState) => ({
+      ...prevState,
+      draft: [...prevState.draft, it],
+    }))
     return true
   }
 
   const handleSeries = () => {
-    if (draft.length === 0) {
+    if (state.draft.length === 0) {
       toast.error('Adicione um exercício')
       return
     }
 
-    const newExercises = draft.map((d) => {
-      const existingExercise = selectedExercises.find(
-        (exercise) => exercise.tab === selectedSerie,
+    const newExercises = state.draft.map((d) => {
+      const existingExercise = state.selectedExercises.find(
+        (exercise) => exercise.tab === state.selectedSerie,
       )
       return {
-        tab: selectedSerie,
+        tab: state.selectedSerie,
         exercises: existingExercise ? [...existingExercise.exercises, d] : [d],
       }
     })
 
-    setSelectedExercises([...selectedExercises, ...newExercises])
-    setDraft([])
+    setState((prevState) => ({
+      ...prevState,
+      selectedExercises: [...prevState.selectedExercises, ...newExercises],
+      draft: [],
+    }))
   }
 
   const handleTabSelected = (tab: string) => {
-    setSelectedSerie(tab)
-  }
-
-  const handleChangeTab = (tab: string) => {
-    setSelectedTab(tab)
+    setState((prevState) => ({
+      ...prevState,
+      selectedSerie: {
+        index: prevState.selectedSerie.index + 1,
+        name: tab,
+      } as Tab,
+    }))
   }
 
   return {
-    series,
+    ...state,
     addSeries,
-    draft,
     addDraft,
     handleSeries,
-    selectedSerie,
     handleTabSelected,
-    exercisesByTab,
-    handleChangeTab,
   }
 }

@@ -12,13 +12,7 @@ import { StudentsTableRow } from '@/pages/app/students/students-table-row.tsx'
 import { useStudents } from '@/services/students.ts'
 
 export function Students() {
-  // const [open, setOpen] = useState(false)
-
   const { data, isFetching } = useStudents()
-
-  // const handleOpen = () => {
-  //   setOpen(!open)
-  // }
 
   return (
     <>
