@@ -1,3 +1,4 @@
+import { Tooltip, useBreakpointValue } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Search, Trash2 } from 'lucide-react'
 import { useState } from 'react'
@@ -22,7 +23,13 @@ export function ExerciseTableRow({
   data,
   currentPage,
 }: ExerciseTableRowProps) {
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   const [onExcluding, setOnExcluding] = useState(false)
+
   const mutation = useMutation({
     mutationFn: deleteExercise,
     onSuccess: () => {
@@ -58,17 +65,25 @@ export function ExerciseTableRow({
         </Dialog>
       </TableCell>
 
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
+      {!isDrawerSidebar && (
+        <TableCell className="font-mono text-xs font-medium">
+          {data.id}
+        </TableCell>
+      )}
+
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
+
       <TableCell>
-        <Button
-          disabled={onExcluding}
-          variant="outline"
-          onClick={() => onSubmit()}
-        >
-          <Trash2 className="mr-2 h-3 w-3" />
-          Excluir
-        </Button>
+        <Tooltip label={'Excluir'}>
+          <Button
+            disabled={onExcluding}
+            variant="outline"
+            onClick={() => onSubmit()}
+          >
+            <Trash2 className="mr-2 h-3 w-3" />
+            {!isDrawerSidebar && <p>Excluir</p>}
+          </Button>
+        </Tooltip>
       </TableCell>
     </TableRow>
   )

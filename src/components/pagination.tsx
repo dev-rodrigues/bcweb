@@ -1,3 +1,4 @@
+import { useBreakpointValue } from '@chakra-ui/react'
 import {
   ChevronLeft,
   ChevronRight,
@@ -28,15 +29,26 @@ export function Pagination({
 }: PaginationProps) {
   const pages = Math.ceil(totalCount / perPage) || 1
 
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm text-muted-foreground">
-        Total de {totalCount} item(s)
-      </span>
+      {!isDrawerSidebar && (
+        <span className="text-sm text-muted-foreground">
+          Total de {totalCount} item(s)
+        </span>
+      )}
+
       <div className="flex items-center gap-6 lg:gap-8">
-        <div className="text-sm font-medium">
-          Página {pageIndex + 1} de {pages}
-        </div>
+        {!isDrawerSidebar && (
+          <div className="text-sm font-medium">
+            Página {pageIndex + 1} de {pages}
+          </div>
+        )}
+
         <div className="flex items-center gap-2">
           <Button
             disabled={pageIndex === 0}

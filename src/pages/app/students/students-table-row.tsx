@@ -36,8 +36,10 @@ export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
       <TableCell className="font-mono text-xs font-medium md:text-sm">
         {data.id}
       </TableCell>
+
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
-      <TableCell className="w-[132px] md:table-cell">
+
+      <TableCell>
         <Button
           // disabled={onExcluding}
           variant="outline"

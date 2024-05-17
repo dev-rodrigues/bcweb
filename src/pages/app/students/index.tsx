@@ -1,3 +1,4 @@
+import { Container, Heading } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
@@ -17,8 +18,14 @@ export function Students() {
   return (
     <>
       <Helmet title="My Students" />
-      <div className="flex w-full min-w-full flex-col gap-4">
-        <h1 className={'text-3xl font-bold tracking-tight'}>My Students</h1>
+      <Container
+        display={'flex'}
+        width={'100%'}
+        flexDirection={'column'}
+        minW={'full'}
+        gap={4}
+      >
+        <Heading>My Students</Heading>
 
         <div className="w-full min-w-full space-y-2.5">
           <div className="w-full min-w-full rounded-md border">
@@ -45,7 +52,7 @@ export function Students() {
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </>
   )
 }

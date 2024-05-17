@@ -1,3 +1,4 @@
+import { Container, Heading, useBreakpointValue } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
@@ -17,6 +18,10 @@ import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
 
 export function Exercises() {
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
   const [open, setOpen] = useState(false)
   const [page, setPage] = useState(0)
   const size = 10
@@ -29,37 +34,50 @@ export function Exercises() {
   return (
     <>
       <Helmet title="Exercises" />
-      <div className="flex flex-col gap-4">
-        <h1 className={'text-3xl font-bold tracking-tight'}>Exercícios</h1>
-        <div>
-          <Button>
-            <Dialog open={open} onOpenChange={handleOpen}>
-              <DialogTrigger asChild>
-                <Button size="xs">Novo</Button>
-              </DialogTrigger>
-              <ExerciseCreate
-                modalOpen={open}
-                setModalOpen={setOpen}
-                currentPage={page}
-              />
-            </Dialog>
-          </Button>
-        </div>
+      <Container
+        display={'flex'}
+        width={'100%'}
+        flexDirection={'column'}
+        minW={'full'}
+        gap={4}
+      >
+        <Heading>Exercises</Heading>
 
-        <div className="space-y-2.5">
-          <div className="rounded-md border">
+        <div className="w-full min-w-full space-y-2.5">
+          <Dialog open={open} onOpenChange={handleOpen}>
+            <DialogTrigger asChild>
+              <Button
+                style={{
+                  border: 'none',
+                  borderColor: 'transparent',
+                }}
+                size="xs"
+              >
+                Novo
+              </Button>
+            </DialogTrigger>
+            <ExerciseCreate
+              modalOpen={open}
+              setModalOpen={setOpen}
+              currentPage={page}
+            />
+          </Dialog>
+
+          <div className="w-full min-w-full rounded-md border">
             {isFetching ? (
               <div className="mb-4 mt-4 flex justify-center">
                 <LoadingSpinner />
               </div>
             ) : (
-              <Table>
+              <Table className="mx-auto w-full md:max-w-[950px]">
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[24px]"></TableHead>
-                    <TableHead className="w-[140px]">#</TableHead>
-                    <TableHead className="w-[180px]">Nome</TableHead>
-                    <TableHead className="w-[132px]"></TableHead>
+                    <TableHead className="w-auto"></TableHead>
+                    {isDrawerSidebar && (
+                      <TableHead className="w-auto">#</TableHead>
+                    )}
+                    <TableHead className="flex-grow">Nome</TableHead>
+                    <TableHead className="w-auto"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -93,7 +111,7 @@ export function Exercises() {
             }}
           />
         </div>
-      </div>
+      </Container>
     </>
   )
 }
