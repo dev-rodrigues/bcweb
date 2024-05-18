@@ -18,6 +18,7 @@ export function SidebarNavigation() {
   return (
     <>
       <Stack
+        alignItems={'center'}
         marginTop={{
           base: 8,
           lg: 10,
@@ -61,25 +62,25 @@ export function SidebarNavigation() {
             </Item>
           )}
         </Section>
+
+        <Divider my="6" borderColor="gray.700" />
+
+        <Section>
+          <Button
+            marginLeft={{
+              base: 0,
+              lg: 8,
+            }}
+            width={'120px'}
+            color={'white'}
+            onClick={logout}
+            bg={'#E11D48'}
+            rightIcon={<Icon as={BiExit} size="20px" color={'white'} />}
+          >
+            Sair
+          </Button>
+        </Section>
       </Stack>
-
-      <Divider my="6" borderColor="gray.700" />
-
-      <Section>
-        <Button
-          marginLeft={{
-            base: 0,
-            lg: 8,
-          }}
-          width={'120px'}
-          color={'white'}
-          onClick={logout}
-          bg={'#E11D48'}
-          rightIcon={<Icon as={BiExit} size="20px" color={'white'} />}
-        >
-          Sair
-        </Button>
-      </Section>
     </>
   )
 }
