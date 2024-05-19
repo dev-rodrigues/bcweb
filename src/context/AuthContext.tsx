@@ -9,6 +9,7 @@ import React, {
 
 import { signIn, SignInBody } from '@/api/sign-in.ts'
 import { api } from '@/lib/axios.ts'
+import { queryClient } from '@/lib/react-query.ts'
 import { localStorageName } from '@/types/common.ts'
 import { ContentItemSchemaType } from '@/types/common-users.ts'
 
@@ -111,6 +112,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem(localStorageName)
     setData(null)
     delete api.defaults.headers.common.Authorization
+    queryClient.clear()
   }, [])
 
   return (

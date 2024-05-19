@@ -9,6 +9,7 @@ import { Toaster } from 'sonner'
 import { AuthProvider } from '@/context/AuthContext.tsx'
 import { BarraLateralNavegacaoProvider } from '@/context/BarraLateralNavegacaoContext.tsx'
 import { DeviceProvider } from '@/context/DeviceContext.tsx'
+import { GlobalStyle } from '@/styles/global.ts'
 import { theme } from '@/styles/theme.ts'
 
 import { ThemeProvider } from './components/theme/theme-provider.tsx'
@@ -38,6 +39,7 @@ export function App() {
               </BarraLateralNavegacaoProvider>
             </AuthProvider>
           </ChakraProvider>
+          <GlobalStyle />
         </ThemeProvider>
       </DeviceProvider>
     </HelmetProvider>
