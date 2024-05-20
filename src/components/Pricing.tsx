@@ -22,7 +22,6 @@ export function Pricing({ data }: PricingProps) {
     <Center py={6} flexShrink="0">
       <Box
         maxW={'330px'}
-        w={'full'}
         bg={'gray.300'}
         rounded={'md'}
         overflow={'hidden'}
@@ -54,7 +53,13 @@ export function Pricing({ data }: PricingProps) {
           </Text>
           <Stack direction={'row'} align={'center'} justify={'center'} p={15}>
             <Text fontSize={'3xl'}>R$</Text>
-            <Text fontSize={'6xl'} fontWeight={600}>
+            <Text
+              fontSize={{
+                base: '2xl',
+                md: '5xl',
+              }}
+              fontWeight={600}
+            >
               {data.price}
             </Text>
             <Text color={'gray.500'}>/mês</Text>

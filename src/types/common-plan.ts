@@ -3,13 +3,12 @@ import { z } from 'zod'
 export const createPlanForm = z.object({
   type: z.string(),
   price: z.string(),
-  // offers: z.array(z.string()),
 })
 
 export const ContentPlanSchema = z.object({
   id: z.number(),
   type: z.string(),
-  price: z.number(),
+  price: z.string(),
   offers: z.array(
     z.object({
       id: z.number(),

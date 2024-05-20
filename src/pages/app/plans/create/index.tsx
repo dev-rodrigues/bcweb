@@ -5,6 +5,9 @@ import {
   Divider,
   Flex,
   Heading,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
@@ -13,7 +16,7 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 import { toast } from 'sonner'
@@ -43,7 +46,7 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
   const [offer, setOffer] = useState('')
   const [offers, setOffers] = useState<string[]>([])
 
-  const { register, handleSubmit, reset } = useForm<PlanFormType>({
+  const { control, register, handleSubmit, reset } = useForm<PlanFormType>({
     resolver: zodResolver(createPlanForm),
   })
 
@@ -59,6 +62,7 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
         })
         .finally(() => {
           setIsSubmitting(false)
+          onRequestClose()
           toast.success('Plan created successfully')
         })
     },
@@ -70,10 +74,9 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
   })
 
   const onSubmit = (form: PlanFormType) => {
-    console.log('form', form)
     const modifiedForm = { ...form, offers }
+
     setIsSubmitting(true)
-    console.log('submit')
     mutate(modifiedForm)
   }
 
@@ -124,6 +127,10 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
                 base: 'column',
                 md: 'row',
               }}
+              gap={{
+                base: 2,
+                md: 4,
+              }}
             >
               <div>
                 <Tooltip label={'Will appear in the banner header'}>
@@ -136,7 +143,23 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
                 <Tooltip label={'Price'}>
                   <Label htmlFor="price">Price (R$)</Label>
                 </Tooltip>
-                <Input id="price" type="number" {...register('price')} />
+                <Controller
+                  name="price"
+                  control={control}
+                  render={({ field }) => (
+                    <NumberInput
+                      value={field.value}
+                      borderColor="gray.700"
+                      onChange={(valueString) => field.onChange(valueString)}
+                      _focus={{
+                        borderColor: 'red',
+                      }}
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper></NumberInputStepper>
+                    </NumberInput>
+                  )}
+                />
               </div>
 
               <div>
@@ -165,9 +188,14 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
             </Flex>
 
             <Container>
-              <Divider borderColor="gray.700" />
+              {/* <Divider borderColor="gray.700" /> */}
 
-              <Table>
+              <Table
+                style={{
+                  maxHeight: '100px',
+                  overflowY: 'auto',
+                }}
+              >
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-full">Nome</TableHead>
