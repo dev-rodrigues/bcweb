@@ -1,4 +1,4 @@
-import { Container, HStack } from '@chakra-ui/react'
+import { HStack, Stack } from '@chakra-ui/react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import Header from '@/components/header.tsx'
@@ -12,10 +12,11 @@ export function AppLayout() {
   return isAuthenticated() ? (
     <HStack alignItems={'start'} flexDirection={'row'}>
       <BarraLateral />
-      <Container display={'flex'} flexDirection={'column'} pt={6} pb={6}>
+      <Stack width={'100%'} py={'6'} spacing={6}>
         <Header />
+
         <Outlet />
-      </Container>
+      </Stack>
     </HStack>
   ) : (
     <Navigate

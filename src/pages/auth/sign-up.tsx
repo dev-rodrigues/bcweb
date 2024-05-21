@@ -134,9 +134,11 @@ export function SignUp() {
             Finalizar cadastro
           </Button>
 
-          <Button variant="secondary">
-            <Link to="/sign-in">Retornar</Link>
-          </Button>
+          <Link to="/sign-in">
+            <Button className="w-full" variant="secondary">
+              Retornar
+            </Button>
+          </Link>
 
           <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
             Ao continuar, você concorda com nossos{' '}

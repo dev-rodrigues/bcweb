@@ -43,10 +43,10 @@ export function SignIn() {
       navigate('/')
 
       toast.success('Seja Bem-vindo')
-    } catch (error: any) {
+    } catch (error: unknown) {
       const re = error as AxiosError<GenericAppError>
 
-      toast.error(re.response?.data.message || 'Erro ao fazer login')
+      toast.error(re.response?.data?.message || 'Erro ao fazer login')
     }
   }
 
@@ -55,7 +55,7 @@ export function SignIn() {
       <Helmet title={'Login'} />
       <div className="p-8">
         <div className="flex w-[350px] flex-col justify-center gap-6"></div>
-        <div className="mb-4 flex flex-col gap-2 text-center">
+        <div className="mb-4 mt-16 flex flex-col gap-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">
             Painel do Parceiro
           </h1>
@@ -81,13 +81,12 @@ export function SignIn() {
             Acessar painel
           </Button>
 
-          <Button variant="secondary">
-            <Link to="/sign-up">Cadastre-se</Link>
-          </Button>
+          <Link to="/sign-up">
+            <Button className="w-full" type="button" variant="secondary">
+              Cadastre-se
+            </Button>
+          </Link>
         </form>
-        <footer className="mt-24 text-sm">
-          Painel do parceiro &copy; bc.team - {new Date().getFullYear()}
-        </footer>
       </div>
     </>
   )
