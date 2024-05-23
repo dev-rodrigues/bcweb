@@ -1,7 +1,7 @@
 import { api } from '@/lib/axios.ts'
 import { ContentPlanSchemaType, PlanFormType } from '@/types/common-plan.ts'
 
-export const getPlans = async (): Promise<ContentPlanSchemaType[]> => {
+export const getPlans = async (): Promise<ContentPlanSchemaType[] | []> => {
   const { data: response } = await api.get<ContentPlanSchemaType[]>('/plans')
   return response
 }

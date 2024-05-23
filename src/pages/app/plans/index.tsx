@@ -45,8 +45,10 @@ export function Plans() {
             <HStack spacing={4} overflowX="auto">
               {isFetching ? (
                 <LoadingSpinner />
+              ) : data?.length ? (
+                data.map((it, key) => <Pricing key={key} data={it} />)
               ) : (
-                data?.map((it, key) => <Pricing key={key} data={it} />)
+                <p>Nenhum plano disponível</p>
               )}
             </HStack>
           </div>

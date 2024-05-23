@@ -187,18 +187,25 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
               </div>
             </Flex>
 
-            <Container>
-              {/* <Divider borderColor="gray.700" /> */}
+            <Divider borderColor="gray.700" marginTop={3} marginBottom={3} />
 
+            <Container
+              paddingBottom={5}
+              // style={{
+              //   maxHeight: '100px',
+              //   overflowY: 'auto',
+              // }}
+            >
               <Table
-                style={{
-                  maxHeight: '100px',
-                  overflowY: 'auto',
-                }}
+              // style={{
+              //   maxHeight: '500px',
+              //   overflowY: 'auto',
+              //   border: '1px solid white',
+              // }}
               >
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-full">Nome</TableHead>
+                    <TableHead className="w-full">Offers</TableHead>
                     <TableHead className="w-auto"></TableHead>
                   </TableRow>
                 </TableHeader>
@@ -214,15 +221,13 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
                   })}
                 </TableBody>
               </Table>
-
-              <Button type={'submit'}>
-                {isSubmitting && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Salvar
-              </Button>
+              <Divider borderColor="gray.700" marginTop={3} marginBottom={5} />
             </Container>
           </Flex>
+          <Button type={'submit'}>
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Salvar
+          </Button>
         </VStack>
       </Box>
     </Modal>
