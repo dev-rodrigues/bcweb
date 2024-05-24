@@ -6,3 +6,10 @@ export const GetCustomerPhasingType = z.object({
 })
 
 export type GetCustomerPhasingType = z.infer<typeof GetCustomerPhasingType>
+
+export const PostCustomerPhasing = z.object({
+  id: z.number(),
+  phasings: z.array(GetCustomerPhasingType),
+})
+
+export type PostCustomerPhasingType = z.infer<typeof PostCustomerPhasing>

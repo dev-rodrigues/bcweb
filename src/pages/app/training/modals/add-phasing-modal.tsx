@@ -9,9 +9,10 @@ import { usePhasing } from '@/services/phasing-hook.ts'
 interface Props {
   isOpen: boolean
   onRequestClose: () => void
+  studentId?: number | undefined
 }
 
-export function AddPhasingModal({ isOpen, onRequestClose }: Props) {
+export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
   const { data, isFetching } = usePhasing()
 
   return (
@@ -40,7 +41,11 @@ export function AddPhasingModal({ isOpen, onRequestClose }: Props) {
           </div>
         ) : (
           <Flex>
-            <PhasingTable data={data} />
+            <PhasingTable
+              data={data}
+              onRequestClose={onRequestClose}
+              studentId={studentId}
+            />
           </Flex>
         )}
       </Box>
