@@ -27,3 +27,9 @@ export const ExerciseForm = z.object({
 })
 
 export type ExerciseFormType = z.infer<typeof ExerciseForm>
+
+export const SearchExerciseForm = z.object({
+  name: z.string(),
+})
+
+export type SearchExerciseFormType = z.infer<typeof SearchExerciseForm>

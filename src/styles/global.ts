@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
-
+    
   .react-modal-overlay {
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .react-modal-content {
+    overflow: hidden;
     width: 100%;
     max-width: 1000px;
     background: #1B1917;

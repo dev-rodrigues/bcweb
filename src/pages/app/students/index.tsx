@@ -34,7 +34,7 @@ export function Students() {
                 <LoadingSpinner />
               </div>
             ) : (
-              <Table className="mx-auto w-full md:max-w-[950px]">
+              <Table className="mx-auto mb-5 w-full md:max-w-[950px]">
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-auto"></TableHead>

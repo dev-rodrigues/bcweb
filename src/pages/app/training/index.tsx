@@ -1,6 +1,5 @@
 import { Box, Button, Divider, Flex, Heading, Icon } from '@chakra-ui/react'
 import { useState } from 'react'
-import { BiSave } from 'react-icons/bi'
 import { GrReturn } from 'react-icons/gr'
 import { RiAdminFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,10 +22,10 @@ export function Training() {
 
   const { data, isFetching } = useCustomerPhasing(52)
 
-  const [open, setOpen] = useState(false)
+  const [openPhasing, setOpenPhasing] = useState(false)
 
-  const handleModal = () => {
-    setOpen(!open)
+  const handleModalPhasing = () => {
+    setOpenPhasing(!openPhasing)
   }
 
   const handleBack = () => {
@@ -48,17 +47,26 @@ export function Training() {
               <LoadingSpinner />
             </div>
           ) : (
-            <Flex>
+            <Flex gap={2}>
               <Button
-                backgroundColor="pink.300"
+                onClick={handleBack}
+                backgroundColor="red.300"
+                rightIcon={<Icon as={GrReturn} />}
+              >
+                Return
+              </Button>
+
+              <Button
+                backgroundColor="blue.300"
                 rightIcon={<Icon as={RiAdminFill} />}
-                onClick={handleModal}
+                onClick={handleModalPhasing}
               >
                 Add phasings
               </Button>
+
               <AddPhasingModal
-                isOpen={open}
-                onRequestClose={handleModal}
+                isOpen={openPhasing}
+                onRequestClose={handleModalPhasing}
                 studentId={Number(studentId)}
               />
             </Flex>
@@ -74,34 +82,12 @@ export function Training() {
                 <TableHead className="w-auto"></TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className={'overflow-auto'}>
               {data?.map((it, i) => {
                 return <PhasingRow key={i} data={it} />
               })}
             </TableBody>
           </Table>
-
-          <Flex
-            justifyContent={'flex-end'}
-            width={'100%'}
-            gap={2}
-            marginTop={5}
-          >
-            <Button
-              onClick={handleBack}
-              backgroundColor="pink.300"
-              rightIcon={<Icon as={GrReturn} />}
-            >
-              Return
-            </Button>
-            <Button
-              // onClick={save}
-              backgroundColor="green.300"
-              rightIcon={<Icon as={BiSave} />}
-            >
-              Save
-            </Button>
-          </Flex>
         </Box>
       </Flex>
     </Flex>
