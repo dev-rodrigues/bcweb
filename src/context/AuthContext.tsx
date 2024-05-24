@@ -15,10 +15,16 @@ import { ContentItemSchemaType } from '@/types/common-users.ts'
 
 interface AuthContextData {
   user: ContentItemSchemaType | undefined | null
+
   login(credentials: SignInBody): Promise<void>
+
   logout(): void
+
   isAuthenticated(): boolean
+
   hasPermission(roles: string[]): boolean
+
+  isExpired(): boolean
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
@@ -38,6 +44,7 @@ interface JwtDataProps {
   customerEmail: string
   customerPhone: string
   customerEmailValidated: boolean
+  exp: number
 }
 
 interface JwtProps {
@@ -108,6 +115,23 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return !!data
   }
 
+  function isExpired(): boolean {
+    const authorization = localStorage.getItem(localStorageName)
+
+    if (authorization) {
+      const decodedObject = getDecodedData(authorization)
+      const exp = decodedObject.exp
+
+      const now = Math.floor(Date.now() / 1000)
+
+      if (exp < now) {
+        return true
+      }
+    }
+
+    return false
+  }
+
   const logout = useCallback(() => {
     localStorage.removeItem(localStorageName)
     setData(null)
@@ -117,7 +141,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: data, login, logout, isAuthenticated, hasPermission }}
+      value={{
+        user: data,
+        login,
+        logout,
+        isAuthenticated,
+        hasPermission,
+        isExpired,
+      }}
     >
       {children}
     </AuthContext.Provider>
