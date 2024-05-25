@@ -35,7 +35,7 @@ export function Training() {
   return (
     <Flex direction="column" h="100vh">
       <Flex flex={1} width={'100%'} my="6" mx="auto" as="form" px="6">
-        <Box flex="1" borderRadius={8} bg="gray.800" p="8">
+        <Box width={'100%'} borderRadius={8} bg="gray.800" p="8">
           <Heading size="lg" fontWeight="normal">
             Build traing for your student
           </Heading>
