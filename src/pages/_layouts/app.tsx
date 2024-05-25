@@ -25,7 +25,7 @@ export function AppLayout() {
     }, 5000)
 
     return () => clearInterval(checkTokenExpiration)
-  }, [])
+  }, [isExpired, logout])
 
   useEffect(() => {
     if (isError) {
@@ -35,7 +35,7 @@ export function AppLayout() {
     } else {
       console.log('no error')
     }
-  }, [isError, data])
+  }, [isError, data, logout])
 
   return isAuthenticated() || isExpired() ? (
     <HStack alignItems={'start'} flexDirection={'row'}>

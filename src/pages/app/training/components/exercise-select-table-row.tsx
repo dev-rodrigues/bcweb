@@ -1,4 +1,5 @@
-import { Checkbox } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
+import { PlusIcon } from 'lucide-react'
 
 import { TableCell, TableRow } from '@/components/ui/table.tsx'
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
@@ -6,18 +7,23 @@ import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 type Props = {
   key: number
   data: ContentItemSchemaType
+  handleAddExercise: (exercise: ContentItemSchemaType) => void
 }
 
-export function ExerciseSelectTableRow({ key, data }: Props) {
+export function ExerciseSelectTableRow({
+  key,
+  data,
+  handleAddExercise,
+}: Props) {
   return (
     <TableRow key={key}>
-      <TableCell>
-        <Checkbox borderColor={'white'} />
-      </TableCell>
-
       <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
-
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
+      <TableCell className="">
+        <Button onClick={() => handleAddExercise(data)}>
+          <PlusIcon />
+        </Button>
+      </TableCell>
     </TableRow>
   )
 }

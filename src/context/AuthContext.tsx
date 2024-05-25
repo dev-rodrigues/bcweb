@@ -137,7 +137,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setData(null)
     delete api.defaults.headers.common.Authorization
     queryClient.clear()
+    deleteCache()
   }, [])
+
+  function deleteCache() {
+    if ('caches' in window) {
+      caches.keys().then((names) => {
+        for (const name of names)
+          caches.delete(name).then((r) => console.log(r))
+      })
+    }
+  }
 
   return (
     <AuthContext.Provider
