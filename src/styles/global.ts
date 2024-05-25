@@ -14,11 +14,9 @@ export const GlobalStyle = createGlobalStyle`
         display: flex;
         align-items: center;
         justify-content: center;
-        //margin-top: 50px;
   }
 
   .react-modal-content {
-        overflow: hidden;
       width: 100%;
       max-width: 1000px;
       background: #1B1917;

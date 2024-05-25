@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Container,
   Divider,
   Flex,
   Heading,
@@ -14,7 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { SearchIcon } from 'lucide-react'
+import { Save, SearchIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
@@ -38,13 +39,18 @@ interface Props {
   onRequestClose: () => void
 }
 
+export interface SelectedExercise {
+  exercise: ContentItemSchemaType
+  bag: any
+}
+
 export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
   const [page, setPage] = useState(0)
   const size = 4
   const { data, isFetching } = useExercises(page, size)
-  const [selectedExercise, setSelectedExercise] = useState<
-    ContentItemSchemaType[]
-  >([])
+  const [selectedExercise, setSelectedExercise] = useState<SelectedExercise[]>(
+    [],
+  )
 
   const { register } = useForm<SearchExerciseFormType>({
     resolver: zodResolver(SearchExerciseForm),
@@ -52,10 +58,16 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
 
   function handleAddExercise(exercise: ContentItemSchemaType) {
     toast.info(`Exercise ${exercise.name} added`)
-    setSelectedExercise([...selectedExercise, exercise])
+    setSelectedExercise([
+      ...selectedExercise,
+      {
+        exercise,
+        bag: { sets: 0, reps: 0, rest: 0 },
+      },
+    ])
   }
   function handleRemoveExercise(index: number) {
-    toast.info(`Exercise ${selectedExercise[index].name} removed`)
+    toast.info(`Exercise ${selectedExercise[index].exercise.name} removed`)
     setSelectedExercise([
       ...selectedExercise.slice(0, index),
       ...selectedExercise.slice(index + 1),
@@ -79,7 +91,7 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <Flex justify="flex-end" mt={10}>
+      <Flex justify="flex-end">
         <Button type="button" onClick={makeModalClose}>
           <FaRegTimesCircle size={25} />
         </Button>
@@ -94,7 +106,10 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
         <Tabs>
           <TabList>
             <Tab>Select</Tab>
-            <Tab>Build</Tab>
+            <Tab>
+              <Container>{`Selected ${selectedExercise.length}`}</Container>
+            </Tab>
+            <Tab isDisabled>Heat Map</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -151,14 +166,28 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                 )}
               </VStack>
             </TabPanel>
-            <TabPanel>
+            <TabPanel
+              style={{
+                overflow: 'scroll',
+                maxHeight: '350px',
+              }}
+            >
               <TabSelectedExerciseTable
                 data={selectedExercise}
                 handleRemoveExercise={handleRemoveExercise}
               />
             </TabPanel>
+            <TabPanel>
+              <p>WIP!</p>
+            </TabPanel>
           </TabPanels>
         </Tabs>
+
+        <HStack w={'100%'}>
+          <Button colorScheme={'green'} leftIcon={<Save />}>
+            Save
+          </Button>
+        </HStack>
       </Box>
     </Modal>
   )

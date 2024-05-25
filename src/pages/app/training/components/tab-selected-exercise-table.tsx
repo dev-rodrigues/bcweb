@@ -1,18 +1,23 @@
-import { Button } from '@chakra-ui/react'
-import { DeleteIcon } from 'lucide-react'
-
 import {
+  Button,
+  Container,
+  Icon,
   Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
-import { ContentItemSchemaType } from '@/types/common-exercise.ts'
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tooltip,
+  Tr,
+} from '@chakra-ui/react'
+import { AlertCircle } from 'lucide-react'
+import { CiCircleCheck } from 'react-icons/ci'
+import { RiAedLine, RiDeleteBack2Fill } from 'react-icons/ri'
+
+import { SelectedExercise } from '@/pages/app/training/modals/add-exercise-phasing-modal.tsx'
 
 interface Props {
-  data: ContentItemSchemaType[]
+  data: SelectedExercise[]
   handleRemoveExercise: (index: number) => void
 }
 
@@ -22,29 +27,80 @@ export function TabSelectedExerciseTable({
 }: Props) {
   return (
     <>
-      <Table className="mx-auto w-full md:max-w-[950px]">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-auto">Nome</TableHead>
-            <TableHead className="w-auto">#</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody className={'overflow-auto!'}>
-          {data.map((it, i) => {
-            return (
-              <TableRow key={i}>
-                <TableCell className="text-muted-foreground">
-                  {it.name}
-                </TableCell>
-                <TableCell>
-                  <Button onClick={() => handleRemoveExercise(i)}>
-                    <DeleteIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
+      <Table
+        colorScheme="whiteAlpha"
+        maxH={'300px'}
+        style={{
+          overflow: 'auto',
+        }}
+      >
+        <Thead>
+          <Th>
+            <div>Exercise</div>
+          </Th>
+          <Th>
+            <div></div>
+          </Th>
+        </Thead>
+        <Tbody>
+          {data.map((item, index) => (
+            <Tr
+              key={index}
+              _hover={{
+                transform: 'scale(1.02)',
+                transition: 'transform 0.3s',
+              }}
+            >
+              <Td w={'100%'}>
+                <Container display={'flex'} gap={2} alignItems={'center'}>
+                  {!item.bag ? (
+                    <AlertCircle color={'yellow'} />
+                  ) : (
+                    <CiCircleCheck color={'green'} />
+                  )}
+                  {item.exercise.name}
+                </Container>
+              </Td>
+              <Td>
+                <Container
+                  gap={1}
+                  display={'flex'}
+                  flexDirection={{
+                    base: 'column',
+                    md: 'row',
+                  }}
+                >
+                  <Tooltip hasArrow label="Remove exercise" bg="blue.200">
+                    <Button
+                      size="sm"
+                      fontSize="sm"
+                      type={'button'}
+                      colorScheme="purple"
+                      onClick={() => {
+                        handleRemoveExercise(index)
+                      }}
+                    >
+                      <Icon as={RiDeleteBack2Fill} />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip hasArrow label="Make" bg="blue.200">
+                    <Button
+                      size="sm"
+                      fontSize="sm"
+                      type={'button'}
+                      colorScheme="purple"
+                      onClick={() => {
+                        handleRemoveExercise(index)
+                      }}
+                    >
+                      <Icon as={RiAedLine} />
+                    </Button>
+                  </Tooltip>
+                </Container>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
       </Table>
     </>
   )

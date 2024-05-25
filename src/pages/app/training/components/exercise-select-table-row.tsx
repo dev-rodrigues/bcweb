@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, HStack } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
 
 import { TableCell, TableRow } from '@/components/ui/table.tsx'
@@ -20,9 +20,11 @@ export function ExerciseSelectTableRow({
       <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
       <TableCell className="">
-        <Button onClick={() => handleAddExercise(data)}>
-          <PlusIcon />
-        </Button>
+        <HStack>
+          <Button onClick={() => handleAddExercise(data)}>
+            <PlusIcon />
+          </Button>
+        </HStack>
       </TableCell>
     </TableRow>
   )
