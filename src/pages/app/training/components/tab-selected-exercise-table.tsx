@@ -53,10 +53,14 @@ export function TabSelectedExerciseTable({
             >
               <Td w={'100%'}>
                 <Container display={'flex'} gap={2} alignItems={'center'}>
-                  {!item.bag ? (
-                    <AlertCircle color={'yellow'} />
+                  {item.bag ? (
+                    <Tooltip label={'Configure te execution'}>
+                      <AlertCircle color={'yellow'} />
+                    </Tooltip>
                   ) : (
-                    <CiCircleCheck color={'green'} />
+                    <Tooltip label={'Configuretion execution completed'}>
+                      <CiCircleCheck color={'green'} />
+                    </Tooltip>
                   )}
                   {item.exercise.name}
                 </Container>
@@ -83,7 +87,7 @@ export function TabSelectedExerciseTable({
                       <Icon as={RiDeleteBack2Fill} />
                     </Button>
                   </Tooltip>
-                  <Tooltip hasArrow label="Make" bg="blue.200">
+                  <Tooltip hasArrow label="Execution" bg="blue.200">
                     <Button
                       size="sm"
                       fontSize="sm"
