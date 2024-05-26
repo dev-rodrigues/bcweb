@@ -1,7 +1,6 @@
-import { Button, HStack } from '@chakra-ui/react'
+import { Button, HStack, Td, Tr } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
 
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
 type Props = {
@@ -16,16 +15,22 @@ export function ExerciseSelectTableRow({
   handleAddExercise,
 }: Props) {
   return (
-    <TableRow key={key}>
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
-      <TableCell className="text-muted-foreground">{data.name}</TableCell>
-      <TableCell className="">
+    <Tr
+      key={key}
+      _hover={{
+        transform: 'scale(1.02)',
+        transition: 'transform 0.3s',
+      }}
+    >
+      <Td>{data.id}</Td>
+      <Td>{data.name}</Td>
+      <Td>
         <HStack>
           <Button onClick={() => handleAddExercise(data)}>
             <PlusIcon />
           </Button>
         </HStack>
-      </TableCell>
-    </TableRow>
+      </Td>
+    </Tr>
   )
 }

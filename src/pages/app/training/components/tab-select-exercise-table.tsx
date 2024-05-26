@@ -1,11 +1,6 @@
+import { Table, Tbody, Th, Thead } from '@chakra-ui/react'
+
 import { Pagination } from '@/components/pagination.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
 import { ExerciseSelectTableRow } from '@/pages/app/training/components/exercise-select-table-row.tsx'
 import {
   ContentItemSchemaType,
@@ -29,15 +24,19 @@ export function TabSelectExerciseTable({
 }: Props) {
   return (
     <>
-      <Table className="mx-auto w-full md:max-w-[950px]">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-auto">Id</TableHead>
-            <TableHead className="w-auto">Nome</TableHead>
-            <TableHead className="w-auto"></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody className={'overflow-auto!'}>
+      <Table
+        colorScheme="whiteAlpha"
+        maxH={'300px'}
+        style={{
+          overflow: 'auto',
+        }}
+      >
+        <Thead>
+          <Th>Id</Th>
+          <Th>Exercise</Th>
+          <Th></Th>
+        </Thead>
+        <Tbody>
           {data?.content.map((it, i) => {
             return (
               <ExerciseSelectTableRow
@@ -47,9 +46,8 @@ export function TabSelectExerciseTable({
               />
             )
           })}
-        </TableBody>
+        </Tbody>
       </Table>
-
       <Pagination
         pageIndex={page}
         totalCount={data?.total ? data?.total : 0}
