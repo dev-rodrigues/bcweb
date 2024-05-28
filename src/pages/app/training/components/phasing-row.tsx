@@ -1,16 +1,16 @@
-import { Button, Icon } from '@chakra-ui/react'
+import { Button, Icon, Td, Tr } from '@chakra-ui/react'
 import { Edit2Icon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
 import { AddExercisePhasingModal } from '@/pages/app/training/modals/add-exercise-phasing-modal.tsx'
 import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface PhasingRowProps {
   data: GetCustomerPhasingType
+  key: number
 }
 
-export function PhasingRow({ data }: PhasingRowProps) {
+export function PhasingRow({ data, key }: PhasingRowProps) {
   const [openAddExercise, setOpenAddExercise] = useState(false)
 
   const handleModalAddExercise = () => {
@@ -24,22 +24,25 @@ export function PhasingRow({ data }: PhasingRowProps) {
   }, [openAddExercise])
 
   return (
-    <TableRow>
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
-      <TableCell className="w-full font-mono text-xs font-medium">
-        {data.name}
-      </TableCell>
-      <TableCell className="w-full font-mono text-xs font-medium">
+    <Tr
+      key={key}
+      _hover={{
+        transform: 'scale(1.02)',
+        transition: 'transform 0.3s',
+      }}
+    >
+      <Td width={'100%'}>{data.name}</Td>
+      <Td>
         <Button
           onClick={handleModalAddExercise}
           backgroundColor="pink.300"
           rightIcon={<Icon as={Edit2Icon} />}
         ></Button>
-      </TableCell>
+      </Td>
       <AddExercisePhasingModal
         isOpen={openAddExercise}
         onRequestClose={handleModalAddExercise}
       />
-    </TableRow>
+    </Tr>
   )
 }

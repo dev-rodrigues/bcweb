@@ -12,6 +12,7 @@ import {
   TabPanels,
   Tabs,
   Tooltip,
+  useToast,
   VStack,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,7 +21,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
-import { toast } from 'sonner'
 
 import { Input } from '@/components/ui/input.tsx'
 import { Label } from '@/components/ui/label.tsx'
@@ -45,19 +45,26 @@ export interface SelectedExercise {
 }
 
 export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
-  const [page, setPage] = useState(0)
   const size = 4
-  const { data, isFetching } = useExercises(page, size)
   const [selectedExercise, setSelectedExercise] = useState<SelectedExercise[]>(
     [],
   )
+  const [page, setPage] = useState(0)
+  const { data, isFetching } = useExercises(page, size)
+
+  const toast = useToast()
 
   const { register } = useForm<SearchExerciseFormType>({
     resolver: zodResolver(SearchExerciseForm),
   })
 
   function handleAddExercise(exercise: ContentItemSchemaType) {
-    toast.info(`Exercise ${exercise.name} added`)
+    toast({
+      title: 'Exercise added',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
     setSelectedExercise([
       ...selectedExercise,
       {
@@ -66,8 +73,14 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       },
     ])
   }
+
   function handleRemoveExercise(index: number) {
-    toast.info(`Exercise ${selectedExercise[index].exercise.name} removed`)
+    toast({
+      title: 'Exercise removed',
+      status: 'info',
+      duration: 3000,
+      isClosable: true,
+    })
     setSelectedExercise([
       ...selectedExercise.slice(0, index),
       ...selectedExercise.slice(index + 1),
@@ -172,10 +185,12 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                 maxHeight: '350px',
               }}
             >
-              <TabSelectedExerciseTable
-                data={selectedExercise}
-                handleRemoveExercise={handleRemoveExercise}
-              />
+              <>
+                <TabSelectedExerciseTable
+                  data={selectedExercise}
+                  handleRemoveExercise={handleRemoveExercise}
+                />
+              </>
             </TabPanel>
             <TabPanel>
               <p>WIP!</p>

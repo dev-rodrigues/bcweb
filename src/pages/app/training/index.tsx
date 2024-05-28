@@ -1,17 +1,21 @@
-import { Box, Button, Divider, Flex, Heading, Icon } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Icon,
+  Table,
+  Tbody,
+  Th,
+  Thead,
+} from '@chakra-ui/react'
 import { useState } from 'react'
 import { GrReturn } from 'react-icons/gr'
 import { RiAdminFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
 import { PhasingRow } from '@/pages/app/training/components/phasing-row.tsx'
 import { AddPhasingModal } from '@/pages/app/training/modals/add-phasing-modal.tsx'
 import { useCustomerPhasing } from '@/services/customer-phasing-hook.ts'
@@ -74,19 +78,22 @@ export function Training() {
 
           <Divider my="6" borderColor="gray.700" />
 
-          <Table className="mx-auto w-full md:max-w-[950px]">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-auto">#</TableHead>
-                <TableHead className="flex-grow">Serie</TableHead>
-                <TableHead className="w-auto"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody className={'overflow-auto'}>
+          <Table
+            colorScheme="whiteAlpha"
+            maxH={'300px'}
+            style={{
+              overflow: 'auto',
+            }}
+          >
+            <Thead>
+              <Th>Serie</Th>
+              <Th></Th>
+            </Thead>
+            <Tbody>
               {data?.map((it, i) => {
                 return <PhasingRow key={i} data={it} />
               })}
-            </TableBody>
+            </Tbody>
           </Table>
         </Box>
       </Flex>

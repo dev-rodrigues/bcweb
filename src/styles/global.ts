@@ -17,6 +17,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .react-modal-content {
+      margin-top: 50px;
       width: 100%;
       max-width: 1000px;
       background: #1B1917;

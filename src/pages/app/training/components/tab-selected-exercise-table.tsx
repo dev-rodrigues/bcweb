@@ -9,11 +9,13 @@ import {
   Thead,
   Tooltip,
   Tr,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { AlertCircle } from 'lucide-react'
 import { CiCircleCheck } from 'react-icons/ci'
 import { RiAedLine, RiDeleteBack2Fill } from 'react-icons/ri'
 
+import { ConfigureSetDrawer } from '@/pages/app/training/components/configure-set-drawer.tsx'
 import { SelectedExercise } from '@/pages/app/training/modals/add-exercise-phasing-modal.tsx'
 
 interface Props {
@@ -25,6 +27,8 @@ export function TabSelectedExerciseTable({
   data,
   handleRemoveExercise,
 }: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Table
@@ -74,6 +78,17 @@ export function TabSelectedExerciseTable({
                     md: 'row',
                   }}
                 >
+                  <Tooltip hasArrow label="Execution" bg="blue.200">
+                    <Button
+                      size="sm"
+                      fontSize="sm"
+                      type={'button'}
+                      colorScheme="purple"
+                      onClick={onOpen}
+                    >
+                      <Icon as={RiAedLine} />
+                    </Button>
+                  </Tooltip>
                   <Tooltip hasArrow label="Remove exercise" bg="blue.200">
                     <Button
                       size="sm"
@@ -87,19 +102,11 @@ export function TabSelectedExerciseTable({
                       <Icon as={RiDeleteBack2Fill} />
                     </Button>
                   </Tooltip>
-                  <Tooltip hasArrow label="Execution" bg="blue.200">
-                    <Button
-                      size="sm"
-                      fontSize="sm"
-                      type={'button'}
-                      colorScheme="purple"
-                      onClick={() => {
-                        handleRemoveExercise(index)
-                      }}
-                    >
-                      <Icon as={RiAedLine} />
-                    </Button>
-                  </Tooltip>
+                  <ConfigureSetDrawer
+                    onRequestClose={onClose}
+                    isOpen={isOpen}
+                    selected={item}
+                  />
                 </Container>
               </Td>
             </Tr>
