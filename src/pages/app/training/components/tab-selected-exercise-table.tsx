@@ -94,7 +94,7 @@ export function TabSelectedExerciseTable({
                       size="sm"
                       fontSize="sm"
                       type={'button'}
-                      colorScheme="purple"
+                      colorScheme="red"
                       onClick={() => {
                         handleRemoveExercise(index)
                       }}
