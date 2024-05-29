@@ -3,7 +3,6 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
       
   .react-modal-overlay {
-        overflow: scroll;
         background: rgba(0, 0, 0, 0.5);
         position: fixed;
         top: 0;
@@ -40,5 +39,4 @@ export const GlobalStyle = createGlobalStyle`
         filter: brightness(0.7);
       }
   }
-
 `
