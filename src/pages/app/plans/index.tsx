@@ -42,7 +42,7 @@ export function Plans() {
           <CreatePlan onRequestClose={handleOpen} isOpen={open} />
 
           <div className="w-full min-w-full rounded-md border">
-            <HStack spacing={4} overflowX="auto">
+            <HStack spacing={4}>
               {isFetching ? (
                 <LoadingSpinner />
               ) : data?.length ? (

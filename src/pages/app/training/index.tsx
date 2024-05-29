@@ -79,7 +79,6 @@ export function Training() {
           <Divider my="6" borderColor="gray.700" />
 
           <Table
-            colorScheme="whiteAlpha"
             maxH={'300px'}
             style={{
               overflow: 'auto',

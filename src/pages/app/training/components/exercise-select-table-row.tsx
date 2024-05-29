@@ -1,6 +1,5 @@
 import { Button, HStack, Td, Tr } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
-import { toast } from 'sonner'
 
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
@@ -29,9 +28,6 @@ export function ExerciseSelectTableRow({
         <HStack>
           <Button
             onClick={() => {
-              toast.info(`Exercise ${data.name} added`, {
-                position: 'top-center',
-              })
               handleAddExercise(data)
             }}
           >

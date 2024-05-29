@@ -32,7 +32,6 @@ export function TabSelectedExerciseTable({
   return (
     <>
       <Table
-        colorScheme="whiteAlpha"
         maxH={'300px'}
         style={{
           overflow: 'auto',

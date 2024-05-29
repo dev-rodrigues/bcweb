@@ -5,7 +5,6 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
-  DrawerOverlay,
   Heading,
   Input,
   VStack,
@@ -30,22 +29,20 @@ export function ConfigureSetDrawer({
   const { register } = useForm<SearchExerciseFormType>()
 
   return (
-    <Drawer isOpen={isOpen} placement="right" onClose={onRequestClose}>
-      <DrawerOverlay />
-      <DrawerContent backgroundColor={'gray.700'}>
-        <DrawerCloseButton color={'gray.500'} />
+    <Drawer
+      isOpen={isOpen}
+      colorScheme={'teal'}
+      placement="right"
+      onClose={onRequestClose}
+    >
+      <DrawerContent>
+        <DrawerCloseButton />
 
         <DrawerBody marginTop={10}>
-          <Heading
-            color={'purple.400'}
-            fontSize={20}
-            marginBottom={5}
-            textAlign={'center'}
-          >
+          <Heading fontSize={20} marginBottom={5} textAlign={'center'}>
             {selected.exercise.name}
           </Heading>
 
-          {/* <Input placeholder="Type here..." /> */}
           <VStack>
             <div>
               <Label htmlFor="type">Technique:</Label>

@@ -7,7 +7,6 @@ import {
   ListItem,
   Stack,
   Text,
-  useColorModeValue,
 } from '@chakra-ui/react'
 import { CheckIcon } from 'lucide-react'
 
@@ -24,7 +23,6 @@ export function Pricing({ data }: PricingProps) {
         maxW={'330px'}
         bg={'gray.300'}
         rounded={'md'}
-        overflow={'hidden'}
         _hover={{
           transform: 'translateX(-1px)',
           transition: 'all 0.3s',
@@ -43,7 +41,7 @@ export function Pricing({ data }: PricingProps) {
           <Text
             fontSize={'sm'}
             fontWeight={500}
-            bg={useColorModeValue('green.50', 'green.900')}
+            bg={'green.100'}
             p={2}
             px={3}
             color={'green.500'}

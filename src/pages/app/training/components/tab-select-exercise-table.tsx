@@ -25,7 +25,6 @@ export function TabSelectExerciseTable({
   return (
     <>
       <Table
-        colorScheme="whiteAlpha"
         maxH={'300px'}
         style={{
           overflow: 'auto',

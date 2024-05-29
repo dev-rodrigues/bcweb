@@ -10,7 +10,7 @@ interface PhasingRowProps {
   key: number
 }
 
-export function PhasingRow({ data, key }: PhasingRowProps) {
+export function PhasingRow({ data }: PhasingRowProps) {
   const [openAddExercise, setOpenAddExercise] = useState(false)
 
   const handleModalAddExercise = () => {
@@ -25,7 +25,6 @@ export function PhasingRow({ data, key }: PhasingRowProps) {
 
   return (
     <Tr
-      key={key}
       _hover={{
         transform: 'scale(1.02)',
         transition: 'transform 0.3s',
