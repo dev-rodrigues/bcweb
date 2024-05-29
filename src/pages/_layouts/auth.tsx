@@ -1,31 +1,32 @@
-import { Flex, Spacer } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 
 export function AuthLayout() {
   return (
     <Flex
-      width="100vw"
-      minH="100vh"
+      flexDirection="column"
+      justifyContent="space-between"
       alignItems="center"
-      justifyContent="center"
-      flexDir="column"
+      minHeight="100vh"
     >
-      {/* Header */}
-
       <Flex
-        width="100%"
-        maxWidth={512}
-        height="100%"
-        p="8"
-        borderRadius={8}
         flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
       >
-        <Outlet />
+        <Flex
+          p="8"
+          borderRadius={8}
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Outlet />
+        </Flex>
       </Flex>
 
-      <Spacer />
-
-      <footer className="p-4 text-sm">
+      <footer className="text-sm">
         Painel do parceiro &copy; bc.team - {new Date().getFullYear()}
       </footer>
     </Flex>

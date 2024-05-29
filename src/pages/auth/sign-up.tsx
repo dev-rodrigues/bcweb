@@ -1,6 +1,14 @@
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Link as LinkUi,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { MailIcon } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
@@ -8,10 +16,8 @@ import { toast } from 'sonner'
 
 import { createTeam } from '@/api/sign-up.ts'
 import { FormField } from '@/components/form.tsx'
-import { PasswordInput } from '@/components/password-input.tsx'
 import { PhoneInput } from '@/components/phone-input.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
+import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
   Select,
@@ -59,99 +65,126 @@ export function SignUp() {
   return (
     <>
       <Helmet title={'Cadastro'} />
-      <div className="p-8">
-        <div className="flex w-[350px] flex-col justify-center gap-6"></div>
-        <div className="flex flex-col gap-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Criando conta grátis
-          </h1>
-          <p className="text-sm text-muted-foreground">
+      <Flex
+        as="form"
+        bg="gray.800"
+        p="10"
+        gap={4}
+        borderRadius={8}
+        onSubmit={handleSubmit(onSubmit)}
+        flexDirection="column"
+      >
+        <VStack mb={'20px'}>
+          <Heading textAlign={'center'}>Crie sua conta</Heading>
+          <Heading
+            size={{
+              md: 'md',
+              base: 'xm',
+            }}
+            textAlign={'center'}
+          >
             Seja um parceiro e acompanhe seus alunos pelo painel
-          </p>
+          </Heading>
+        </VStack>
+
+        <Divider color={'ping.500'} />
+
+        <InputForm
+          label={'Team Name'}
+          pk={'teamName'}
+          type={'text'}
+          {...register('teamName')}
+        />
+
+        <InputForm
+          label={'Name'}
+          pk={'managerName'}
+          type={'text'}
+          {...register('managerName')}
+        />
+
+        <InputForm
+          label={'E-mail'}
+          pk={'email'}
+          type={'email'}
+          {...register('email')}
+        />
+
+        <InputForm
+          label={'Password'}
+          pk={'password'}
+          type={'password'}
+          {...register('password')}
+        />
+
+        <div>
+          <Label htmlFor="phone">Telefone</Label>
+          <FormField
+            control={control}
+            name="phone"
+            render={({ field }) => (
+              <PhoneInput placeholder="Enter a phone number" {...field} />
+            )}
+          />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="mt-12 space-y-2">
-            <Label htmlFor="teamname">Nome do time</Label>
-            <Input id="teamname" type="text" {...register('teamName')} />
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="managerName">Seu nome</Label>
-            <Input id="managerName" type="text" {...register('managerName')} />
-          </div>
+        <div>
+          <Label htmlFor="service">Serviço</Label>
+          <Controller
+            name="service"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange}>
+                <SelectTrigger className="h-8">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent id="service">
+                  <SelectItem value="1">Ed. Fisíca</SelectItem>
+                </SelectContent>
+              </Select>
+            )}
+          />
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="managerPassword">Sua senha</Label>
-            <PasswordInput
-              id="managerPassword"
-              {...register('password')}
-              useIcon={true}
-            />
-          </div>
+        <Button
+          disabled={isSubmitting}
+          type="submit"
+          bg={'red.default'}
+          color={'white'}
+        >
+          Finalizar cadastro
+        </Button>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone">Telefone</Label>
-            <FormField
-              control={control}
-              name="phone"
-              render={({ field }) => (
-                <PhoneInput placeholder="Enter a phone number" {...field} />
-              )}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Seu e-mail</Label>
-            <Input
-              id="email"
-              type="email"
-              {...register('email')}
-              suffix={<MailIcon />}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="service">Serviço</Label>
-            <Controller
-              name="service"
-              control={control}
-              render={({ field }) => (
-                <Select onValueChange={field.onChange}>
-                  <SelectTrigger className="h-8">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent id="service">
-                    <SelectItem value="1">Ed. Fisíca</SelectItem>
-                    <SelectItem value="2">Nutrição</SelectItem>
-                    <SelectItem value="3">Endocrinologia</SelectItem>
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
-
-          <Button disabled={isSubmitting} className="w-full" type="submit">
-            Finalizar cadastro
+        <Link to="/sign-in">
+          <Button
+            color={'white'}
+            width={'full'}
+            bg={'gray.default'}
+            _hover={{
+              opacity: 0.8,
+            }}
+          >
+            Retornar
           </Button>
+        </Link>
 
-          <Link to="/sign-in">
-            <Button className="w-full" variant="secondary">
-              Retornar
-            </Button>
-          </Link>
-
-          <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
-            Ao continuar, você concorda com nossos{' '}
-            <a className="underline underline-offset-4" href="">
-              termos de serviço
-            </a>{' '}
-            e{' '}
-            <a className="underline underline-offset-4" href="">
-              política de privacidade
-            </a>
-          </p>
-        </form>
-      </div>
+        <Text
+          px={6}
+          textAlign="center"
+          fontSize="sm"
+          lineHeight="relaxed"
+          color="gray.500"
+        >
+          Ao continuar, você concorda com nossos{' '}
+          <LinkUi isExternal textDecoration="underline" href="">
+            termos de serviço
+          </LinkUi>{' '}
+          e{' '}
+          <LinkUi isExternal textDecoration="underline" href="">
+            política de privacidade
+          </LinkUi>
+        </Text>
+      </Flex>
     </>
   )
 }
