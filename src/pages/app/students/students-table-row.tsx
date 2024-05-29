@@ -8,11 +8,10 @@ import { StudentDetail } from '@/pages/app/students/student-detail.tsx'
 import { GetStudentTypeType } from '@/types/common-students.ts'
 
 type StudentsTableRowProps = {
-  key: number
   data: GetStudentTypeType
 }
 
-export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
+export function StudentsTableRow({ data }: StudentsTableRowProps) {
   const navigate = useNavigate()
 
   const handleEditClick = () => {
@@ -20,7 +19,7 @@ export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
   }
 
   return (
-    <TableRow key={key}>
+    <TableRow>
       <TableCell>
         <Dialog>
           <DialogTrigger asChild>
@@ -40,11 +39,7 @@ export function StudentsTableRow({ key, data }: StudentsTableRowProps) {
       <TableCell className="text-muted-foreground">{data.name}</TableCell>
 
       <TableCell>
-        <Button
-          // disabled={onExcluding}
-          variant="outline"
-          onClick={handleEditClick}
-        >
+        <Button variant="outline" onClick={handleEditClick}>
           <Edit className="mr-2 h-3 w-3" />
           Edit
         </Button>
