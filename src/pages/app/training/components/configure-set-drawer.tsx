@@ -5,7 +5,6 @@ import {
   DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
-  DrawerOverlay,
   Heading,
   Input,
   VStack,
