@@ -23,7 +23,7 @@ import { toast } from 'sonner'
 
 import { createPlan } from '@/api/plans.ts'
 import { queryClient } from '@/app.tsx'
-import { Input } from '@/components/ui/input.tsx'
+import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
   Table,
@@ -136,7 +136,7 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
                 <Tooltip label={'Will appear in the banner header'}>
                   <Label htmlFor="type">Type</Label>
                 </Tooltip>
-                <Input id="type" type="text" {...register('type')} />
+                <InputForm pk={'type'} type={'text'} {...register('type')} />
               </div>
 
               <div>
@@ -168,12 +168,13 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
                 </Tooltip>
 
                 <div className="flex items-center">
-                  <Input
-                    id="offer"
-                    type="text"
-                    value={offer}
+                  <InputForm
+                    label={'Offer'}
+                    pk={'offer'}
+                    value={'offer'}
                     onChange={(e) => setOffer(e.target.value)}
                   />
+
                   <Tooltip label={'Add offer'}>
                     <Button
                       type={'button'}

@@ -16,7 +16,6 @@ import { toast } from 'sonner'
 
 import { createTeam } from '@/api/sign-up.ts'
 import { FormField } from '@/components/form.tsx'
-import { PhoneInput } from '@/components/phone-input.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
@@ -123,7 +122,11 @@ export function SignUp() {
             control={control}
             name="phone"
             render={({ field }) => (
-              <PhoneInput placeholder="Enter a phone number" {...field} />
+              <InputForm
+                pk={'phone'}
+                placeholder="Enter a phone number"
+                {...field}
+              />
             )}
           />
         </div>

@@ -5,11 +5,9 @@ import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { updateProfile } from '@/api/sign-up.ts'
-import { FormField } from '@/components/form.tsx'
 import Loading from '@/components/loading.tsx'
-import { PhoneInput } from '@/components/phone-input.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
+import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
   Select,
@@ -88,36 +86,41 @@ export function Profile() {
             >
               <div className="mt-12 space-y-2">
                 <Label htmlFor="teamname">Nome do time</Label>
-                <Input id="teamname" type="text" {...register('teamName')} />
+                <InputForm
+                  pk={'teamname'}
+                  id="teamname"
+                  type="text"
+                  {...register('teamName')}
+                />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="managerName">Seu nome</Label>
-                <Input id="managerName" type="text" {...register('name')} />
+                <InputForm
+                  pk={'managerName'}
+                  id="managerName"
+                  type="text"
+                  {...register('name')}
+                />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="phone">Telefone</Label>
-                <FormField
-                  control={control}
-                  name="phone"
-                  render={({ field }) => (
-                    <PhoneInput
-                      placeholder="Enter a phone number"
-                      {...field}
-                      disabled
-                    />
-                  )}
+                <InputForm
+                  pk={'phone'}
+                  id="phone"
+                  type="text"
+                  {...register('phone')}
                 />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="email">Seu e-mail</Label>
-                <Input
+                <InputForm
+                  pk={'email'}
                   id="email"
                   type="email"
                   {...register('email')}
-                  disabled
                 />
               </div>
 

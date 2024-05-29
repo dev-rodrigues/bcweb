@@ -15,7 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog.tsx'
-import { Input } from '@/components/ui/input.tsx'
+import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
   Select,
@@ -126,7 +126,7 @@ export function ExerciseCreate({
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-5 space-y-2">
             <Label htmlFor="teamname">Nome</Label>
-            <Input id="teamname" type="text" {...register('name')} />
+            <InputForm pk={'teamname'} type={'text'} {...register('name')} />
           </div>
 
           <div className="mb-4 space-y-2">

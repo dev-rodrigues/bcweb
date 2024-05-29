@@ -1,7 +1,6 @@
 import { Search, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
 import {
   Select,
   SelectContent,
@@ -13,8 +12,8 @@ import {
 export function TeamTableFilter() {
   return (
     <form className={'flex gap-2'}>
-      <Input placeholder="Id" className="h-8 w-auto" />
-      <Input placeholder="Nome do time" className="h-8 w-[320px]" />
+      {/* <Input placeholder="Id" className="h-8 w-auto" /> */}
+      {/* <Input placeholder="Nome do time" className="h-8 w-[320px]" /> */}
       <Select defaultValue="none">
         <SelectTrigger className="h-8 w-[180px]">
           <SelectValue />

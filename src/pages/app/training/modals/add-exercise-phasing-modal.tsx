@@ -22,7 +22,7 @@ import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 
-import { Input } from '@/components/ui/input.tsx'
+import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { TabSelectExerciseTable } from '@/pages/app/training/components/tab-select-exercise-table.tsx'
@@ -144,7 +144,8 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                     <Tooltip label={'Search by exercise name'}>
                       <Label htmlFor="type">Exercise:</Label>
                     </Tooltip>
-                    <Input
+                    <InputForm
+                      pk={'type'}
                       id="type"
                       type="text"
                       style={{
