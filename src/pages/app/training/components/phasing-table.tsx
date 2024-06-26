@@ -2,7 +2,6 @@ import { Button, Checkbox, Flex, Icon } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { BiSave } from 'react-icons/bi'
-import { LuPanelLeft } from 'react-icons/lu'
 import { toast } from 'sonner'
 
 import { postPhasingByCustomer } from '@/api/phasing.ts'
@@ -118,9 +117,6 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
                 </TableCell>
                 <TableCell width={'100%'}>
                   <p>{`${it.data.name}`}</p>
-                </TableCell>
-                <TableCell width={'100%'}>
-                  <Button leftIcon={<LuPanelLeft />} />
                 </TableCell>
               </TableRow>
             </TableBody>

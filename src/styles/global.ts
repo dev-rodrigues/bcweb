@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
       margin-top: 50px;
       width: 100%;
       max-width: 1000px;
-      background: #1B1917;
+      background: #1F2029;
       
       padding: 3rem;
       position: relative;
@@ -27,7 +27,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .react-modal-close {
-      position: absolute;
+      //position: absolute;
       right: 1.5rem;
       top: 1.5rem;
       border: 0;

@@ -1,22 +1,19 @@
 import {
   Box,
   Button,
-  Container,
   Divider,
   Flex,
   Heading,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  HStack,
   Tooltip,
   VStack,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { Loader2 } from 'lucide-react'
+import { Loader2, PlusIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 import { toast } from 'sonner'
@@ -24,7 +21,6 @@ import { toast } from 'sonner'
 import { createPlan } from '@/api/plans.ts'
 import { queryClient } from '@/app.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
-import { Label } from '@/components/ui/label.tsx'
 import {
   Table,
   TableBody,
@@ -46,7 +42,7 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
   const [offer, setOffer] = useState('')
   const [offers, setOffers] = useState<string[]>([])
 
-  const { control, register, handleSubmit, reset } = useForm<PlanFormType>({
+  const { register, handleSubmit, reset } = useForm<PlanFormType>({
     resolver: zodResolver(createPlanForm),
   })
 
@@ -84,6 +80,7 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
     if (offer.trimEnd() !== '') {
       setOffers((prevOffers) => [...prevOffers, offer])
       setOffer('')
+      toast.success('Offer added')
     } else {
       toast.error('Offer cannot be empty')
     }
@@ -102,133 +99,80 @@ export function CreatePlan({ isOpen, onRequestClose }: Props) {
 
   return (
     <Modal
+      shouldCloseOnOverlayClick={false}
       className="react-modal-content"
       overlayClassName="react-modal-overlay"
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <Flex justify="flex-end">
-        <button type="button" onClick={onRequestClose}>
-          <FaRegTimesCircle size={25} />
-        </button>
-      </Flex>
-
-      <Box flex="1" borderRadius={8}>
-        <Heading size="lg" fontWeight="normal">
+      <Box flex="1" borderRadius={8} overflow="auto">
+        <Flex justify="flex-end">
+          <Button type="button" onClick={onRequestClose}>
+            <FaRegTimesCircle size={25} />
+          </Button>
+        </Flex>
+        <Heading size="lg" p={8} fontWeight="normal">
           Create a plan
         </Heading>
 
         <Divider my="6" borderColor="gray.700" />
 
-        <VStack spacing="8" as={'form'} onSubmit={handleSubmit(onSubmit)}>
-          <Flex display={'flex'} direction={'column'} gap={2}>
-            <Flex
-              direction={{
-                base: 'column',
-                md: 'row',
-              }}
-              gap={{
-                base: 2,
-                md: 4,
-              }}
-            >
-              <div>
-                <Tooltip label={'Will appear in the banner header'}>
-                  <Label htmlFor="type">Type</Label>
-                </Tooltip>
-                <InputForm pk={'type'} type={'text'} {...register('type')} />
-              </div>
+        <VStack p={8} spacing="8" as={'form'} onSubmit={handleSubmit(onSubmit)}>
+          <InputForm
+            label={'Type'}
+            pk={'type'}
+            type={'text'}
+            {...register('type')}
+          />
 
-              <div>
-                <Tooltip label={'Price'}>
-                  <Label htmlFor="price">Price (R$)</Label>
-                </Tooltip>
-                <Controller
-                  name="price"
-                  control={control}
-                  render={({ field }) => (
-                    <NumberInput
-                      value={field.value}
-                      borderColor="gray.700"
-                      onChange={(valueString) => field.onChange(valueString)}
-                      _focus={{
-                        borderColor: 'red',
-                      }}
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper></NumberInputStepper>
-                    </NumberInput>
-                  )}
-                />
-              </div>
+          <InputForm
+            label={'Price'}
+            pk={'price'}
+            type={'text'}
+            {...register('price')}
+          />
 
-              <div>
-                <Tooltip label={'Offer'}>
-                  <Label htmlFor="offer">Offer</Label>
-                </Tooltip>
+          <HStack width={'100%'} alignItems={'center'} alignContent={'center'}>
+            <InputForm
+              label={'Offer'}
+              pk={'offer'}
+              onChange={(e) => setOffer(e.target.value)}
+            />
+            <Tooltip label={'Add Offer'}>
+              <Button type={'button'} onClick={onAddOffer} mt={10}>
+                <PlusIcon />
+              </Button>
+            </Tooltip>
+          </HStack>
 
-                <div className="flex items-center">
-                  <InputForm
-                    label={'Offer'}
-                    pk={'offer'}
-                    value={'offer'}
-                    onChange={(e) => setOffer(e.target.value)}
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-full">Offers</TableHead>
+                <TableHead className="w-auto"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {offers?.map((it, i) => {
+                return (
+                  <PlanCreateRow
+                    key={i}
+                    label={it}
+                    handleDelete={() => onRemoveOffer(i)}
                   />
+                )
+              })}
+            </TableBody>
+          </Table>
 
-                  <Tooltip label={'Add offer'}>
-                    <Button
-                      type={'button'}
-                      className="ml-2"
-                      onClick={onAddOffer}
-                    >
-                      +
-                    </Button>
-                  </Tooltip>
-                </div>
-              </div>
-            </Flex>
-
-            <Divider borderColor="gray.700" marginTop={3} marginBottom={3} />
-
-            <Container
-              paddingBottom={5}
-              // style={{
-              //   maxHeight: '100px',
-              //   overflowY: 'auto',
-              // }}
-            >
-              <Table
-              // style={{
-              //   maxHeight: '500px',
-              //   overflowY: 'auto',
-              //   border: '1px solid white',
-              // }}
-              >
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-full">Offers</TableHead>
-                    <TableHead className="w-auto"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {offers?.map((it, i) => {
-                    return (
-                      <PlanCreateRow
-                        key={i}
-                        label={it}
-                        handleDelete={() => onRemoveOffer(i)}
-                      />
-                    )
-                  })}
-                </TableBody>
-              </Table>
-              <Divider borderColor="gray.700" marginTop={3} marginBottom={5} />
-            </Container>
+          <Flex justify="flex-start">
+            <Button type={'submit'} bg={'red.default'}>
+              {isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Salvar
+            </Button>
           </Flex>
-          <Button type={'submit'}>
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Salvar
-          </Button>
         </VStack>
       </Box>
     </Modal>

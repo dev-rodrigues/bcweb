@@ -59,7 +59,6 @@ export function Plans() {
                   <TableRow>
                     <TableHead className="w-auto">#</TableHead>
                     <TableHead className="flex-grow">Type</TableHead>
-                    <TableHead className="w-auto">Name</TableHead>
                     <TableHead className="w-auto">Price</TableHead>
                     <TableHead className="w-auto"></TableHead>
                   </TableRow>

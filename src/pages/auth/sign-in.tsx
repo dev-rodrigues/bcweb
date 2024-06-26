@@ -51,11 +51,7 @@ export function SignIn() {
   return (
     <>
       <Helmet title={'Login'} />
-      <Container
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Container display="flex" alignItems="center" justifyContent="center">
         <Flex
           gap={3}
           as="form"

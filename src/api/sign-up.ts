@@ -5,7 +5,7 @@ import { SignUpFormType } from '@/types/commons-signup.ts'
 export const createTeam = async (data: SignUpFormType): Promise<void> => {
   delete api.defaults.headers.common.Authorization
 
-  const { data: response } = await api.post('/team/register', {
+  const { data: response } = await api.post('/sign-up/team', {
     teamName: data.teamName,
     managerName: data.managerName,
     phone: data.phone,

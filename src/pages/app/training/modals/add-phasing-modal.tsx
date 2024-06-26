@@ -40,13 +40,11 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
             <LoadingSpinner />
           </div>
         ) : (
-          <Flex>
-            <PhasingTable
-              data={data}
-              onRequestClose={onRequestClose}
-              studentId={studentId}
-            />
-          </Flex>
+          <PhasingTable
+            data={data}
+            onRequestClose={onRequestClose}
+            studentId={studentId}
+          />
         )}
       </Box>
     </Modal>
