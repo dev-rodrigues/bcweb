@@ -12,5 +12,5 @@ export async function signIn({
   password,
 }: SignInBody): Promise<AxiosResponse> {
   delete api.defaults.headers.common.Authorization
-  return await api.post('/auth/login', { login, password })
+  return await api.post('/sessions', { login, password })
 }
