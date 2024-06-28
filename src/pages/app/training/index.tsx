@@ -24,7 +24,7 @@ export function Training() {
   const navigate = useNavigate()
   const { studentId } = useParams()
 
-  const { data, isFetching } = useCustomerPhasing(Number(studentId!))
+  const { data, isFetching } = useCustomerPhasing(Number(studentId))
 
   const [openPhasing, setOpenPhasing] = useState(false)
 
