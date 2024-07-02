@@ -1,10 +1,8 @@
+import { Td, Tr } from '@chakra-ui/react'
 import { Edit, Search } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button.tsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
-import { StudentDetail } from '@/pages/app/students/student-detail.tsx'
 import { GetStudentTypeType } from '@/types/common-students.ts'
 
 type StudentsTableRowProps = {
@@ -19,31 +17,36 @@ export function StudentsTableRow({ data }: StudentsTableRowProps) {
   }
 
   return (
-    <TableRow>
-      <TableCell>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="xs">
-              <Search className="h-3 w-3" />
-              <span className="sr-only">Detalhes do pedido</span>
-            </Button>
-          </DialogTrigger>
-          <StudentDetail data={data} />
-        </Dialog>
-      </TableCell>
+    <Tr>
+      <Td>
+        <Button variant="outline" size="xs">
+          <Search className="h-3 w-3" />
+          <span className="sr-only">Detalhes do pedido</span>
+        </Button>
+      </Td>
 
-      <TableCell className="font-mono text-xs font-medium md:text-sm">
-        {data.id}
-      </TableCell>
+      {/* <TableCell> */}
+      {/*  <Dialog> */}
+      {/*    <DialogTrigger asChild> */}
+      {/*      <Button variant="outline" size="xs"> */}
+      {/*        <Search className="h-3 w-3" /> */}
+      {/*        <span className="sr-only">Detalhes do pedido</span> */}
+      {/*      </Button> */}
+      {/*    </DialogTrigger> */}
+      {/*    <StudentDetail data={data} /> */}
+      {/*  </Dialog> */}
+      {/* </TableCell> */}
 
-      <TableCell className="text-muted-foreground">{data.name}</TableCell>
+      <Td>{data.id}</Td>
 
-      <TableCell>
+      <Td>{data.name}</Td>
+
+      <Td>
         <Button variant="outline" onClick={handleEditClick}>
           <Edit className="mr-2 h-3 w-3" />
           Edit
         </Button>
-      </TableCell>
-    </TableRow>
+      </Td>
+    </Tr>
   )
 }

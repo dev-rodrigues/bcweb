@@ -7,8 +7,8 @@ import {
   Icon,
   Table,
   Tbody,
-  Th,
   Thead,
+  Tr,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { GrReturn } from 'react-icons/gr'
@@ -85,8 +85,8 @@ export function Training() {
             }}
           >
             <Thead>
-              <Th>Serie</Th>
-              <Th></Th>
+              <Tr>Serie</Tr>
+              <Tr></Tr>
             </Thead>
             <Tbody>
               {data?.map((it, i) => {
