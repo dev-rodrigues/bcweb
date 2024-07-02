@@ -54,22 +54,6 @@ export function Students() {
                   </Tbody>
                 </Table>
               </TableContainer>
-
-              // <Table className="mx-auto mb-5 w-full md:max-w-[950px]">
-              //   <TableHeader>
-              //     <TableRow>
-              //       <TableHead className="w-auto"></TableHead>
-              //       <TableHead className="w-auto">#</TableHead>
-              //       <TableHead className="flex-grow">Nome</TableHead>
-              //       <TableHead className="w-auto"></TableHead>
-              //     </TableRow>
-              //   </TableHeader>
-              //   <TableBody>
-              //     {data?.map((it, i) => {
-              //       return <StudentsTableRow key={i} data={it} />
-              //     })}
-              //   </TableBody>
-              // </Table>
             )}
           </div>
         </div>
