@@ -1,9 +1,8 @@
-import { Search, Trash2 } from 'lucide-react'
+import { Search } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
 import { ContentItemSchemaType } from '@/types/common-users.ts'
+import { Td, Tr } from '@chakra-ui/react'
 
 type UserTableRowProps = {
   key: number
@@ -13,7 +12,7 @@ type UserTableRowProps = {
 
 export function UserTableRow({ key, data }: UserTableRowProps) {
   return (
-    <TableRow key={key}>
+    /* <TableRow key={key}>
       <TableCell>
         <Dialog>
           <DialogTrigger asChild>
@@ -38,6 +37,18 @@ export function UserTableRow({ key, data }: UserTableRowProps) {
           Excluir
         </Button>
       </TableCell>
-    </TableRow>
+    </TableRow> */
+
+    <Tr key={key}>
+      <Td>{data.id}</Td>
+      <Td>{data.name}</Td>
+
+      <Td>
+        <Button variant="outline" size="xs">
+          <Search className="h-3 w-3" />
+          <span className="sr-only">Detalhes do pedido</span>
+        </Button>
+      </Td>
+    </Tr>
   )
 }

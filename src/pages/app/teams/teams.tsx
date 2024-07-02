@@ -2,16 +2,10 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { Pagination } from '@/components/pagination.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
 import { TeamTableFilter } from '@/pages/app/teams/team-table-filter.tsx'
-import { TeamTableRow } from '@/pages/app/teams/team-table-row.tsx'
 import { useTeamPaged } from '@/services/team-hook.ts'
+import { Table, TableContainer, Tbody, Th, Tr } from '@chakra-ui/react'
+import { TeamTableRow } from './team-table-row'
 
 export function Teams() {
   const [page] = useState(0)
@@ -28,25 +22,23 @@ export function Teams() {
           <TeamTableFilter />
 
           <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[64px]"></TableHead>
-                  <TableHead className="w-[140px]">Identificador</TableHead>
-                  <TableHead className="w-[180px]">Realizado há</TableHead>
-                  <TableHead className="w-[140px]">Status</TableHead>
-                  <TableHead>Time</TableHead>
-                  <TableHead className="w-[164px]"></TableHead>
-                  <TableHead className="w-[132px]"></TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data?.content.map((it, i) => {
-                  return <TeamTableRow key={i} data={it} />
-                })}
-              </TableBody>
-            </Table>
-          </div>
+            <TableContainer>
+              <Table>
+                <Tr>
+                  <Th></Th>
+                  <Th>Identificador</Th>
+                  <Th>Realizado há</Th>
+                  <Th>Status</Th>
+                  <Th>Time</Th>
+                </Tr>
+                <Tbody>
+                  {data?.content.map((it, i) => {
+                    return <TeamTableRow key={i} data={it} />
+                  })}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </div> 
 
           <Pagination
             pageIndex={page}

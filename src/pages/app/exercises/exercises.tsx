@@ -1,4 +1,4 @@
-import { Container, Heading, useBreakpointValue } from '@chakra-ui/react'
+import { Container, Heading, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
@@ -6,22 +6,11 @@ import { Pagination } from '@/components/pagination.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
 import { ExerciseCreate } from '@/pages/app/exercises/exercise-create.tsx'
 import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
 
 export function Exercises() {
-  const isDrawerSidebar = useBreakpointValue({
-    base: true,
-    lg: false,
-  })
   const [open, setOpen] = useState(false)
   const [page, setPage] = useState(0)
   const size = 10
@@ -69,25 +58,25 @@ export function Exercises() {
                 <LoadingSpinner />
               </div>
             ) : (
-              <Table className="mx-auto w-full md:max-w-[950px]">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-auto"></TableHead>
-                    {isDrawerSidebar && (
-                      <TableHead className="w-auto">#</TableHead>
-                    )}
-                    <TableHead className="flex-grow">Nome</TableHead>
-                    <TableHead className="w-auto"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data?.content.map((it, i) => {
-                    return (
-                      <ExerciseTableRow key={i} data={it} currentPage={page} />
-                    )
-                  })}
-                </TableBody>
-              </Table>
+              <TableContainer>
+                <Table>
+                  <Thead>
+                    <Tr>
+                      <Th></Th>
+                      <Th>#</Th>
+                      <Th>Nome</Th>
+                      <Th></Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data?.content.map((it, i) => {
+                      return (
+                        <ExerciseTableRow key={i} data={it} currentPage={page} />
+                      )
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
             )}
           </div>
 

@@ -1,4 +1,4 @@
-import { Tooltip, useBreakpointValue } from '@chakra-ui/react'
+import { Tooltip, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Search, Trash2 } from 'lucide-react'
 import { useState } from 'react'
@@ -8,7 +8,7 @@ import { deleteExercise } from '@/api/exercise.ts'
 import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
+import { TableCell } from '@/components/ui/table.tsx'
 import { ExerciseDetails } from '@/pages/app/exercises/exercise-details.tsx'
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
@@ -52,7 +52,7 @@ export function ExerciseTableRow({
   }
 
   return (
-    <TableRow key={key}>
+    <Tr key={key}>
       <TableCell>
         <Dialog>
           <DialogTrigger asChild>
@@ -85,6 +85,6 @@ export function ExerciseTableRow({
           </Button>
         </Tooltip>
       </TableCell>
-    </TableRow>
+    </Tr>
   )
 }

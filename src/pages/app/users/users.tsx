@@ -3,15 +3,9 @@ import { Helmet } from 'react-helmet-async'
 
 import Loading from '@/components/loading.tsx'
 import { Pagination } from '@/components/pagination.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
 import { UserTableRow } from '@/pages/app/users/user-table-row.tsx'
 import { useUsers } from '@/services/users-hook.ts'
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 
 export function Users() {
   const [page, setPage] = useState(0)
@@ -28,21 +22,24 @@ export function Users() {
             {isFetching ? (
               <Loading />
             ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[24px]"></TableHead>
-                    <TableHead className="w-[140px]">#</TableHead>
-                    <TableHead className="w-[180px]">Nome</TableHead>
-                    <TableHead className="w-[132px]"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data?.content.map((it, i) => {
-                    return <UserTableRow key={i} data={it} />
-                  })}
-                </TableBody>
-              </Table>
+              <TableContainer>
+                <Table>
+                  <Thead>
+                    <Tr>
+                      <Th></Th>
+                      <Th>#</Th>
+                      <Th>Nome</Th>
+                      <Th></Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {data?.content.map((it, i) => {
+                      return <UserTableRow key={i} data={it} />
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+
             )}
           </div>
 
