@@ -3,8 +3,10 @@ import {
   Table,
   TableContainer,
   Tbody,
+  Td,
   Tfoot,
   Th,
+  Thead,
   Tr,
 } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -30,25 +32,31 @@ export function Teams() {
 
       <TableContainer>
         <Table>
-          <Tr>
-            <Th w={10}></Th>
-            <Th>Id</Th>
-            <Th>Created at</Th>
-            <Th>Status</Th>
-            <Th>Time</Th>
-            <Th>Action</Th>
-          </Tr>
+          <Thead>
+            <Tr>
+              <Th>Detail</Th>
+              <Th>Id</Th>
+              <Th>Created at</Th>
+              <Th>Status</Th>
+              <Th>Time</Th>
+              <Th>Action</Th>
+            </Tr>
+          </Thead>
           <Tbody>
             {data?.content.map((it, i) => {
               return <TeamTableRow key={i} data={it} />
             })}
           </Tbody>
           <Tfoot>
-            <Pagination
-              pageIndex={page}
-              totalCount={data?.total ? data.total : 0}
-              perPage={10}
-            />
+            <Tr>
+              <Td colSpan={6}>
+                <Pagination
+                  pageIndex={page}
+                  totalCount={data?.total ? data.total : 0}
+                  perPage={10}
+                />
+              </Td>
+            </Tr>
           </Tfoot>
         </Table>
       </TableContainer>

@@ -44,7 +44,7 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   return (
     <Tr key={key}>
       <Td>
-        <Button variant="outline">
+        <Button className="w-fit" variant="outline">
           <Search className="h-3 w-3" />
         </Button>
       </Td>
