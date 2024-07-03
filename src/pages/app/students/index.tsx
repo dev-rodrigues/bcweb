@@ -12,7 +12,6 @@ import { Helmet } from 'react-helmet-async'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { StudentsTableRow } from '@/pages/app/students/students-table-row.tsx'
-// import { StudentsTableRow } from '@/pages/app/students/students-table-row.tsx'
 import { useStudents } from '@/services/students.ts'
 
 export function Students() {
@@ -30,33 +29,29 @@ export function Students() {
       >
         <Heading>My Students</Heading>
 
-        <div className="w-full min-w-full space-y-2.5">
-          <div className="w-full min-w-full rounded-md border">
-            {isFetching ? (
-              <div className="mb-4 mt-4 flex justify-center">
-                <LoadingSpinner />
-              </div>
-            ) : (
-              <TableContainer>
-                <Table>
-                  <Thead>
-                    <Tr>
-                      <Th></Th>
-                      <Th>#</Th>
-                      <Th>Nome</Th>
-                      <Th></Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data?.map((it, i) => {
-                      return <StudentsTableRow key={i} data={it} />
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
-            )}
+        {isFetching ? (
+          <div className="mb-4 mt-4 flex justify-center">
+            <LoadingSpinner />
           </div>
-        </div>
+        ) : (
+          <TableContainer>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th></Th>
+                  <Th>#</Th>
+                  <Th>Nome</Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {data?.map((it, i) => {
+                  return <StudentsTableRow key={i} data={it} />
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
       </Container>
     </>
   )

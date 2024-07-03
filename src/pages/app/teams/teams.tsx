@@ -53,11 +53,15 @@ export function Teams() {
               {isDrawerSidebar ? null : (
                 <Th style={{ textAlign: 'center' }}>Detail</Th>
               )}
+
               <Th style={{ textAlign: 'center' }}>Id</Th>
+
               {isDrawerSidebar ? null : (
                 <Th style={{ textAlign: 'center' }}>Created at</Th>
               )}
+
               <Th style={{ textAlign: 'center' }}>Status</Th>
+
               <Th style={{ textAlign: 'center' }}>Time</Th>
               {isDrawerSidebar ? null : (
                 <Th style={{ textAlign: 'center' }}>Action</Th>
