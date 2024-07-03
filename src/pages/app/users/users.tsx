@@ -1,3 +1,4 @@
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
@@ -5,7 +6,6 @@ import Loading from '@/components/loading.tsx'
 import { Pagination } from '@/components/pagination.tsx'
 import { UserTableRow } from '@/pages/app/users/user-table-row.tsx'
 import { useUsers } from '@/services/users-hook.ts'
-import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 
 export function Users() {
   const [page, setPage] = useState(0)
@@ -39,7 +39,6 @@ export function Users() {
                   </Tbody>
                 </Table>
               </TableContainer>
-
             )}
           </div>
 

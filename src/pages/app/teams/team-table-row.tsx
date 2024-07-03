@@ -1,12 +1,10 @@
+import { Td, Tr } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Search, X } from 'lucide-react'
 
 import { updateStatus } from '@/api/sign-up.ts'
 import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
-import { TeamDetails } from '@/pages/app/teams/team-details.tsx'
 import { calculateTimeDifference } from '@/types/common-date.ts'
 import { ContentItemSchemaType } from '@/types/common-team.ts'
 
@@ -44,54 +42,37 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   }
 
   return (
-    <TableRow key={key}>
-      <TableCell>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="xs">
-              <Search className="h-3 w-3" />
-              <span className="sr-only">Detalhes do pedido</span>
-            </Button>
-          </DialogTrigger>
-          <TeamDetails data={data} />
-        </Dialog>
-      </TableCell>
+    <Tr key={key}>
+      <Td>
+        <Button variant="outline">
+          <Search className="h-3 w-3" />
+        </Button>
+      </Td>
 
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
+      <Td>{data.id}</Td>
 
-      <TableCell className="text-muted-foreground">
-        {calculateTimeDifference(data.createdAt)}
-      </TableCell>
+      <Td>{calculateTimeDifference(data.createdAt)}</Td>
 
-      <TableCell>
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-slate-400"></span>
-          <span className="font-medium text-muted-foreground">
-            {data.status}
-          </span>
-        </div>
-      </TableCell>
+      <Td>{data.status}</Td>
 
-      <TableCell className="font-medium">{data.name}</TableCell>
+      <Td>{data.name}</Td>
 
-      <TableCell>
+      <Td>
         <Button
           variant="outline"
           onClick={() => onStatusChange(data.id, 'ACTIVE')}
         >
-          <ArrowRight className="mr-2 h-3 w-3" />
+          <ArrowRight />
           Aprovar
         </Button>
-      </TableCell>
-      <TableCell>
         <Button
           variant="ghost"
           onClick={() => onStatusChange(data.id, 'BLOCKED')}
         >
-          <X className="mr-2 h-3 w-3" />
+          <X />
           Bloquear
         </Button>
-      </TableCell>
-    </TableRow>
+      </Td>
+    </Tr>
   )
 }
