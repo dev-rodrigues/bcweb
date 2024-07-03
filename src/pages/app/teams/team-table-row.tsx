@@ -1,4 +1,4 @@
-import { Td, Tr } from '@chakra-ui/react'
+import { Container, Td, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Search, X } from 'lucide-react'
 
@@ -18,6 +18,11 @@ type UpdateTeamType = {
 }
 
 export function TeamTableRow({ key, data }: TeamTableRowProps) {
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   const mutation = useMutation({
     mutationFn: ({
       id,
@@ -42,37 +47,53 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   }
 
   return (
-    <Tr key={key}>
-      <Td>
-        <Button className="w-fit" variant="outline">
-          <Search className="h-3 w-3" />
-        </Button>
-      </Td>
+    <Tr key={key} alignContent={'center'} alignItems={'center'}>
+      {isDrawerSidebar ? null : (
+        <Td>
+          <Button>
+            <Search className="h-3 w-3" />
+          </Button>
+        </Td>
+      )}
 
-      <Td>{data.id}</Td>
+      <Td textAlign={'center'}>{data.id}</Td>
 
-      <Td>{calculateTimeDifference(data.createdAt)}</Td>
+      {isDrawerSidebar ? null : (
+        <Td>{calculateTimeDifference(data.createdAt)}</Td>
+      )}
 
-      <Td>{data.status}</Td>
+      <Td textAlign={'center'}>{data.status}</Td>
 
-      <Td>{data.name}</Td>
+      <Td textAlign={'center'}>{data.name}</Td>
 
-      <Td>
-        <Button
-          variant="outline"
-          onClick={() => onStatusChange(data.id, 'ACTIVE')}
-        >
-          <ArrowRight />
-          Aprovar
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={() => onStatusChange(data.id, 'BLOCKED')}
-        >
-          <X />
-          Bloquear
-        </Button>
-      </Td>
+      {isDrawerSidebar ? null : (
+        <Td>
+          <Container
+            display="flex"
+            flexDirection={{
+              base: 'column',
+              lg: 'row',
+            }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              variant="outline"
+              onClick={() => onStatusChange(data.id, 'ACTIVE')}
+            >
+              <ArrowRight />
+              Aprovar
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => onStatusChange(data.id, 'BLOCKED')}
+            >
+              <X />
+              Bloquear
+            </Button>
+          </Container>
+        </Td>
+      )}
     </Tr>
   )
 }

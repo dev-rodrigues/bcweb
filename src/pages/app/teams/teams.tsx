@@ -1,6 +1,7 @@
 import {
   Heading,
   Table,
+  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -8,12 +9,13 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { Pagination } from '@/components/pagination.tsx'
-import { TeamTableFilter } from '@/pages/app/teams/team-table-filter.tsx'
+import { TableHeader } from '@/components/ui/table.tsx'
 import { useTeamPaged } from '@/services/team-hook.ts'
 
 import { TeamTableRow } from './team-table-row'
@@ -24,24 +26,45 @@ export function Teams() {
 
   const { data } = useTeamPaged(page, size)
 
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   return (
     <>
       <Helmet title="Teams" />
-      <Heading>Teams</Heading>
-      <TeamTableFilter />
 
-      <TableContainer>
+      <TableContainer
+        border={'inset'}
+        borderColor={'gray.300'}
+        borderWidth={0.5}
+        borderRadius={'5px'}
+        px={10}
+      >
         <Table>
+          <TableHeader>
+            <Heading>Teams</Heading>
+          </TableHeader>
+          <TableCaption>Teams registered in the system</TableCaption>
+
           <Thead>
             <Tr>
-              <Th>Detail</Th>
-              <Th>Id</Th>
-              <Th>Created at</Th>
-              <Th>Status</Th>
-              <Th>Time</Th>
-              <Th>Action</Th>
+              {isDrawerSidebar ? null : (
+                <Th style={{ textAlign: 'center' }}>Detail</Th>
+              )}
+              <Th style={{ textAlign: 'center' }}>Id</Th>
+              {isDrawerSidebar ? null : (
+                <Th style={{ textAlign: 'center' }}>Created at</Th>
+              )}
+              <Th style={{ textAlign: 'center' }}>Status</Th>
+              <Th style={{ textAlign: 'center' }}>Time</Th>
+              {isDrawerSidebar ? null : (
+                <Th style={{ textAlign: 'center' }}>Action</Th>
+              )}
             </Tr>
           </Thead>
+
           <Tbody>
             {data?.content.map((it, i) => {
               return <TeamTableRow key={i} data={it} />

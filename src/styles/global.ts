@@ -39,4 +39,10 @@ export const GlobalStyle = createGlobalStyle`
         filter: brightness(0.7);
       }
   }
+
+  .centered {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 `
