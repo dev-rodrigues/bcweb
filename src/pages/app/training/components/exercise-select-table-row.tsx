@@ -30,6 +30,9 @@ export function ExerciseSelectTableRow({
             onClick={() => {
               handleAddExercise(data)
             }}
+            bgColor={'#1F2029'}
+            color={'white'}
+            _hover={{ color:'#f07d7d', fontWeight: 'bold', boxShadow: '0 0 0 2px #f07d7d'}}
           >
             <PlusIcon />
           </Button>

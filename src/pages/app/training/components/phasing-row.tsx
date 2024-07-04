@@ -34,9 +34,16 @@ export function PhasingRow({ data }: PhasingRowProps) {
       <Td>
         <Button
           onClick={handleModalAddExercise}
-          backgroundColor="pink.300"
+          bgColor={'#1F2029'}
+          color={'white'}
+          _hover={{ color:'#f07d7d', fontWeight: 'bold', boxShadow: '0 0 0 2px #f07d7d'} }
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
           rightIcon={<Icon as={Edit2Icon} />}
-        ></Button>
+        >
+          Editar
+        </Button>
       </Td>
       <AddExercisePhasingModal
         isOpen={openAddExercise}
