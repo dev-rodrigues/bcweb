@@ -33,7 +33,7 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
           Add Phrasings
         </Heading>
 
-        <Divider my="6" />
+        <Divider my="6" borderColor="gray.700" />
 
         {isFetching ? (
           <div className="mb-4 mt-4 flex justify-center">

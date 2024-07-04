@@ -105,11 +105,7 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       onRequestClose={onRequestClose}
     >
       <Flex justify="flex-end">
-        <Button
-          type="button" onClick={makeModalClose}
-          backgroundColor="red.200"
-          _hover={{ color:'white', bgColor: '#E11D48', fontWeight: 'bold'} }
-        >
+        <Button type="button" onClick={makeModalClose}>
           <FaRegTimesCircle size={25} />
         </Button>
       </Flex>
@@ -145,7 +141,7 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                     md: 4,
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div>
                     <Tooltip label={'Search by exercise name'}>
                       <Label htmlFor="type">Exercise:</Label>
                     </Tooltip>
@@ -153,25 +149,21 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                       pk={'type'}
                       id="type"
                       type="text"
-                      ml= '5'
                       style={{
                         width: '400px',
-                        marginRight: '2',
                       }}
-                      _focus={{ borderColor: '#f07d7d'}}
                       {...register('name')}
                     />
-                    <Button
-                      leftIcon={<SearchIcon />}
-                      type={'button'}
-                      bgColor={'#1F2029'}
-                      color={'white'}
-                      _hover={{ color:'#f07d7d', fontWeight: 'bold', boxShadow: '0 0 0 2px #f07d7d'}}
-                      padding={'5'}
-                    >
-                      Pesquisar
-                    </Button>
                   </div>
+
+                  <Button
+                    marginTop={{
+                      base: 1,
+                      md: 6,
+                    }}
+                    leftIcon={<SearchIcon />}
+                    type={'button'}
+                  />
                 </HStack>
 
                 {isFetching ? (

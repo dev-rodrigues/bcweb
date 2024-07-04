@@ -54,18 +54,14 @@ export function Training() {
             <Flex gap={2}>
               <Button
                 onClick={handleBack}
-                backgroundColor="red.200"
-                _hover={{ color:'white', bgColor: '#E11D48', fontWeight: 'bold'} }
+                backgroundColor="red.300"
                 rightIcon={<Icon as={GrReturn} />}
               >
-                Voltar
+                Return
               </Button>
 
               <Button
                 backgroundColor="blue.300"
-                color="white"
-                bg={'none'}
-                _hover={{ color:'#f07d7d', borderColor: '#f07d7d'}}
                 rightIcon={<Icon as={RiAdminFill} />}
                 onClick={handleModalPhasing}
               >
