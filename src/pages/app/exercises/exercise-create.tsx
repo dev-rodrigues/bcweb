@@ -1,37 +1,32 @@
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Select,
+  Table,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { Loader2 } from 'lucide-react'
+import { Loader2, SaveIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { FaRegTimesCircle } from 'react-icons/fa'
+import Modal from 'react-modal'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { createExercise } from '@/api/exercise.ts'
 import { queryClient } from '@/app.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import {
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
-import { Label } from '@/components/ui/label.tsx'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select.tsx'
-import { Separator } from '@/components/ui/separator.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
+import { TableHeader } from '@/components/ui/table.tsx'
 import { ExerciseCreateMuscleGroupRow } from '@/pages/app/exercises/exercise-create-muscle-group-row.tsx'
 import { useExerciseMuscleGroup } from '@/services/exercise-muscle-group-hook.ts'
 import { useExercisesType } from '@/services/exercise-type-hook.ts'
@@ -55,6 +50,7 @@ export function ExerciseCreate({
   currentPage,
 }: ExerciseCreateProps) {
   const { data: exercisesType } = useExercisesType()
+
   const { data: muscleGroups } = useExerciseMuscleGroup()
 
   const [groups, setGroups] = useState<number[]>([])
@@ -118,83 +114,101 @@ export function ExerciseCreate({
   }
 
   return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>{`Cadastro de exercicío:`}</DialogTitle>
-      </DialogHeader>
-      <div className="space-x-6">
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
-          <div className="mt-5 space-y-2">
-            <Label htmlFor="teamname">Nome</Label>
-            <InputForm pk={'teamname'} type={'text'} {...register('name')} />
-          </div>
+    <Modal
+      shouldCloseOnOverlayClick={false}
+      className="react-modal-content"
+      overlayClassName="react-modal-overlay"
+      isOpen={modalOpen}
+      onRequestClose={() => setModalOpen(false)}
+    >
+      <Flex justify="flex-end">
+        <Button type="button" onClick={() => setModalOpen(false)}>
+          <FaRegTimesCircle size={25} />
+        </Button>
+      </Flex>
 
-          <div className="mb-4 space-y-2">
-            <Label htmlFor="tipo">Tipo</Label>
-            <Controller
-              name="type"
-              control={control}
-              render={({ field }) => (
-                <Select onValueChange={field.onChange}>
-                  <SelectTrigger className="h-8">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {exercisesType?.map((it, key) => (
-                      <SelectItem key={key} value={it.id.toString()}>
-                        {it.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
+      <Box flex="1" borderRadius={8} overflow="auto">
+        <Heading size="lg" fontWeight="normal">
+          Add Exercise
+        </Heading>
+      </Box>
 
-          <Separator
-            className={'mb-5'}
-            style={{
-              color: 'var(--color-neutral-500)',
-            }}
-          />
+      <Divider my="6" borderColor="gray.700" />
 
-          <div
-            className="space-y-2"
-            style={{
-              maxHeight: '200px',
-              overflowY: 'auto',
-            }}
-          >
-            <Label htmlFor="tipo">Grupo Muscular</Label>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[24px]"></TableHead>
-                  <TableHead className="w-[140px]">#</TableHead>
-                  <TableHead className="w-[180px]">Nome</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {muscleGroups?.map((it, i) => {
-                  return (
-                    <ExerciseCreateMuscleGroupRow
-                      key={i}
-                      data={it}
-                      handleAddGroup={handleAddGroup}
-                      handleRemoveGroup={handleRemoveGroup}
-                    />
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </div>
+      <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
+        <InputForm
+          label={'Exercise name'}
+          pk={'name'}
+          type={'text'}
+          {...register('name')}
+        />
 
-          <Button disabled={!isValid} className="w-full" type="submit">
-            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Salvar
-          </Button>
-        </form>
-      </div>
-    </DialogContent>
+        <Controller
+          name="type"
+          control={control}
+          render={({ field }) => (
+            <Select
+              mt={5}
+              placeholder={'Exercise type'}
+              onChange={field.onChange}
+            >
+              {exercisesType?.map((it, key) => (
+                <option key={key} value={it.id.toString()}>
+                  {it.name}
+                </option>
+              ))}
+            </Select>
+          )}
+        />
+
+        <TableContainer
+          mt={5}
+          border={'inset'}
+          borderColor={'gray.300'}
+          borderWidth={0.5}
+          borderRadius={'5px'}
+          style={{
+            maxHeight: '300px',
+            overflowY: 'auto',
+          }}
+        >
+          <Table size={'sm'}>
+            <TableHeader>
+              <Heading size={'md'}>Muscle Groups</Heading>
+            </TableHeader>
+            <Thead>
+              <Tr>
+                <Th textAlign={'center'}></Th>
+                <Th textAlign={'center'}>Id</Th>
+                <Th textAlign={'center'}>Name</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {muscleGroups?.map((it, i) => {
+                return (
+                  <ExerciseCreateMuscleGroupRow
+                    key={i}
+                    data={it}
+                    handleAddGroup={handleAddGroup}
+                    handleRemoveGroup={handleRemoveGroup}
+                  />
+                )
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+
+        <Button
+          mt={5}
+          disabled={!isValid}
+          type="submit"
+          bg={'green.500'}
+          rightIcon={<SaveIcon />}
+        >
+          {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save
+        </Button>
+      </Flex>
+    </Modal>
   )
 }

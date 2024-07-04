@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async'
 
 import { MonthRevenueUsersCard } from '@/pages/app/dashboard/month-revenue-users-card.tsx'
 import { PopularTeamsChart } from '@/pages/app/dashboard/popular-teams-chart.tsx'
-import { RevenueChart } from '@/pages/app/dashboard/revenue-chart.tsx'
 
 export function Dashboard() {
   return (
@@ -15,7 +14,7 @@ export function Dashboard() {
             Dashboard
           </Heading>
           <MonthRevenueUsersCard />
-          <RevenueChart />
+          {/* <RevenueChart /> */}
           <PopularTeamsChart />
         </Stack>
       </Container>

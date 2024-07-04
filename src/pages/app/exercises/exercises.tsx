@@ -11,6 +11,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -19,18 +20,29 @@ import { BiPlus } from 'react-icons/bi'
 import { Pagination } from '@/components/pagination.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { TableHeader } from '@/components/ui/table.tsx'
+import { ExerciseCreate } from '@/pages/app/exercises/exercise-create.tsx'
 import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
 
 export function Exercises() {
-  // const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const [page, setPage] = useState(0)
   const size = 10
   const { data, isFetching } = useExercises(page, size)
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
 
   return (
     <>
       <Helmet title="Exercises" />
+
+      <ExerciseCreate
+        modalOpen={open}
+        currentPage={page}
+        setModalOpen={setOpen}
+      />
 
       {isFetching ? (
         <div className="mb-4 mt-4 flex justify-center">
@@ -49,6 +61,7 @@ export function Exercises() {
               <Heading>Exercises</Heading>
 
               <Button
+                onClick={() => setOpen(true)}
                 mt={5}
                 color={'white'}
                 bg={'#E11D48'}
@@ -60,7 +73,7 @@ export function Exercises() {
             <TableCaption>Exercises registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th style={{ textAlign: 'center' }}>#</Th>
+                {!isDrawerSidebar && <Th style={{ textAlign: 'center' }}>#</Th>}
                 <Th style={{ textAlign: 'center' }}>Nome</Th>
                 <Th style={{ textAlign: 'center' }}>Actions</Th>
               </Tr>

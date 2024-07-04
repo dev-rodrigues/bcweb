@@ -1,5 +1,6 @@
+import { Td, Tr } from '@chakra-ui/react'
+
 import { Checkbox } from '@/components/ui/checkbox.tsx'
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
 import { GetExerciseMuscleGroupType } from '@/types/common-exercise-muscle-group-type.ts'
 
 type ExerciseCreateMuscleGroupRowProps = {
@@ -13,8 +14,8 @@ export function ExerciseCreateMuscleGroupRow({
   handleRemoveGroup,
 }: ExerciseCreateMuscleGroupRowProps) {
   return (
-    <TableRow>
-      <TableCell className="font-mono text-xs font-medium">
+    <Tr height={10}>
+      <Td textAlign={'center'}>
         <Checkbox
           onCheckedChange={(checked: boolean) => {
             return checked
@@ -22,9 +23,9 @@ export function ExerciseCreateMuscleGroupRow({
               : handleRemoveGroup(data.id)
           }}
         />
-      </TableCell>
-      <TableCell className="font-mono text-xs font-medium">{data.id}</TableCell>
-      <TableCell className="text-muted-foreground">{data.name}</TableCell>
-    </TableRow>
+      </Td>
+      <Td textAlign={'center'}>{data.id}</Td>
+      <Td textAlign={'center'}>{data.name}</Td>
+    </Tr>
   )
 }

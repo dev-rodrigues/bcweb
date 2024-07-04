@@ -109,6 +109,7 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
           <FaRegTimesCircle size={25} />
         </Button>
       </Flex>
+
       <Box flex="1" borderRadius={8} overflow="auto">
         <Heading size="lg" fontWeight="normal">
           Add Exercise
