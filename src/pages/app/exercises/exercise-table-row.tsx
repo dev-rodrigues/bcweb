@@ -1,4 +1,4 @@
-import { Tooltip, Tr, useBreakpointValue } from '@chakra-ui/react'
+import { Container, Td, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Search, Trash2 } from 'lucide-react'
 import { useState } from 'react'
@@ -7,9 +7,6 @@ import { toast } from 'sonner'
 import { deleteExercise } from '@/api/exercise.ts'
 import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
-import { TableCell } from '@/components/ui/table.tsx'
-import { ExerciseDetails } from '@/pages/app/exercises/exercise-details.tsx'
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
 type ExerciseTableRowProps = {
@@ -53,28 +50,20 @@ export function ExerciseTableRow({
 
   return (
     <Tr key={key}>
-      <TableCell>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="xs">
-              <Search className="h-3 w-3" />
-              <span className="sr-only">Detalhes do pedido</span>
-            </Button>
-          </DialogTrigger>
-          <ExerciseDetails data={data} />
-        </Dialog>
-      </TableCell>
+      {!isDrawerSidebar && <Td>{data.id}</Td>}
 
-      {!isDrawerSidebar && (
-        <TableCell className="font-mono text-xs font-medium">
-          {data.id}
-        </TableCell>
-      )}
+      <Td>{data.name}</Td>
 
-      <TableCell className="text-muted-foreground">{data.name}</TableCell>
-
-      <TableCell>
-        <Tooltip label={'Excluir'}>
+      <Td>
+        <Container
+          display="flex"
+          flexDirection={{
+            base: 'column',
+            lg: 'row',
+          }}
+          justifyContent="center"
+          alignItems="center"
+        >
           <Button
             disabled={onExcluding}
             variant="outline"
@@ -83,8 +72,12 @@ export function ExerciseTableRow({
             <Trash2 className="mr-2 h-3 w-3" />
             {!isDrawerSidebar && <p>Excluir</p>}
           </Button>
-        </Tooltip>
-      </TableCell>
+
+          <Button variant="outline">
+            <Search className="h-3 w-3" />
+          </Button>
+        </Container>
+      </Td>
     </Tr>
   )
 }

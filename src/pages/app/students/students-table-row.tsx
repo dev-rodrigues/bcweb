@@ -1,4 +1,4 @@
-import { Td, Tr } from '@chakra-ui/react'
+import { Container, Td, Tr } from '@chakra-ui/react'
 import { Edit, Search } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
@@ -18,34 +18,28 @@ export function StudentsTableRow({ data }: StudentsTableRowProps) {
 
   return (
     <Tr>
-      <Td>
-        <Button variant="outline" size="xs">
-          <Search className="h-3 w-3" />
-          <span className="sr-only">Detalhes do pedido</span>
-        </Button>
-      </Td>
-
-      {/* <TableCell> */}
-      {/*  <Dialog> */}
-      {/*    <DialogTrigger asChild> */}
-      {/*      <Button variant="outline" size="xs"> */}
-      {/*        <Search className="h-3 w-3" /> */}
-      {/*        <span className="sr-only">Detalhes do pedido</span> */}
-      {/*      </Button> */}
-      {/*    </DialogTrigger> */}
-      {/*    <StudentDetail data={data} /> */}
-      {/*  </Dialog> */}
-      {/* </TableCell> */}
-
       <Td>{data.id}</Td>
 
       <Td>{data.name}</Td>
 
       <Td>
-        <Button variant="outline" onClick={handleEditClick}>
-          <Edit className="mr-2 h-3 w-3" />
-          Edit
-        </Button>
+        <Container
+          display="flex"
+          flexDirection={{
+            base: 'column',
+            lg: 'row',
+          }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Button variant="outline">
+            <Search className="h-3 w-3" />
+          </Button>
+          <Button variant="outline" onClick={handleEditClick}>
+            <Edit className="mr-2 h-3 w-3" />
+            Edit
+          </Button>
+        </Container>
       </Td>
     </Tr>
   )

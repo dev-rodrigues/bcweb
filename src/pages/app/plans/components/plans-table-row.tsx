@@ -1,7 +1,7 @@
-import { Button } from '@chakra-ui/react'
+import { Td, Tr } from '@chakra-ui/react'
 import { Edit } from 'lucide-react'
 
-import { TableCell, TableRow } from '@/components/ui/table.tsx'
+import { Button } from '@/components/ui/button.tsx'
 import { ContentPlanSchemaType } from '@/types/common-plan.ts'
 
 type PlansTableRowProps = {
@@ -10,21 +10,18 @@ type PlansTableRowProps = {
 
 export function PlansTableRow({ data }: PlansTableRowProps) {
   return (
-    <TableRow>
-      <TableCell>{data.id}</TableCell>
+    <Tr>
+      <Td textAlign={'center'}>{data.id}</Td>
 
-      <TableCell className="font-mono text-xs font-medium md:text-sm">
-        {data.type}
-      </TableCell>
+      <Td textAlign={'center'}>{data.type}</Td>
 
-      <TableCell className="text-muted-foreground">{`R$ ${data.price}`}</TableCell>
+      <Td textAlign={'center'}>{`R$ ${data.price}`}</Td>
 
-      <TableCell>
+      <Td textAlign={'center'}>
         <Button variant="outline">
-          <Edit className="mr-2 h-3 w-3" />
-          Edit
+          <Edit className="h-3 w-3" />
         </Button>
-      </TableCell>
-    </TableRow>
+      </Td>
+    </Tr>
   )
 }

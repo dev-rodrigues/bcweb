@@ -1,8 +1,11 @@
 import {
   Heading,
   Table,
+  TableCaption,
   TableContainer,
   Tbody,
+  Td,
+  Tfoot,
   Th,
   Thead,
   Tr,
@@ -11,61 +14,43 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 
 import { Pagination } from '@/components/pagination.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import { Dialog, DialogTrigger } from '@/components/ui/dialog.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import { ExerciseCreate } from '@/pages/app/exercises/exercise-create.tsx'
+import { TableHeader } from '@/components/ui/table.tsx'
 import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
 
 export function Exercises() {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const [page, setPage] = useState(0)
   const size = 10
   const { data, isFetching } = useExercises(page, size)
 
-  const handleOpen = () => {
-    setOpen(!open)
-  }
-
   return (
     <>
       <Helmet title="Exercises" />
-
-      <Heading>Exercises</Heading>
-
-      <Dialog open={open} onOpenChange={handleOpen}>
-        <DialogTrigger asChild>
-          <Button
-            style={{
-              border: 'none',
-              borderColor: 'transparent',
-            }}
-            size="xs"
-          >
-            Novo
-          </Button>
-        </DialogTrigger>
-        <ExerciseCreate
-          modalOpen={open}
-          setModalOpen={setOpen}
-          currentPage={page}
-        />
-      </Dialog>
 
       {isFetching ? (
         <div className="mb-4 mt-4 flex justify-center">
           <LoadingSpinner />
         </div>
       ) : (
-        <TableContainer>
+        <TableContainer
+          border={'inset'}
+          borderColor={'gray.300'}
+          borderWidth={0.5}
+          borderRadius={'5px'}
+          px={10}
+        >
           <Table>
+            <TableHeader>
+              <Heading>Exercises</Heading>
+            </TableHeader>
+            <TableCaption>Exercises registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th></Th>
-                <Th>#</Th>
-                <Th>Nome</Th>
-                <Th></Th>
+                <Th style={{ textAlign: 'center' }}>#</Th>
+                <Th style={{ textAlign: 'center' }}>Nome</Th>
+                <Th style={{ textAlign: 'center' }}>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -73,29 +58,34 @@ export function Exercises() {
                 return <ExerciseTableRow key={i} data={it} currentPage={page} />
               })}
             </Tbody>
+            <Tfoot>
+              <Tr>
+                <Td colSpan={3}>
+                  <Pagination
+                    pageIndex={page}
+                    totalCount={data?.total ? data?.total : 0}
+                    perPage={10}
+                    handleNextPage={() => {
+                      setPage(page + 1)
+                    }}
+                    handlePrevPage={() => {
+                      setPage(page - 1)
+                    }}
+                    handleFirstPage={() => {
+                      setPage(0)
+                    }}
+                    handleLastPage={() => {
+                      const totalCount = data?.total ? data?.total : 0
+                      const pages = (Math.ceil(totalCount / 10) || 1) - 1
+                      setPage(pages)
+                    }}
+                  />
+                </Td>
+              </Tr>
+            </Tfoot>
           </Table>
         </TableContainer>
       )}
-
-      <Pagination
-        pageIndex={page}
-        totalCount={data?.total ? data?.total : 0}
-        perPage={10}
-        handleNextPage={() => {
-          setPage(page + 1)
-        }}
-        handlePrevPage={() => {
-          setPage(page - 1)
-        }}
-        handleFirstPage={() => {
-          setPage(0)
-        }}
-        handleLastPage={() => {
-          const totalCount = data?.total ? data?.total : 0
-          const pages = (Math.ceil(totalCount / 10) || 1) - 1
-          setPage(pages)
-        }}
-      />
     </>
   )
 }

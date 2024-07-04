@@ -1,80 +1,75 @@
-import { Container, Heading } from '@chakra-ui/react'
-import { useState } from 'react'
+import {
+  Heading,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+} from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
-import { Button } from '@/components/ui/button.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table.tsx'
+import { TableHeader } from '@/components/ui/table.tsx'
 import { PlansTableRow } from '@/pages/app/plans/components/plans-table-row.tsx'
-import { CreatePlan } from '@/pages/app/plans/create'
 import { usePlans } from '@/services/plans-hook.ts'
 
 export function Plans() {
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
   const { data, isFetching } = usePlans()
 
-  const handleOpen = () => {
-    setOpen(!open)
-  }
+  // const handleOpen = () => {
+  //   setOpen(!open)
+  // }
 
   return (
     <>
       <Helmet title={'Plans'} />
-      <Container
-        display={'flex'}
-        width={'100%'}
-        flexDirection={'column'}
-        minW={'full'}
-        gap={4}
-      >
-        <Heading>My Plans</Heading>
 
-        <div className="w-full min-w-full space-y-2.5">
-          <Button
-            onClick={handleOpen}
-            style={{
-              border: 'none',
-              borderColor: 'transparent',
-            }}
-            size="xs"
-          >
-            Novo
-          </Button>
-          <CreatePlan onRequestClose={handleOpen} isOpen={open} />
+      {/* <Button */}
+      {/*  onClick={handleOpen} */}
+      {/*  style={{ */}
+      {/*    border: 'none', */}
+      {/*    borderColor: 'transparent', */}
+      {/*  }} */}
+      {/*  size="xs" */}
+      {/* > */}
+      {/*  Novo */}
+      {/* </Button> */}
 
-          <div className="w-full min-w-full rounded-md border">
-            {isFetching ? (
-              <div className="mb-4 mt-4 flex justify-center">
-                <LoadingSpinner />
-              </div>
-            ) : data?.length ? (
-              <Table className="mx-auto mb-5 w-full md:max-w-[950px]">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-auto">#</TableHead>
-                    <TableHead className="flex-grow">Type</TableHead>
-                    <TableHead className="w-auto">Price</TableHead>
-                    <TableHead className="w-auto"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data?.map((it, i) => {
-                    return <PlansTableRow data={it} key={i} />
-                  })}
-                </TableBody>
-              </Table>
-            ) : (
-              <p>Nenhum plano disponível</p>
-            )}
-          </div>
+      {/* <CreatePlan onRequestClose={handleOpen} isOpen={open} /> */}
+
+      {isFetching ? (
+        <div>
+          <LoadingSpinner />
         </div>
-      </Container>
+      ) : data?.length ? (
+        <TableContainer>
+          <Table>
+            <TableHeader>
+              <Heading>My Plans</Heading>
+            </TableHeader>
+            <TableCaption>Yours plans registered in the system</TableCaption>
+
+            <Thead>
+              <Tr>
+                <Th style={{ textAlign: 'center' }}>Id</Th>
+                <Th style={{ textAlign: 'center' }}>Type</Th>
+                <Th style={{ textAlign: 'center' }}>Price</Th>
+                <Th style={{ textAlign: 'center' }}>Actions</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {data?.map((it, i) => {
+                return <PlansTableRow data={it} key={i} />
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <p>Nenhum plano disponível</p>
+      )}
     </>
   )
 }
