@@ -1,5 +1,7 @@
 import {
+  Button,
   Heading,
+  Icon,
   Table,
   TableCaption,
   TableContainer,
@@ -12,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { BiPlus } from 'react-icons/bi'
 
 import { Pagination } from '@/components/pagination.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
@@ -44,6 +47,15 @@ export function Exercises() {
           <Table>
             <TableHeader>
               <Heading>Exercises</Heading>
+
+              <Button
+                mt={5}
+                color={'white'}
+                bg={'#E11D48'}
+                rightIcon={<Icon as={BiPlus} />}
+              >
+                Add
+              </Button>
             </TableHeader>
             <TableCaption>Exercises registered in the system</TableCaption>
             <Thead>

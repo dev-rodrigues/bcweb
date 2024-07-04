@@ -50,9 +50,9 @@ export function ExerciseTableRow({
 
   return (
     <Tr key={key}>
-      {!isDrawerSidebar && <Td>{data.id}</Td>}
+      {!isDrawerSidebar && <Td style={{ textAlign: 'center' }}>{data.id}</Td>}
 
-      <Td>{data.name}</Td>
+      <Td style={{ textAlign: 'center' }}>{data.name}</Td>
 
       <Td>
         <Container
