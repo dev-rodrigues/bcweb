@@ -8,6 +8,7 @@ import {
   Table,
   TableContainer,
   Tbody,
+  Td,
   Th,
   Thead,
   Tr,
@@ -136,7 +137,7 @@ export function ExerciseCreate({
         </Button>
       </Flex>
 
-      <Box flex="1" borderRadius={8} overflow="auto">
+      <Box flex="1" borderRadius={8}>
         <Heading size="lg" fontWeight="normal">
           Add Exercise
         </Heading>
@@ -164,13 +165,16 @@ export function ExerciseCreate({
             name="type"
             control={control}
             render={({ field }) => (
-              <Select
-                mt={5}
-                placeholder={'Exercise type'}
-                onChange={field.onChange}
-              >
+              <Select mt={5} onChange={field.onChange}>
+                <option className="text-black" value="">
+                  Exercise type...
+                </option>
                 {exercisesType?.map((it, key) => (
-                  <option key={key} value={it.id.toString()}>
+                  <option
+                    className="text-black"
+                    key={key}
+                    value={it.id.toString()}
+                  >
                     {it.name}
                   </option>
                 ))}
@@ -189,16 +193,18 @@ export function ExerciseCreate({
             Save
           </Button>
         </Flex>
-        <Flex direction={'column'} w={'50%'}>
+        <Flex direction={'column'} w={'50%'} h={80}>
           <Select
-            mt={5}
-            placeholder={'Members'}
+            mt={9}
             onChange={(e) => {
               setSelectedMember(e.target.value)
             }}
           >
+            <option className="text-black" value="">
+              Members...
+            </option>
             {members?.map((it, key) => (
-              <option key={key} value={it.id.toString()}>
+              <option className="text-black" key={key} value={it.id.toString()}>
                 {it.name}
               </option>
             ))}
@@ -211,32 +217,42 @@ export function ExerciseCreate({
             borderWidth={0.5}
             borderRadius={'5px'}
             style={{
+              width: '100%',
               maxHeight: '300px',
               overflowY: 'auto',
             }}
           >
-            {isFetching && <Loader2 className="mx-auto mt-5" />}
+            <TableHeader>
+              <Heading p={2} size={'md'}>
+                Muscle Groups
+              </Heading>
+            </TableHeader>
             <Table size={'sm'}>
-              <TableHeader>
-                <Heading size={'md'}>Muscle Groups</Heading>
-              </TableHeader>
               <Thead>
                 <Tr>
-                  <Th textAlign={'center'}></Th>
-                  <Th textAlign={'center'}>Name</Th>
+                  <Th w={20} textAlign={'center'}></Th>
+                  <Th>Name</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {muscleGroups?.map((it, i) => {
-                  return (
-                    <ExerciseCreateMuscleGroupRow
-                      key={i}
-                      data={it}
-                      handleAddGroup={handleAddGroup}
-                      handleRemoveGroup={handleRemoveGroup}
-                    />
-                  )
-                })}
+                {isFetching && (
+                  <Tr>
+                    <Td colSpan={2}>
+                      <Loader2 className="mx-auto mt-5 animate-spin" />
+                    </Td>
+                  </Tr>
+                )}
+                {!isFetching &&
+                  muscleGroups?.map((it, i) => {
+                    return (
+                      <ExerciseCreateMuscleGroupRow
+                        key={i}
+                        data={it}
+                        handleAddGroup={handleAddGroup}
+                        handleRemoveGroup={handleRemoveGroup}
+                      />
+                    )
+                  })}
               </Tbody>
             </Table>
           </TableContainer>
