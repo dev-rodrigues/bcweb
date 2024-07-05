@@ -1,4 +1,5 @@
 import { BarChart } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import colors from 'tailwindcss/colors'
 
@@ -8,11 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card.tsx'
-const data = [
-  { team: 'Team Braga', registered: 120 },
-  { team: 'Leonidas', registered: 89 },
-  { team: 'Só tem braga', registered: 100 },
-]
+import { useTop5Teams } from '@/services/team-hook.ts'
 
 const COLORS = [
   colors.sky[500],
@@ -21,13 +18,30 @@ const COLORS = [
   colors.emerald[500],
 ]
 
+type PopularTeamsChart = {
+  team: string
+  registered: number
+}
+
 export function PopularTeamsChart() {
+  const { data: top } = useTop5Teams()
+  const [popularTeams, setPopularTeams] = useState<PopularTeamsChart[]>([])
+
+  useEffect(() => {
+    top?.forEach((it) => {
+      setPopularTeams((prev) => [
+        ...prev,
+        { team: it.customerName, registered: it.registered },
+      ])
+    })
+  }, [top])
+
   return (
     <Card className="col-span-3">
       <CardHeader className="pb-8">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-medium">
-            Times mais populares
+            Most popular times
           </CardTitle>
           <BarChart className={'h-4 w-4 text-muted-foreground'} />
         </div>
@@ -36,7 +50,7 @@ export function PopularTeamsChart() {
         <ResponsiveContainer width="100%" height={240}>
           <PieChart style={{ fontSize: 12 }}>
             <Pie
-              data={data}
+              data={popularTeams}
               dataKey="registered"
               name={'team'}
               cx="50%"
@@ -67,15 +81,15 @@ export function PopularTeamsChart() {
                     textAnchor={x > cx ? 'start' : 'end'}
                     dominantBaseline="central"
                   >
-                    {data[index].team.length > 12
-                      ? data[index].team.substring(0, 12).concat('...')
-                      : data[index].team}{' '}
+                    {popularTeams[index].team.length > 12
+                      ? popularTeams[index].team.substring(0, 12).concat('...')
+                      : popularTeams[index].team}{' '}
                     ({value})
                   </text>
                 )
               }}
             >
-              {data.map((_, index) => (
+              {popularTeams.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index]}

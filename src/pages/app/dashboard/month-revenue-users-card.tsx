@@ -6,8 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card.tsx'
+import { useGrowth } from '@/services/growth-hook.ts'
 
 export function MonthRevenueUsersCard() {
+  const { data } = useGrowth()
   return (
     <Card className={'mb-4'}>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
@@ -17,10 +19,14 @@ export function MonthRevenueUsersCard() {
         <Users className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        <span className="text-2xl font-semibold tracking-tight">1000</span>
+        <span className="text-2xl font-semibold tracking-tight">
+          {data?.totalTimes}
+        </span>
         <p className="text-xs text-muted-foreground">
-          <span className="text-emerald-500 dark:text-emerald-400">+2%</span> em
-          relação ao mês passado
+          <span className="text-emerald-500 dark:text-emerald-400">
+            {`${data?.percentileChange}%`}
+          </span>{' '}
+          compared to last month
         </p>
       </CardContent>
     </Card>

@@ -28,7 +28,7 @@ export function SidebarNavigation() {
           lg: 8,
         }}
       >
-        <Section title="GERAL">
+        <Section title="GERAL" mt={10}>
           <Item icon={RiDashboardLine} href="/">
             Home
           </Item>
@@ -36,12 +36,6 @@ export function SidebarNavigation() {
           {canViewEditUsers && (
             <Item icon={Users} href="/teams">
               Teams
-            </Item>
-          )}
-
-          {canViewEditUsers && (
-            <Item icon={Users} href="/users">
-              Users
             </Item>
           )}
 
@@ -58,10 +52,16 @@ export function SidebarNavigation() {
           )}
         </Section>
 
-        <Section title={'ADMIN'}>
+        <Section title={'ADMIN'} mt={5}>
           {canViewEditExercises && (
             <Item icon={DumbbellIcon} href="/exercises">
               Exercises
+            </Item>
+          )}
+
+          {canViewEditUsers && (
+            <Item icon={Users} href="/users">
+              Users
             </Item>
           )}
         </Section>
