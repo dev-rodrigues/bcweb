@@ -74,7 +74,7 @@ export function SignUp() {
         flexDirection="column"
       >
         <VStack mb={'20px'}>
-          <Heading textAlign={'center'}>Crie sua conta</Heading>
+          <Heading textAlign={'center'}>Create your account</Heading>
           <Heading
             size={{
               md: 'md',
@@ -82,7 +82,7 @@ export function SignUp() {
             }}
             textAlign={'center'}
           >
-            Seja um parceiro e acompanhe seus alunos pelo painel
+            Partner with us and track your students on the dashboard
           </Heading>
         </VStack>
 
@@ -155,7 +155,7 @@ export function SignUp() {
           bg={'red.default'}
           color={'white'}
         >
-          Finalizar cadastro
+          Sign Up
         </Button>
 
         <Link to="/sign-in">
@@ -167,7 +167,7 @@ export function SignUp() {
               opacity: 0.8,
             }}
           >
-            Retornar
+            Login
           </Button>
         </Link>
 
@@ -178,13 +178,17 @@ export function SignUp() {
           lineHeight="relaxed"
           color="gray.500"
         >
-          Ao continuar, você concorda com nossos{' '}
-          <LinkUi isExternal textDecoration="underline" href="">
-            termos de serviço
+          By continuing, you agree to our{' '}
+          <LinkUi
+            isExternal
+            textDecoration="underline"
+            href="/terms-of-service"
+          >
+            terms of service
           </LinkUi>{' '}
-          e{' '}
-          <LinkUi isExternal textDecoration="underline" href="">
-            política de privacidade
+          and{' '}
+          <LinkUi isExternal textDecoration="underline" href="/privacy-policy">
+            privacy policy
           </LinkUi>
         </Text>
       </Flex>

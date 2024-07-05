@@ -32,6 +32,7 @@ export function SidebarNavigation() {
           <Item icon={RiDashboardLine} href="/">
             Home
           </Item>
+
           {canViewEditUsers && (
             <Item icon={Users} href="/teams">
               Teams
@@ -41,12 +42,6 @@ export function SidebarNavigation() {
           {canViewEditUsers && (
             <Item icon={Users} href="/users">
               Users
-            </Item>
-          )}
-
-          {canViewEditExercises && (
-            <Item icon={DumbbellIcon} href="/exercises">
-              Exercises
             </Item>
           )}
 
@@ -63,21 +58,25 @@ export function SidebarNavigation() {
           )}
         </Section>
 
+        <Section title={'ADMIN'}>
+          {canViewEditExercises && (
+            <Item icon={DumbbellIcon} href="/exercises">
+              Exercises
+            </Item>
+          )}
+        </Section>
+
         <Divider my="6" borderColor="gray.700" />
 
         <Section>
           <Button
-            marginLeft={{
-              base: 0,
-              lg: 8,
-            }}
-            width={'120px'}
+            size={'lg'}
             color={'white'}
             onClick={logout}
             bg={'#E11D48'}
             rightIcon={<Icon as={BiExit} size="20px" color={'white'} />}
           >
-            Sair
+            Logout
           </Button>
         </Section>
       </Stack>

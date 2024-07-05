@@ -62,7 +62,7 @@ export function SignIn() {
           flexDirection="column"
           onSubmit={handleSubmit(handleSignIn)}
         >
-          <Heading>Painel do Parceiro</Heading>
+          <Heading>Partner dashboard</Heading>
 
           <InputForm
             label={'E-mail'}
@@ -78,12 +78,12 @@ export function SignIn() {
           />
 
           <Button disabled={isSubmitting} className="w-full" type="submit">
-            Acessar painel
+            Login
           </Button>
 
           <Link to="/sign-up">
             <Button className="w-full" type="button" variant="secondary">
-              Cadastre-se
+              Sign Up
             </Button>
           </Link>
         </Flex>

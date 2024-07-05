@@ -3,7 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
       
   .react-modal-overlay {
-        background: rgba(0, 0, 0, 0.5);
+        background: #13121D;
         position: fixed;
         top: 0;
         bottom: 0;
@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
       margin-top: 50px;
       width: 100%;
       max-width: 1000px;
-      background: #1F2029;
+      background: #211F2D;
       
       padding: 3rem;
       position: relative;
@@ -27,7 +27,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .react-modal-close {
-      //position: absolute;
       right: 1.5rem;
       top: 1.5rem;
       border: 0;
@@ -38,11 +37,5 @@ export const GlobalStyle = createGlobalStyle`
       &:hover {
         filter: brightness(0.7);
       }
-  }
-
-  .centered {
-      display: flex;
-      justify-content: center;
-      align-items: center;
   }
 `

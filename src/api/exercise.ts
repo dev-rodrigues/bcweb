@@ -1,4 +1,5 @@
 import { api } from '@/lib/axios.ts'
+import { GetMemberType } from '@/types/commom-member.ts'
 import { ExerciseFormType, GetExercisesType } from '@/types/common-exercise.ts'
 import { GetExerciseMuscleGroupType } from '@/types/common-exercise-muscle-group-type.ts'
 import { GetExerciseTypeType } from '@/types/common-exercise-type.ts'
@@ -25,6 +26,22 @@ export const getExerciseMuscleGroup = async (): Promise<
 > => {
   const { data: response } =
     await api.get<GetExerciseMuscleGroupType[]>(`/muscle-group`)
+
+  return response
+}
+
+export const getExerciseMuscleGroupFilter = async (
+  filter: string | undefined,
+): Promise<GetExerciseMuscleGroupType[]> => {
+  const { data: response } = await api.get<GetExerciseMuscleGroupType[]>(
+    `/muscle-group/${filter}`,
+  )
+
+  return response
+}
+
+export const getMembers = async (): Promise<GetMemberType[]> => {
+  const { data: response } = await api.get<GetMemberType[]>(`/bodily-member`)
 
   return response
 }

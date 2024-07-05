@@ -24,7 +24,7 @@ export default function BarraLateral() {
     return (
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay>
-          <DrawerContent bg="gray.800" padding="4">
+          <DrawerContent bg="gray.800" height={'100%'} padding="4">
             <DrawerCloseButton mt="6" />
             <DrawerBody>
               <SidebarNavigation />
@@ -36,7 +36,14 @@ export default function BarraLateral() {
   }
 
   return (
-    <Box as="aside" width={64} marginRight={8}>
+    <Box
+      // bg="gray.800"
+      as="aside"
+      width={64}
+      marginRight={8}
+      display={'flex'}
+      alignItems={'center'}
+    >
       <SidebarNavigation />
     </Box>
   )

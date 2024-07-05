@@ -1,10 +1,28 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getExerciseMuscleGroup } from '@/api/exercise.ts'
+import {
+  getExerciseMuscleGroup,
+  getExerciseMuscleGroupFilter,
+  getMembers,
+} from '@/api/exercise.ts'
 
-export function useExerciseMuscleGroup() {
+export function useExerciseMuscleGroup(filter: string | undefined) {
+  const queryKey = filter
+    ? ['exercise-muscle-group', filter]
+    : ['exercise-muscle-group']
+  const queryFn = filter
+    ? () => getExerciseMuscleGroupFilter(filter)
+    : () => getExerciseMuscleGroup()
+
   return useQuery({
-    queryKey: ['exercise-muscle-group'],
-    queryFn: () => getExerciseMuscleGroup(),
+    queryKey,
+    queryFn,
+  })
+}
+
+export function useMember() {
+  return useQuery({
+    queryKey: ['members'],
+    queryFn: () => getMembers(),
   })
 }
