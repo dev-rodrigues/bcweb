@@ -1,8 +1,7 @@
-import { Container, Td, Tr } from '@chakra-ui/react'
+import { Box, Button, Container, Td, Tr } from '@chakra-ui/react'
 import { Edit, Search } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { Button } from '@/components/ui/button.tsx'
 import { GetStudentTypeType } from '@/types/common-students.ts'
 
 type StudentsTableRowProps = {
@@ -26,18 +25,36 @@ export function StudentsTableRow({ data }: StudentsTableRowProps) {
         <Container
           display="flex"
           flexDirection={{
-            base: 'column',
+            base: 'row',
             lg: 'row',
           }}
           justifyContent="center"
           alignItems="center"
         >
-          <Button variant="outline">
-            <Search className="h-3 w-3" />
+          <Button
+            variant="outline"
+            mr="2"
+            color="white"
+            _hover={{
+              borderColor: '#F56559',
+              color: '#F56559'
+            }}
+          >
+            <Search className="mr-2 h-3 w-3"/>
+            <Box display={{ base: 'none', lg: 'flex' }}> Search </Box>
           </Button>
-          <Button variant="outline" onClick={handleEditClick}>
+          
+          <Button
+            variant="outline"
+            onClick={handleEditClick}
+            color="white"
+            _hover={{
+              borderColor: '#F56559',
+              color: '#F56559'
+            }}
+          >
             <Edit className="mr-2 h-3 w-3" />
-            Edit
+            <Box display={{ base: 'none', lg: 'flex' }}> Edit </Box>
           </Button>
         </Container>
       </Td>
