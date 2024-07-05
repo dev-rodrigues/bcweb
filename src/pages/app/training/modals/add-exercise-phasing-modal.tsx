@@ -102,6 +102,8 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       className="react-modal-content"
       overlayClassName="react-modal-overlay"
       isOpen={isOpen}
+      closeTimeoutMS={10}
+      shouldCloseOnEsc={false}
       onRequestClose={onRequestClose}
     >
       <Flex justify="flex-end">
@@ -111,13 +113,13 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       </Flex>
 
       <Box flex="1" borderRadius={8} overflow="auto">
-        <Heading size="lg" fontWeight="normal">
+        <Heading size="md" fontWeight="normal">
           Add Exercise
         </Heading>
 
-        <Divider my="6" borderColor="gray.700" />
+        <Divider borderColor="gray.700" />
 
-        <Tabs>
+        <Tabs size={'sm'}>
           <TabList>
             <Tab>Select</Tab>
             <Tab>
@@ -129,7 +131,6 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
             <TabPanel>
               <VStack spacing="8">
                 <HStack
-                  width={'100%'}
                   display={'flex'}
                   alignItems={''}
                   flexDirection={{
