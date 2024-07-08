@@ -32,18 +32,13 @@ export function TabSelectedExerciseTable({
   return (
     <>
       <Table
-        maxH={'300px'}
         style={{
           overflow: 'auto',
         }}
       >
         <Thead>
-          <Th>
-            <div>Exercise</div>
-          </Th>
-          <Th>
-            <div></div>
-          </Th>
+          <Th>Exercise</Th>
+          <Th textAlign={'center'}>Actions</Th>
         </Thead>
         <Tbody>
           {data.map((item, index) => (

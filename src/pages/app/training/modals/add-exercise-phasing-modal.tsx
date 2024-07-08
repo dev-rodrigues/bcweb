@@ -147,17 +147,16 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
               </Flex>
             </TabPanel>
             <TabPanel
+              minH={'352px'}
               style={{
                 overflow: 'scroll',
                 maxHeight: '350px',
               }}
             >
-              <>
-                <TabSelectedExerciseTable
-                  data={selectedExercise}
-                  handleRemoveExercise={handleRemoveExercise}
-                />
-              </>
+              <TabSelectedExerciseTable
+                data={selectedExercise}
+                handleRemoveExercise={handleRemoveExercise}
+              />
             </TabPanel>
             <TabPanel>
               <p>WIP!</p>
