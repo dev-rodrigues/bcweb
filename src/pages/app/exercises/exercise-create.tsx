@@ -222,12 +222,12 @@ export function ExerciseCreate({
               overflowY: 'auto',
             }}
           >
-            <TableHeader>
-              <Heading p={2} size={'md'}>
-                Muscle Groups
-              </Heading>
-            </TableHeader>
             <Table size={'sm'}>
+              <TableHeader>
+                <Heading p={2} size={'md'}>
+                  Muscle Groups
+                </Heading>
+              </TableHeader>
               <Thead>
                 <Tr>
                   <Th w={20} textAlign={'center'}></Th>

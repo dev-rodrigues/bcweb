@@ -40,11 +40,11 @@ export function SignIn() {
 
       navigate('/')
 
-      toast.success('Seja Bem-vindo')
+      toast.success('Welcome')
     } catch (error: unknown) {
       const re = error as AxiosError<GenericAppError>
 
-      toast.error(re.response?.data?.message || 'Erro ao fazer login')
+      toast.error(re.response?.data?.message || 'Error when logging in')
     }
   }
 

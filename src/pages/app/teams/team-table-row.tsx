@@ -49,7 +49,7 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   return (
     <Tr key={key} alignContent={'center'} alignItems={'center'}>
       {isDrawerSidebar ? null : (
-        <Td>
+        <Td textAlign={'center'}>
           <Button>
             <Search className="h-3 w-3" />
           </Button>

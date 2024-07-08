@@ -13,9 +13,7 @@ export function MonthRevenueUsersCard() {
   return (
     <Card className={'mb-4'}>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-semibold">
-          Total de times
-        </CardTitle>
+        <CardTitle className="text-base font-semibold">Total teams</CardTitle>
         <Users className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">

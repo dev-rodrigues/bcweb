@@ -18,7 +18,7 @@ export function PlansTableRow({ data }: PlansTableRowProps) {
       <Td textAlign={'center'}>{`R$ ${data.price}`}</Td>
 
       <Td textAlign={'center'}>
-        <Button variant="outline">
+        <Button>
           <Edit className="h-3 w-3" />
         </Button>
       </Td>

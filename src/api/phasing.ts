@@ -21,9 +21,12 @@ export const getPhasing = async (): Promise<Phasing[]> => {
   return response
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 export const postPhasingByCustomer = async (
   data: PostCustomerPhasingType,
 ): Promise<void> => {
   await api.post(`/customer-phasing`, data)
+}
+
+export const deletePhasingByCustomer = async (id: number): Promise<void> => {
+  await api.delete(`/customer-phasing/${id}`)
 }

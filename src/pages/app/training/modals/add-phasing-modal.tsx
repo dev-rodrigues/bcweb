@@ -1,4 +1,4 @@
-import { Box, Divider, Flex, Heading } from '@chakra-ui/react'
+import { Box, Button, Flex } from '@chakra-ui/react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 
@@ -24,17 +24,12 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
       onRequestClose={onRequestClose}
     >
       <Flex justify="flex-end">
-        <button type="button" onClick={onRequestClose}>
+        <Button type="button" onClick={onRequestClose}>
           <FaRegTimesCircle size={25} />
-        </button>
+        </Button>
       </Flex>
+
       <Box flex="1" borderRadius={8}>
-        <Heading size="lg" fontWeight="normal">
-          Add Phrasings
-        </Heading>
-
-        <Divider my="6" borderColor="gray.700" />
-
         {isFetching ? (
           <div className="mb-4 mt-4 flex justify-center">
             <LoadingSpinner />

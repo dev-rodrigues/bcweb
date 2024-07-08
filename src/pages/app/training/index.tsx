@@ -1,30 +1,32 @@
 import {
-  Box,
   Button,
-  Divider,
-  Flex,
   Heading,
   Icon,
   Table,
+  TableCaption,
+  TableContainer,
   Tbody,
+  Td,
+  Th,
   Thead,
   Tr,
+  VStack,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { GrReturn } from 'react-icons/gr'
-import { RiAdminFill } from 'react-icons/ri'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
+import { BiPlus } from 'react-icons/bi'
+import { useParams } from 'react-router-dom'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
+import { TableHeader } from '@/components/ui/table.tsx'
 import { PhasingRow } from '@/pages/app/training/components/phasing-row.tsx'
 import { AddPhasingModal } from '@/pages/app/training/modals/add-phasing-modal.tsx'
 import { useCustomerPhasing } from '@/services/customer-phasing-hook.ts'
 
 export function Training() {
-  const navigate = useNavigate()
   const { studentId } = useParams()
 
-  const { data, isFetching } = useCustomerPhasing(Number(studentId))
+  const { data: phasings, isFetching } = useCustomerPhasing(Number(studentId))
 
   const [openPhasing, setOpenPhasing] = useState(false)
 
@@ -32,70 +34,63 @@ export function Training() {
     setOpenPhasing(!openPhasing)
   }
 
-  const handleBack = () => {
-    navigate('/students')
-  }
-
   return (
-    <Flex direction="column" h="100vh">
-      <Flex flex={1} width={'100%'} my="6" mx="auto" as="form" px="6">
-        <Box width={'100%'} borderRadius={8} bg="gray.800" p="8">
-          <Heading size="lg" fontWeight="normal">
-            Build traing for your student
-          </Heading>
+    <>
+      <Helmet title="Training" />
 
-          <Divider my="6" borderColor="gray.700" />
+      <AddPhasingModal
+        isOpen={openPhasing}
+        onRequestClose={handleModalPhasing}
+        studentId={Number(studentId)}
+      />
 
-          {isFetching ? (
-            <div className="mb-4 mt-4 flex justify-center">
-              <LoadingSpinner />
-            </div>
-          ) : (
-            <Flex gap={2}>
-              <Button
-                onClick={handleBack}
-                backgroundColor="red.300"
-                rightIcon={<Icon as={GrReturn} />}
-              >
-                Return
-              </Button>
-
-              <Button
-                backgroundColor="blue.300"
-                rightIcon={<Icon as={RiAdminFill} />}
-                onClick={handleModalPhasing}
-              >
-                Add phasings
-              </Button>
-
-              <AddPhasingModal
-                isOpen={openPhasing}
-                onRequestClose={handleModalPhasing}
-                studentId={Number(studentId)}
-              />
-            </Flex>
-          )}
-
-          <Divider my="6" borderColor="gray.700" />
-
-          <Table
-            maxH={'300px'}
-            style={{
-              overflow: 'auto',
-            }}
-          >
-            <Thead>
-              <Tr>Serie</Tr>
-              <Tr></Tr>
-            </Thead>
-            <Tbody>
-              {data?.map((it, i) => {
-                return <PhasingRow key={i} data={it} />
-              })}
-            </Tbody>
-          </Table>
-        </Box>
-      </Flex>
-    </Flex>
+      <TableContainer
+        border={'inset'}
+        borderColor={'gray.300'}
+        borderWidth={0.1}
+        borderRadius={'5px'}
+        px={10}
+      >
+        <Table size={'sm'}>
+          <TableHeader>
+            <Heading>{`Create your student's training`}</Heading>
+            <Button
+              mt={5}
+              mb={5}
+              color={'white'}
+              bg={'#E11D48'}
+              rightIcon={<Icon as={BiPlus} />}
+              onClick={handleModalPhasing}
+            >
+              Add
+            </Button>
+          </TableHeader>
+          <TableCaption>
+            {`These are the divisions of your student's training`}
+          </TableCaption>
+          <Thead>
+            <Tr>
+              <Th>Id</Th>
+              <Th textAlign={'center'}>Serie</Th>
+              <Th textAlign={'center'}>Actions</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {isFetching && (
+              <Tr>
+                <Td colSpan={3}>
+                  <VStack alignItems={'center'} alignContent={'center'}>
+                    <LoadingSpinner />
+                  </VStack>
+                </Td>
+              </Tr>
+            )}
+            {phasings?.map((it, i) => {
+              return <PhasingRow key={i} data={it} />
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </>
   )
 }

@@ -35,7 +35,7 @@ export function ExerciseTableRow({
           queryKey: ['exercise-paged', currentPage, 10],
         })
         .then(() => {
-          toast.success('Exercício excluído com sucesso')
+          toast.success('Exercise successfully deleted')
         })
         .finally(() => {
           setOnExcluding(false)
@@ -49,13 +49,21 @@ export function ExerciseTableRow({
   }
 
   return (
-    <Tr key={key}>
+    <Tr
+      key={key}
+      _hover={{
+        transform: 'scale(1.02)',
+        transition: 'transform 0.3s',
+        opacity: 0.8,
+      }}
+    >
       {!isDrawerSidebar && <Td style={{ textAlign: 'center' }}>{data.id}</Td>}
 
       <Td style={{ textAlign: 'center' }}>{data.name}</Td>
 
       <Td>
         <Container
+          gap={2}
           display="flex"
           flexDirection={{
             base: 'column',
@@ -73,7 +81,7 @@ export function ExerciseTableRow({
             {!isDrawerSidebar && <p>Excluir</p>}
           </Button>
 
-          <Button variant="outline">
+          <Button>
             <Search className="h-3 w-3" />
           </Button>
         </Container>

@@ -2,37 +2,27 @@ import {
   Box,
   Button,
   Container,
-  Divider,
   Flex,
   Heading,
   HStack,
+  Icon,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Tooltip,
   useToast,
-  VStack,
 } from '@chakra-ui/react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Save, SearchIcon } from 'lucide-react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 
 import { InputForm } from '@/components/ui/form/Input.tsx'
-import { Label } from '@/components/ui/label.tsx'
-import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { TabSelectExerciseTable } from '@/pages/app/training/components/tab-select-exercise-table.tsx'
 import { TabSelectedExerciseTable } from '@/pages/app/training/components/tab-selected-exercise-table.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
-import {
-  ContentItemSchemaType,
-  SearchExerciseForm,
-  SearchExerciseFormType,
-} from '@/types/common-exercise.ts'
+import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
 interface Props {
   isOpen: boolean
@@ -45,18 +35,16 @@ export interface SelectedExercise {
 }
 
 export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
-  const size = 4
+  const size = 5
   const [selectedExercise, setSelectedExercise] = useState<SelectedExercise[]>(
     [],
   )
+  const [inputSearch, setInputSearch] = useState('')
+
   const [page, setPage] = useState(0)
-  const { data, isFetching } = useExercises(page, size)
+  const { data } = useExercises(page, size)
 
   const toast = useToast()
-
-  const { register } = useForm<SearchExerciseFormType>({
-    resolver: zodResolver(SearchExerciseForm),
-  })
 
   function handleAddExercise(exercise: ContentItemSchemaType) {
     toast({
@@ -102,24 +90,22 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
       className="react-modal-content"
       overlayClassName="react-modal-overlay"
       isOpen={isOpen}
-      closeTimeoutMS={10}
       shouldCloseOnEsc={false}
       onRequestClose={onRequestClose}
     >
-      <Flex justify="flex-end">
-        <Button type="button" onClick={makeModalClose}>
-          <FaRegTimesCircle size={25} />
-        </Button>
-      </Flex>
-
-      <Box flex="1" borderRadius={8} overflow="auto">
+      <Flex justifyContent={'space-between'}>
         <Heading size="md" fontWeight="normal">
           Add Exercise
         </Heading>
+        <Flex>
+          <Button type="button" onClick={makeModalClose}>
+            <FaRegTimesCircle size={25} />
+          </Button>
+        </Flex>
+      </Flex>
 
-        <Divider borderColor="gray.700" />
-
-        <Tabs size={'sm'}>
+      <Box flex="1" borderRadius={8} overflow="auto">
+        <Tabs size={'sm'} colorScheme={'red'}>
           <TabList>
             <Tab>Select</Tab>
             <Tab>
@@ -127,51 +113,29 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
             </Tab>
             <Tab isDisabled>Heat Map</Tab>
           </TabList>
+
           <TabPanels>
             <TabPanel>
-              <VStack spacing="8">
-                <HStack
-                  display={'flex'}
-                  alignItems={''}
-                  flexDirection={{
-                    base: 'column',
-                    md: 'row',
-                  }}
-                  gap={{
-                    base: 2,
-                    md: 4,
-                  }}
-                >
-                  <div>
-                    <Tooltip label={'Search by exercise name'}>
-                      <Label htmlFor="type">Exercise:</Label>
-                    </Tooltip>
-                    <InputForm
-                      pk={'type'}
-                      id="type"
-                      type="text"
-                      style={{
-                        width: '400px',
-                      }}
-                      {...register('name')}
-                    />
-                  </div>
-
-                  <Button
-                    marginTop={{
-                      base: 1,
-                      md: 6,
+              <Flex direction={'row'}>
+                <Flex w={'50%'} flex={1} mr={10} as="form" flexDirection="row">
+                  <InputForm
+                    value={inputSearch}
+                    onChange={(e) => setInputSearch(e.target.value)}
+                    label={'Exercise'}
+                    pk={'type'}
+                    id="type"
+                    type="text"
+                    mr={2}
+                    style={{
+                      width: '400px',
                     }}
-                    leftIcon={<SearchIcon />}
-                    type={'button'}
                   />
-                </HStack>
 
-                {isFetching ? (
-                  <div className="mb-4 mt-4 flex justify-center">
-                    <LoadingSpinner />
-                  </div>
-                ) : (
+                  <Button mt={9} type={'button'}>
+                    <Icon as={SearchIcon} />
+                  </Button>
+                </Flex>
+                <Flex direction={'column'} w={'50%'} h={80}>
                   <TabSelectExerciseTable
                     setPage={setPage}
                     data={data}
@@ -179,8 +143,8 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                     page={page}
                     handleAddExercise={handleAddExercise}
                   />
-                )}
-              </VStack>
+                </Flex>
+              </Flex>
             </TabPanel>
             <TabPanel
               style={{

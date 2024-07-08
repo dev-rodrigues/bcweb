@@ -9,6 +9,7 @@ import {
 import { Button } from '@/components/ui/button.tsx'
 
 export interface PaginationProps {
+  useLabel?: boolean
   pageIndex: number
   totalCount: number
   perPage: number
@@ -19,6 +20,7 @@ export interface PaginationProps {
 }
 
 export function Pagination({
+  useLabel = true,
   pageIndex,
   totalCount,
   perPage,
@@ -36,7 +38,7 @@ export function Pagination({
 
   return (
     <div className="flex items-center justify-between">
-      {!isDrawerSidebar && (
+      {useLabel && !isDrawerSidebar && (
         <span className="text-sm text-muted-foreground">
           Total de {totalCount} item(s)
         </span>

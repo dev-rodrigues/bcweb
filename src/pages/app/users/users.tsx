@@ -1,4 +1,5 @@
 import {
+  Heading,
   Table,
   TableCaption,
   TableContainer,
@@ -37,7 +38,9 @@ export function Users() {
           px={10}
         >
           <Table>
-            <TableHeader>Users</TableHeader>
+            <TableHeader>
+              <Heading>Users</Heading>
+            </TableHeader>
             <TableCaption>Users registered in the system</TableCaption>
             <Thead>
               <Tr>

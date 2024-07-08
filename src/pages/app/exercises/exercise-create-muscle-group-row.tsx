@@ -24,7 +24,6 @@ export function ExerciseCreateMuscleGroupRow({
           }}
         />
       </Td>
-      {/* <Td textAlign={'center'}>{data.id}</Td> */}
       <Td>{data.name}</Td>
     </Tr>
   )

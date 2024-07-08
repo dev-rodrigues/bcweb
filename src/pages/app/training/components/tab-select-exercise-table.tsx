@@ -26,7 +26,6 @@ export function TabSelectExerciseTable({
     <>
       <Table
         size={'sm'}
-        // maxH={'300px'}
         style={{
           overflow: 'auto',
         }}
@@ -51,6 +50,7 @@ export function TabSelectExerciseTable({
           <Tr>
             <Td colSpan={3}>
               <Pagination
+                useLabel={false}
                 pageIndex={page}
                 totalCount={data?.total ? data?.total : 0}
                 perPage={size}

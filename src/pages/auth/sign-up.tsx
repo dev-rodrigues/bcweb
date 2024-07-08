@@ -15,7 +15,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTeam } from '@/api/sign-up.ts'
-import { FormField } from '@/components/form.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
 import {
@@ -116,23 +115,15 @@ export function SignUp() {
           {...register('password')}
         />
 
-        <div>
-          <Label htmlFor="phone">Telefone</Label>
-          <FormField
-            control={control}
-            name="phone"
-            render={({ field }) => (
-              <InputForm
-                pk={'phone'}
-                placeholder="Enter a phone number"
-                {...field}
-              />
-            )}
-          />
-        </div>
+        <InputForm
+          label={'Phone'}
+          pk={'phone'}
+          placeholder="Enter a phone number"
+          {...register('phone')}
+        />
 
         <div>
-          <Label htmlFor="service">Serviço</Label>
+          <Label htmlFor="service">Service</Label>
           <Controller
             name="service"
             control={control}
