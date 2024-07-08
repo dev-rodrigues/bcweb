@@ -43,7 +43,6 @@ export function ConfigureSetDrawer({
             {selected.exercise.name}
           </Heading>
 
-          {/* <Input placeholder="Type here..." /> */}
           <VStack>
             <div>
               <Label htmlFor="type">Technique:</Label>

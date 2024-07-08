@@ -15,10 +15,12 @@ import {
 } from '@chakra-ui/react'
 import { Save, SearchIcon } from 'lucide-react'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 
 import { InputForm } from '@/components/ui/form/Input.tsx'
+import { api } from '@/lib/axios.ts'
 import { TabSelectExerciseTable } from '@/pages/app/training/components/tab-select-exercise-table.tsx'
 import { TabSelectedExerciseTable } from '@/pages/app/training/components/tab-selected-exercise-table.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
@@ -34,17 +36,28 @@ export interface SelectedExercise {
   bag: any
 }
 
+interface SearchSelectExercise {
+  value: string
+}
+
+interface SearchResponse {
+  id: number
+  name: string
+}
+
 export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
   const size = 5
+
+  const toast = useToast()
+
   const [selectedExercise, setSelectedExercise] = useState<SelectedExercise[]>(
     [],
   )
-  const [inputSearch, setInputSearch] = useState('')
+  const { register, handleSubmit } = useForm<SearchSelectExercise>()
 
   const [page, setPage] = useState(0)
-  const { data } = useExercises(page, size)
 
-  const toast = useToast()
+  const { data: exercises } = useExercises(page, size)
 
   function handleAddExercise(exercise: ContentItemSchemaType) {
     toast({
@@ -84,6 +97,14 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
     onRequestClose()
   }
 
+  const onSubmit = async (form: SearchSelectExercise) => {
+    const data = await api.get<SearchResponse[]>(
+      `/exercises/search?name=${form.value}`,
+    )
+
+    console.log(data.data)
+  }
+
   return (
     <Modal
       shouldCloseOnOverlayClick={false}
@@ -117,10 +138,15 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
           <TabPanels>
             <TabPanel>
               <Flex direction={'row'}>
-                <Flex w={'50%'} flex={1} mr={10} as="form" flexDirection="row">
+                <Flex
+                  w={'50%'}
+                  flex={1}
+                  mr={10}
+                  as="form"
+                  flexDirection="row"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <InputForm
-                    value={inputSearch}
-                    onChange={(e) => setInputSearch(e.target.value)}
                     label={'Exercise'}
                     pk={'type'}
                     id="type"
@@ -129,16 +155,17 @@ export function AddExercisePhasingModal({ isOpen, onRequestClose }: Props) {
                     style={{
                       width: '400px',
                     }}
+                    {...register('value')}
                   />
 
-                  <Button mt={9} type={'button'}>
+                  <Button mt={9} type={'submit'}>
                     <Icon as={SearchIcon} />
                   </Button>
                 </Flex>
                 <Flex direction={'column'} w={'50%'} h={80}>
                   <TabSelectExerciseTable
                     setPage={setPage}
-                    data={data}
+                    data={exercises}
                     size={size}
                     page={page}
                     handleAddExercise={handleAddExercise}
