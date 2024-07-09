@@ -2,7 +2,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { Trash } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { SearchExerciseResponse } from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
+import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
 
 interface Props {
   data: SearchExerciseResponse[]

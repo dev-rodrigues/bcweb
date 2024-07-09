@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { api } from '@/lib/axios.ts'
-import { TabSelectExerciseTable } from '@/pages/app/training/components/tab-select-exercise-table.tsx'
+import { TableSelectExerciseTable } from '@/pages/app/training/components/table-select-exercise-table.tsx'
 import { PageableSchemaType } from '@/types/common.ts'
 
 interface SearchSelectExercise {
@@ -29,7 +29,7 @@ type Props = {
   handleSelectExercise: (exercise: SearchExerciseResponse) => void
 }
 
-export function BuildTryingSearchExercises({ handleSelectExercise }: Props) {
+export function TabBuildTryingSearchExercises({ handleSelectExercise }: Props) {
   const size = 5
   const [page, setPage] = useState(0)
 
@@ -122,7 +122,7 @@ export function BuildTryingSearchExercises({ handleSelectExercise }: Props) {
         </Button>
       </Flex>
       <Flex w={'50%'} flex={1} mr={10} as="form" flexDirection="row">
-        <TabSelectExerciseTable
+        <TableSelectExerciseTable
           setPage={setPage}
           data={exercises}
           size={size}

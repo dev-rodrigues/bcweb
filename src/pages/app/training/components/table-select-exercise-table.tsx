@@ -15,7 +15,7 @@ import { ExerciseSelectTableRow } from '@/pages/app/training/components/exercise
 import {
   SearchExercisePagedResponse,
   SearchExerciseResponse,
-} from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
+} from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
 
 interface Props {
   setPage: (page: number) => void
@@ -26,7 +26,7 @@ interface Props {
   isFetching?: boolean
 }
 
-export function TabSelectExerciseTable({
+export function TableSelectExerciseTable({
   setPage,
   data,
   handleAddExercise,

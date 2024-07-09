@@ -2,7 +2,7 @@ import { HStack, Td, Tr } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { SearchExerciseResponse } from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
+import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
 
 type Props = {
   id: number
