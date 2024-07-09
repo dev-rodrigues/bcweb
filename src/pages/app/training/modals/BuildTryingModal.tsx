@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
+import { toast } from 'sonner'
 
 import { TabSelectedExerciseTable } from '@/pages/app/training/components/tab-selected-exercise-table.tsx'
 import {
@@ -23,13 +24,15 @@ import {
 interface Props {
   isOpen: boolean
   onRequestClose: () => void
+  tab: string
 }
 
-export function BuildTryingModal({ isOpen, onRequestClose }: Props) {
+export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
   const [selected, setSelected] = useState<SearchExerciseResponse[]>([])
 
   const handleSelectExercise = (exercise: SearchExerciseResponse) => {
     setSelected([...selected, exercise])
+    toast.success(`Exercise ${exercise.name} added to the list`)
   }
 
   const handleRemoveExercise = (index: number) => {
@@ -49,7 +52,7 @@ export function BuildTryingModal({ isOpen, onRequestClose }: Props) {
     >
       <Flex justifyContent={'space-between'}>
         <Heading size="md" fontWeight="normal">
-          Build Trying for you student
+          {`Build Trying for you student: ${tab.toUpperCase()}`}
         </Heading>
 
         <Flex>
@@ -81,7 +84,7 @@ export function BuildTryingModal({ isOpen, onRequestClose }: Props) {
                 handleSelectExercise={handleSelectExercise}
               />
             </TabPanel>
-            <TabPanel>
+            <TabPanel maxH={390} minH={390}>
               <TabSelectedExerciseTable
                 data={selected}
                 handleRemoveExercise={handleRemoveExercise}

@@ -38,4 +38,18 @@ export const GlobalStyle = createGlobalStyle`
         filter: brightness(0.7);
       }
   }
+  
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background-color: #4A5568; /* Cor da barra de rolagem */
+      border-radius: 20px; /* Arredondamento da barra de rolagem */
+      border: 3px solid #f0f0f0; /* Borda entre a barra de rolagem e a trilha */
+  }
 `

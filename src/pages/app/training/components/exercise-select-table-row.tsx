@@ -17,7 +17,7 @@ export function ExerciseSelectTableRow({ id, data, handleAddExercise }: Props) {
       _hover={{
         transform: 'scale(1.02)',
         transition: 'transform 0.3s',
-        brightness: '110%',
+        backgroundColor: 'rgba(0, 0, 0, 1)',
       }}
     >
       <Td>{data.id}</Td>
