@@ -1,6 +1,5 @@
 import {
   Button,
-  Heading,
   Icon,
   Table,
   TableCaption,
@@ -20,7 +19,7 @@ import { useParams } from 'react-router-dom'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { TableHeader } from '@/components/ui/table.tsx'
 import { PhasingRow } from '@/pages/app/training/components/phasing-row.tsx'
-import { AddPhasingModal } from '@/pages/app/training/modals/add-phasing-modal.tsx'
+import { AddPhasingModal } from '@/pages/app/training/modals/AddPhasingModal.tsx'
 import { useCustomerPhasing } from '@/services/customer-phasing-hook.ts'
 
 export function Training() {
@@ -51,19 +50,24 @@ export function Training() {
         borderRadius={'5px'}
         px={10}
       >
+        <Button
+          mt={5}
+          mb={5}
+          color={'white'}
+          bg={'#E11D48'}
+          rightIcon={<Icon as={BiPlus} />}
+          onClick={handleModalPhasing}
+        >
+          Add
+        </Button>
+
         <Table size={'sm'}>
-          <TableHeader>
-            <Heading>{`Create your student's training`}</Heading>
-            <Button
-              mt={5}
-              mb={5}
-              color={'white'}
-              bg={'#E11D48'}
-              rightIcon={<Icon as={BiPlus} />}
-              onClick={handleModalPhasing}
-            >
-              Add
-            </Button>
+          <TableHeader
+            style={{
+              fontSize: '40px',
+            }}
+          >
+            {`Create your student's training`}
           </TableHeader>
           <TableCaption>
             {`These are the divisions of your student's training`}

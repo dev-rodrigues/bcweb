@@ -15,3 +15,5 @@ export type GenericAppError = {
   message: string
   code: number
 }
+
+export type PageableSchemaType = z.infer<typeof PageableSchema>

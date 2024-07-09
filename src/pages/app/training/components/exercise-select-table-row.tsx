@@ -2,22 +2,18 @@ import { HStack, Td, Tr } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { ContentItemSchemaType } from '@/types/common-exercise.ts'
+import { SearchExerciseResponse } from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
 
 type Props = {
-  key: number
-  data: ContentItemSchemaType
-  handleAddExercise: (exercise: ContentItemSchemaType) => void
+  id: number
+  data: SearchExerciseResponse
+  handleAddExercise: (exercise: SearchExerciseResponse) => void
 }
 
-export function ExerciseSelectTableRow({
-  key,
-  data,
-  handleAddExercise,
-}: Props) {
+export function ExerciseSelectTableRow({ id, data, handleAddExercise }: Props) {
   return (
     <Tr
-      key={key}
+      key={id}
       _hover={{
         transform: 'scale(1.02)',
         transition: 'transform 0.3s',
@@ -28,11 +24,7 @@ export function ExerciseSelectTableRow({
       <Td>{data.name}</Td>
       <Td>
         <HStack>
-          <Button
-            onClick={() => {
-              handleAddExercise(data)
-            }}
-          >
+          <Button type={'button'} onClick={() => handleAddExercise(data)}>
             <PlusIcon className="h-2 w-2" />
           </Button>
         </HStack>

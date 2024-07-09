@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { deletePhasingByCustomer } from '@/api/phasing.ts'
 import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { AddExercisePhasingModal } from '@/pages/app/training/modals/add-exercise-phasing-modal.tsx'
+import { BuildTryingModal } from '@/pages/app/training/modals/BuildTryingModal.tsx'
 import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface PhasingRowProps {
@@ -46,10 +46,11 @@ export function PhasingRow({ data }: PhasingRowProps) {
 
   return (
     <>
-      <AddExercisePhasingModal
+      <BuildTryingModal
         isOpen={openAddExercise}
         onRequestClose={handleModalAddExercise}
       />
+
       <Tr
         _hover={{
           transform: 'scale(1.02)',

@@ -53,6 +53,7 @@ export function Pagination({
 
         <div className="flex items-center gap-2">
           <Button
+            type={'button'}
             disabled={pageIndex === 0}
             variant="outline"
             className="h-8 w-8 p-0"
@@ -63,6 +64,7 @@ export function Pagination({
           </Button>
 
           <Button
+            type={'button'}
             disabled={pageIndex === 0}
             variant="outline"
             className="h-8 w-8 p-0"
@@ -73,6 +75,7 @@ export function Pagination({
           </Button>
 
           <Button
+            type={'button'}
             disabled={pageIndex + 1 === pages}
             variant="outline"
             className="h-8 w-8 p-0"
@@ -83,6 +86,7 @@ export function Pagination({
           </Button>
 
           <Button
+            type={'button'}
             disabled={pageIndex + 1 === pages}
             variant="outline"
             className="h-8 w-8 p-0"
