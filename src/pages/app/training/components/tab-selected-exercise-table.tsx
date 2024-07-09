@@ -1,5 +1,7 @@
 import { Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Trash } from 'lucide-react'
 
+import { Button } from '@/components/ui/button.tsx'
 import { SearchExerciseResponse } from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
 
 interface Props {
@@ -7,13 +9,18 @@ interface Props {
   handleRemoveExercise: (index: number) => void
 }
 
-export function TabSelectedExerciseTable({ data }: Props) {
+export function TabSelectedExerciseTable({
+  data,
+  handleRemoveExercise,
+}: Props) {
   return (
     <Table overflow="scroll">
       <Thead>
-        <Th textAlign={'center'}>Id</Th>
-        <Th textAlign={'center'}>Exercise</Th>
-        <Th textAlign={'center'}>Actions</Th>
+        <Tr>
+          <Th textAlign={'center'}>Id</Th>
+          <Th textAlign={'center'}>Exercise</Th>
+          <Th textAlign={'center'}>Actions</Th>
+        </Tr>
       </Thead>
       <Tbody>
         {data.map((item, index) => (
@@ -27,7 +34,14 @@ export function TabSelectedExerciseTable({ data }: Props) {
           >
             <Td textAlign={'center'}>{item.id}</Td>
             <Td textAlign={'center'}>{item.name}</Td>
-            <Td></Td>
+            <Td textAlign={'center'}>
+              <Button
+                type={'button'}
+                onClick={() => handleRemoveExercise(index)}
+              >
+                <Trash className="h-3 w-3" />
+              </Button>
+            </Td>
           </Tr>
         ))}
       </Tbody>

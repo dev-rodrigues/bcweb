@@ -13,10 +13,9 @@ import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 interface PhasingRowProps {
   data: GetCustomerPhasingType
   key: number
-  tab: string
 }
 
-export function PhasingRow({ data, tab }: PhasingRowProps) {
+export function PhasingRow({ data }: PhasingRowProps) {
   const [openAddExercise, setOpenAddExercise] = useState(false)
   const [handleDelete, setHandleDelete] = useState(false)
 
@@ -48,7 +47,7 @@ export function PhasingRow({ data, tab }: PhasingRowProps) {
   return (
     <>
       <BuildTryingModal
-        tab={tab}
+        phasing={data}
         isOpen={openAddExercise}
         onRequestClose={handleModalAddExercise}
       />

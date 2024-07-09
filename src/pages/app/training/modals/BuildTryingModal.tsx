@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   Flex,
   Heading,
   Tab,
@@ -10,6 +11,7 @@ import {
   TabPanels,
   Tabs,
 } from '@chakra-ui/react'
+import { SaveIcon } from 'lucide-react'
 import { useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
@@ -20,14 +22,15 @@ import {
   BuildTryingSearchExercises,
   SearchExerciseResponse,
 } from '@/pages/app/training/wip/BuildTryingSearchExercises.tsx'
+import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface Props {
   isOpen: boolean
   onRequestClose: () => void
-  tab: string
+  phasing: GetCustomerPhasingType
 }
 
-export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
+export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   const [selected, setSelected] = useState<SearchExerciseResponse[]>([])
 
   const handleSelectExercise = (exercise: SearchExerciseResponse) => {
@@ -38,6 +41,18 @@ export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
   const handleRemoveExercise = (index: number) => {
     const newSelected = selected.filter((_, i) => i !== index)
     setSelected(newSelected)
+    toast.success('Exercise removed from the list')
+  }
+
+  const handleSave = () => {
+    console.log(
+      'Selected exercises: ',
+      selected,
+      'Phasing: ',
+      phasing,
+      'UserPhasing',
+      phasing.id,
+    )
   }
 
   return (
@@ -52,7 +67,7 @@ export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
     >
       <Flex justifyContent={'space-between'}>
         <Heading size="md" fontWeight="normal">
-          {`Build Trying for you student: ${tab.toUpperCase()}`}
+          {`Build Trying for you student: ${phasing.name.toUpperCase()}`}
         </Heading>
 
         <Flex>
@@ -79,7 +94,7 @@ export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
           </TabList>
 
           <TabPanels>
-            <TabPanel>
+            <TabPanel maxH={390} minH={390}>
               <BuildTryingSearchExercises
                 handleSelectExercise={handleSelectExercise}
               />
@@ -96,6 +111,17 @@ export function BuildTryingModal({ tab, isOpen, onRequestClose }: Props) {
           </TabPanels>
         </Tabs>
       </Box>
+
+      <Divider my="6" borderColor="gray.700" />
+
+      <Button
+        type={'button'}
+        bg={'green.500'}
+        rightIcon={<SaveIcon />}
+        onClick={handleSave}
+      >
+        Save
+      </Button>
     </Modal>
   )
 }

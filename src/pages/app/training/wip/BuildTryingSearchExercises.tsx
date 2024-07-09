@@ -44,6 +44,7 @@ export function BuildTryingSearchExercises({ handleSelectExercise }: Props) {
     try {
       setFetchingExercise(true)
       setPage(0)
+      setExercises(undefined)
       const response = await callApi(page, form.value)
 
       if (response.data.content.length > 0) {
@@ -72,6 +73,7 @@ export function BuildTryingSearchExercises({ handleSelectExercise }: Props) {
     const fetchData = async () => {
       try {
         setFetchingExercise(true)
+        setExercises(undefined)
 
         const inputSearch = getValues('value')
 
@@ -104,6 +106,7 @@ export function BuildTryingSearchExercises({ handleSelectExercise }: Props) {
       >
         <InputForm
           label={'Exercise'}
+          placeholder={'Search by exercise name'}
           pk={'type'}
           id="type"
           type="text"

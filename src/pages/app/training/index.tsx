@@ -90,7 +90,7 @@ export function Training() {
               </Tr>
             )}
             {phasings?.map((it, i) => {
-              return <PhasingRow key={i} data={it} tab={it.name} />
+              return <PhasingRow key={i} data={it} />
             })}
           </Tbody>
         </Table>

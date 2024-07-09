@@ -47,7 +47,7 @@ export function Pagination({
       <div className="flex items-center gap-6 lg:gap-8">
         {!isDrawerSidebar && (
           <div className="text-sm font-medium">
-            Página {pageIndex + 1} de {pages}
+            Page {pageIndex + 1} of {pages}
           </div>
         )}
 
@@ -60,7 +60,7 @@ export function Pagination({
             onClick={handleFirstPage}
           >
             <ChevronsLeft className="h-4 w-4" />
-            <span className="sr-only">Primeira página</span>
+            <span className="sr-only">First page</span>
           </Button>
 
           <Button
@@ -71,7 +71,7 @@ export function Pagination({
             onClick={handlePrevPage}
           >
             <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">Página anterior</span>
+            <span className="sr-only">Previous page</span>
           </Button>
 
           <Button
@@ -82,7 +82,7 @@ export function Pagination({
             onClick={handleNextPage}
           >
             <ChevronRight className="h-4 w-4" />
-            <span className="sr-only">Próxima página</span>
+            <span className="sr-only">Next page</span>
           </Button>
 
           <Button
@@ -93,7 +93,7 @@ export function Pagination({
             onClick={handleLastPage}
           >
             <ChevronsRight className="h-4 w-4" />
-            <span className="sr-only">Última página</span>
+            <span className="sr-only">Last page</span>
           </Button>
         </div>
       </div>
