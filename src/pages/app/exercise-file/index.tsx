@@ -63,7 +63,6 @@ export function ExerciseFile() {
     const response = await axios.put(responseAccess.data.accessUrl, it, {
       headers: {
         'Content-Type': it.type,
-        Origin: 'https://bcweb.vercel.app',
       },
     })
 
