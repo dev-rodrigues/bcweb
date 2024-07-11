@@ -20,7 +20,6 @@ import { BiPlus } from 'react-icons/bi'
 
 import { Pagination } from '@/components/pagination.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import { TableHeader } from '@/components/ui/table.tsx'
 import { ExerciseCreate } from '@/pages/app/exercises/exercise-create.tsx'
 import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
