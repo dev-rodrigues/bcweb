@@ -75,8 +75,8 @@ export function Training() {
           <Thead>
             <Tr>
               <Th>Id</Th>
-              <Th textAlign={'center'}>Serie</Th>
-              <Th textAlign={'center'}>Actions</Th>
+              <Th>Serie</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>

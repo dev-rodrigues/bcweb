@@ -11,11 +11,22 @@ type UserTableRowProps = {
 
 export function UserTableRow({ key, data }: UserTableRowProps) {
   return (
-    <Tr key={key} alignContent={'center'} alignItems={'center'}>
-      <Td textAlign={'center'}>{data.id}</Td>
-      <Td textAlign={'center'}>{data.name}</Td>
+    <Tr
+      key={key}
+      alignContent={'center'} 
+      alignItems={'center'}
+      border={'solid'}
+      borderColor={'rgba(0, 0, 0, 0.4)'}
+      _hover={{
+        transform: 'scale(1.05)',
+        transition: 'transform 0.3s',
+        opacity: 0.4,
+      }}
+    >
+      <Td>{data.id}</Td>
+      <Td>{data.name}</Td>
 
-      <Td textAlign={'center'}>
+      <Td>
         <Button>
           <Search className="h-3 w-3" />
         </Button>

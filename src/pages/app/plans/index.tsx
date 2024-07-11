@@ -45,7 +45,12 @@ export function Plans() {
           <LoadingSpinner />
         </div>
       ) : data?.length ? (
-        <TableContainer>
+        <TableContainer
+          borderColor={'rgba(0, 0, 0, 0.4)'}
+          borderWidth={0.1}
+          borderRadius={'5px'}
+          px={10}
+        >
           <Table>
             <TableHeader>
               <Heading>My Plans</Heading>
@@ -54,10 +59,10 @@ export function Plans() {
 
             <Thead>
               <Tr>
-                <Th style={{ textAlign: 'center' }}>Id</Th>
-                <Th style={{ textAlign: 'center' }}>Type</Th>
-                <Th style={{ textAlign: 'center' }}>Price</Th>
-                <Th style={{ textAlign: 'center' }}>Actions</Th>
+                <Th>Id</Th>
+                <Th>Type</Th>
+                <Th>Price</Th>
+                <Th>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>
