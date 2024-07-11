@@ -1,7 +1,8 @@
 import { Container, Td, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
-import { Search, Trash2 } from 'lucide-react'
+import { Cog, Search, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { deleteExercise } from '@/api/exercise.ts'
@@ -20,6 +21,8 @@ export function ExerciseTableRow({
   data,
   currentPage,
 }: ExerciseTableRowProps) {
+  const navigate = useNavigate()
+
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     lg: false,
@@ -46,6 +49,10 @@ export function ExerciseTableRow({
   const onSubmit = () => {
     setOnExcluding(true)
     mutation.mutate(data.id)
+  }
+
+  const navigateToMedia = (id: number) => {
+    navigate(`/exercise-files/${id}`)
   }
 
   return (
@@ -78,11 +85,14 @@ export function ExerciseTableRow({
             onClick={() => onSubmit()}
           >
             <Trash2 className="mr-2 h-3 w-3" />
-            {!isDrawerSidebar && <p>Excluir</p>}
           </Button>
 
           <Button>
             <Search className="h-3 w-3" />
+          </Button>
+
+          <Button onClick={() => navigateToMedia(data.id)}>
+            <Cog className="h-4 w-4" />
           </Button>
         </Container>
       </Td>

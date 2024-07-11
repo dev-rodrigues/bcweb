@@ -1,8 +1,8 @@
 import {
   Button,
-  Heading,
   Icon,
   Table,
+  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -94,26 +94,24 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
   return (
     <>
       <TableContainer
-        mt={5}
         border={'inset'}
         borderColor={'gray.300'}
-        borderWidth={0.5}
+        borderWidth={0.1}
         borderRadius={'5px'}
-        style={{
-          width: '100%',
-          maxHeight: '300px',
-          overflowY: 'auto',
-        }}
+        px={10}
       >
         <Table size={'sm'}>
-          <TableHeader>
-            <Heading p={2} size={'md'}>
-              Available Phasing
-            </Heading>
+          <TableHeader
+            style={{
+              fontSize: '40px',
+            }}
+          >
+            {`Available Phasing`}
           </TableHeader>
+          <TableCaption>{`Phases of your student's training`}</TableCaption>
           <Thead>
             <Tr>
-              <Th w={20} textAlign={'center'}></Th>
+              <Th></Th>
               <Th>Id</Th>
               <Th>Name</Th>
             </Tr>

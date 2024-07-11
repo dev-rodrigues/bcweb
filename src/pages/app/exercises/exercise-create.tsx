@@ -211,6 +211,7 @@ export function ExerciseCreate({
           </Select>
 
           <TableContainer
+            overflow={'hidden'}
             mt={5}
             border={'inset'}
             borderColor={'gray.300'}

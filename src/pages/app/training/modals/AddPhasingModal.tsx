@@ -23,7 +23,7 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
     >
-      <Flex justify="flex-end">
+      <Flex justify="flex-end" mb={10}>
         <Button type="button" onClick={onRequestClose}>
           <FaRegTimesCircle size={25} />
         </Button>

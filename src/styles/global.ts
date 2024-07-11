@@ -1,3 +1,5 @@
+import 'react-circular-progressbar/dist/styles.css'
+
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
@@ -48,8 +50,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-      background-color: #4A5568; /* Cor da barra de rolagem */
-      border-radius: 20px; /* Arredondamento da barra de rolagem */
-      border: 3px solid #f0f0f0; /* Borda entre a barra de rolagem e a trilha */
+      background-color: #4A5568; 
+      border-radius: 20px;
+      border: 3px solid #f0f0f0;
   }
 `

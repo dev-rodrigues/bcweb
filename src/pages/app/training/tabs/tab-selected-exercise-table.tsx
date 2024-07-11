@@ -3,10 +3,12 @@ import { Trash } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
 import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
+import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface Props {
   data: SearchExerciseResponse[]
   handleRemoveExercise: (index: number) => void
+  phasing: GetCustomerPhasingType
 }
 
 export function TabSelectedExerciseTable({

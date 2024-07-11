@@ -139,6 +139,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
                 <TabSelectedExerciseTable
                   data={selected}
                   handleRemoveExercise={handleRemoveExercise}
+                  phasing={phasing}
                 />
               </TabPanel>
               <TabPanel>
