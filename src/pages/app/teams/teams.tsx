@@ -36,9 +36,8 @@ export function Teams() {
       <Helmet title="Teams" />
 
       <TableContainer
-        border={'inset'}
-        borderColor={'gray.300'}
-        borderWidth={0.5}
+        borderColor={'rgba(0, 0, 0, 0.4)'}
+        borderWidth={0.1}
         borderRadius={'5px'}
         px={10}
       >
@@ -51,20 +50,20 @@ export function Teams() {
           <Thead>
             <Tr>
               {isDrawerSidebar ? null : (
-                <Th style={{ textAlign: 'center' }}>Detail</Th>
+                <Th>Detail</Th>
               )}
 
-              <Th style={{ textAlign: 'center' }}>Id</Th>
+              <Th>Id</Th>
 
               {isDrawerSidebar ? null : (
-                <Th style={{ textAlign: 'center' }}>Created at</Th>
+                <Th>Created at</Th>
               )}
 
-              <Th style={{ textAlign: 'center' }}>Status</Th>
+              <Th>Status</Th>
 
-              <Th style={{ textAlign: 'center' }}>Time</Th>
+              <Th>Time</Th>
               {isDrawerSidebar ? null : (
-                <Th style={{ textAlign: 'center' }}>Action</Th>
+                <Th>Action</Th>
               )}
             </Tr>
           </Thead>

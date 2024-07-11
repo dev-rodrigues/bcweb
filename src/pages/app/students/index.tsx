@@ -28,9 +28,8 @@ export function Students() {
         </div>
       ) : (
         <TableContainer
-          border={'inset'}
-          borderColor={'gray.300'}
-          borderWidth={0.5}
+          borderColor={'rgba(0, 0, 0, 0.4)'}
+          borderWidth={0.1}
           borderRadius={'5px'}
           px={10}
         >
@@ -41,9 +40,9 @@ export function Students() {
             <TableCaption>Yours students registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th style={{ textAlign: 'center' }}>Id</Th>
-                <Th style={{ textAlign: 'center' }}>Nome</Th>
-                <Th style={{ textAlign: 'center' }}>Actions</Th>
+                <Th>Id</Th>
+                <Th>Nome</Th>
+                <Th>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>

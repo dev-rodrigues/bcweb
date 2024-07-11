@@ -47,19 +47,28 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   }
 
   return (
-    <Tr key={key} alignContent={'center'} alignItems={'center'}>
+    <Tr
+      key={key}
+      border={'solid'}
+      borderColor={'rgba(0, 0, 0, 0.4)'}
+      _hover={{
+        transform: 'scale(1.05)',
+        transition: 'transform 0.3s',
+        opacity: 0.4,
+      }}
+    >
       {isDrawerSidebar ? null : (
-        <Td textAlign={'center'}>
+        <Td>
           <Button>
             <Search className="h-3 w-3" />
           </Button>
         </Td>
       )}
 
-      <Td textAlign={'center'}>{data.id}</Td>
+      <Td>{data.id}</Td>
 
       {isDrawerSidebar ? null : (
-        <Td>{calculateTimeDifference(data.createdAt)}</Td>
+        <Td textAlign={'center'}>{calculateTimeDifference(data.createdAt)}</Td>
       )}
 
       <Td textAlign={'center'}>{data.status}</Td>
