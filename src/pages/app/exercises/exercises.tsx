@@ -45,13 +45,6 @@ export function Exercises() {
         setModalOpen={setOpen}
       />
 
-      {/* {isFetching ? ( */}
-      {/*  <div className="mb-4 mt-4 flex justify-center"> */}
-      {/*    <LoadingSpinner /> */}
-      {/*  </div> */}
-      {/* ) : ( */}
-
-      {/* )} */}
       <TableContainer
         border={'inset'}
         borderColor={'gray.300'}
@@ -76,8 +69,8 @@ export function Exercises() {
           <TableCaption>Exercises registered in the system</TableCaption>
           <Thead>
             <Tr>
-              {!isDrawerSidebar && <Th style={{ textAlign: 'center' }}>#</Th>}
-              <Th style={{ textAlign: 'center' }}>Nome</Th>
+              {!isDrawerSidebar && <Th style={{ textAlign: 'center' }}>Id</Th>}
+              <Th style={{ textAlign: 'center' }}>Name</Th>
               <Th style={{ textAlign: 'center' }}>Actions</Th>
             </Tr>
           </Thead>

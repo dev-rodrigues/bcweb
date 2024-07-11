@@ -40,7 +40,7 @@ interface SignInProps {
 
 interface JwtDataProps {
   role: string[]
-  customerId: string
+  customerId: number
   customerName: string
   customerEmail: string
   customerPhone: string
@@ -63,7 +63,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const decodedObject = getDecodedData(authorization)
 
       return {
-        id: 123,
+        id: decodedObject.customerId,
         name: decodedObject.customerName,
         roles: decodedObject.role,
         email: decodedObject.customerEmail,

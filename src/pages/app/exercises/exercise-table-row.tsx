@@ -51,8 +51,8 @@ export function ExerciseTableRow({
     mutation.mutate(data.id)
   }
 
-  const navigateToMedia = (id: number) => {
-    navigate(`/exercise-files/${id}`)
+  const navigateToMedia = (data: ContentItemSchemaType) => {
+    navigate(`/exercise-files/${data.id}`, { state: { data } })
   }
 
   return (
@@ -91,7 +91,7 @@ export function ExerciseTableRow({
             <Search className="h-3 w-3" />
           </Button>
 
-          <Button onClick={() => navigateToMedia(data.id)}>
+          <Button onClick={() => navigateToMedia(data)}>
             <Cog className="h-4 w-4" />
           </Button>
         </Container>

@@ -4,6 +4,7 @@ import {
   Flex,
   Heading,
   Link as LinkUi,
+  Select,
   Text,
   VStack,
 } from '@chakra-ui/react'
@@ -11,19 +12,13 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
+import InputMask from 'react-input-mask'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { createTeam } from '@/api/sign-up.ts'
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { Label } from '@/components/ui/label.tsx'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select.tsx'
 import { GenericAppError } from '@/types/common.ts'
 import { SignUpFormType } from '@/types/commons-signup.ts'
 
@@ -116,8 +111,11 @@ export function SignUp() {
         />
 
         <InputForm
+          as={InputMask}
+          mask="(99) 99999-9999"
           label={'Phone'}
           pk={'phone'}
+          type={'tel'}
           placeholder="Enter a phone number"
           {...register('phone')}
         />
@@ -128,13 +126,14 @@ export function SignUp() {
             name="service"
             control={control}
             render={({ field }) => (
-              <Select onValueChange={field.onChange}>
-                <SelectTrigger className="h-8">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent id="service">
-                  <SelectItem value="1">Ed. Fisíca</SelectItem>
-                </SelectContent>
+              <Select onChange={field.onChange}>
+                <option className="text-black" value="">
+                  Service type...
+                </option>
+
+                <option className="text-black" value="1">
+                  Ed. Fisíca
+                </option>
               </Select>
             )}
           />
