@@ -46,7 +46,6 @@ export function Exercises() {
       />
 
       <TableContainer
-        border={'inset'}
         borderColor={'rgba(0, 0, 0, 0.4)'}
         borderWidth={0.1}
         borderRadius={'5px'}
@@ -69,8 +68,8 @@ export function Exercises() {
           <TableCaption>Exercises registered in the system</TableCaption>
           <Thead>
             <Tr>
-              {!isDrawerSidebar && <Th style={{ textAlign: 'center' }}>Id</Th>}
-              <Th style={{ textAlign: 'center' }}>Name</Th>
+              {!isDrawerSidebar && <Th>Id</Th>}
+              <Th>Name</Th>
               <Th style={{ textAlign: 'center' }}>Actions</Th>
             </Tr>
           </Thead>

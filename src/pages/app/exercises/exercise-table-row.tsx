@@ -66,9 +66,9 @@ export function ExerciseTableRow({
         opacity: 0.4,
       }}
     >
-      {!isDrawerSidebar && <Td style={{ textAlign: 'center' }}>{data.id}</Td>}
+      {!isDrawerSidebar && <Td>{data.id}</Td>}
 
-      <Td style={{ textAlign: 'center' }}>{data.name}</Td>
+      <Td>{data.name}</Td>
 
       <Td>
         <Container
