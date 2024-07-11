@@ -16,11 +16,7 @@ type ExerciseTableRowProps = {
   currentPage: number
 }
 
-export function ExerciseTableRow({
-  key,
-  data,
-  currentPage,
-}: ExerciseTableRowProps) {
+export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
   const navigate = useNavigate()
 
   const isDrawerSidebar = useBreakpointValue({
@@ -59,7 +55,6 @@ export function ExerciseTableRow({
     <Tr
       border={'solid'}
       borderColor={'rgba(0, 0, 0, 0.4)'}
-      key={key}
       _hover={{
         transform: 'scale(1.05)',
         transition: 'transform 0.3s',

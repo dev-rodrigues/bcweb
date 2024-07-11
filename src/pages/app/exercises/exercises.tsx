@@ -51,20 +51,18 @@ export function Exercises() {
         borderRadius={'5px'}
         px={10}
       >
-        <Table>
-          <TableHeader>
-            <Heading>Exercises</Heading>
+        <Button
+          onClick={() => setOpen(true)}
+          mt={5}
+          color={'white'}
+          bg={'#E11D48'}
+          rightIcon={<Icon as={BiPlus} />}
+        >
+          Add
+        </Button>
 
-            <Button
-              onClick={() => setOpen(true)}
-              mt={5}
-              color={'white'}
-              bg={'#E11D48'}
-              rightIcon={<Icon as={BiPlus} />}
-            >
-              Add
-            </Button>
-          </TableHeader>
+        <Heading mt={10}>Exercises</Heading>
+        <Table>
           <TableCaption>Exercises registered in the system</TableCaption>
           <Thead>
             <Tr>
