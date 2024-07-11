@@ -15,7 +15,6 @@ import { Helmet } from 'react-helmet-async'
 
 import Loading from '@/components/loading.tsx'
 import { Pagination } from '@/components/pagination.tsx'
-import { TableHeader } from '@/components/ui/table.tsx'
 import { UserTableRow } from '@/pages/app/users/user-table-row.tsx'
 import { useUsers } from '@/services/users-hook.ts'
 
@@ -31,22 +30,20 @@ export function Users() {
         <Loading />
       ) : (
         <TableContainer
-          border={'inset'}
-          borderColor={'gray.300'}
-          borderWidth={0.5}
+          borderColor={'rgba(0, 0, 0, 0.4)'}
+          borderWidth={0.1}
           borderRadius={'5px'}
           px={10}
         >
+          <Heading mt={10}>Users</Heading>
+
           <Table>
-            <TableHeader>
-              <Heading>Users</Heading>
-            </TableHeader>
             <TableCaption>Users registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th style={{ textAlign: 'center' }}>Id</Th>
-                <Th style={{ textAlign: 'center' }}>Nome</Th>
-                <Th style={{ textAlign: 'center' }}>Action</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Nome</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Action</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -55,8 +52,8 @@ export function Users() {
               })}
             </Tbody>
             <Tfoot>
-              <Tr>
-                <Td colSpan={4}>
+              <Tr border={'none'} borderColor={'rgba(0, 0, 0, 0.4)'}>
+                <Td colSpan={4} border={'none'}>
                   <Pagination
                     pageIndex={page}
                     totalCount={data?.total ? data?.total : 0}

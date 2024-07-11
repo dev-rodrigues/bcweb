@@ -11,7 +11,6 @@ import {
 import { Helmet } from 'react-helmet-async'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import { TableHeader } from '@/components/ui/table.tsx'
 import { PlansTableRow } from '@/pages/app/plans/components/plans-table-row.tsx'
 import { usePlans } from '@/services/plans-hook.ts'
 
@@ -51,18 +50,15 @@ export function Plans() {
           borderRadius={'5px'}
           px={10}
         >
+          <Heading>My Plans</Heading>
           <Table>
-            <TableHeader>
-              <Heading>My Plans</Heading>
-            </TableHeader>
             <TableCaption>Yours plans registered in the system</TableCaption>
-
             <Thead>
               <Tr>
-                <Th>Id</Th>
-                <Th>Type</Th>
-                <Th>Price</Th>
-                <Th>Actions</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Type</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Price</Th>
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>

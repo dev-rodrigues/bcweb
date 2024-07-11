@@ -18,14 +18,13 @@ export function StudentsTableRow({ data }: StudentsTableRowProps) {
 
   return (
     <Tr
-      border={'solid'}
+      border={'hidden'}
       borderColor={'rgba(0, 0, 0, 0.4)'}
       _hover={{
         transform: 'scale(1.05)',
         transition: 'transform 0.3s',
         opacity: 0.4,
       }}
-
     >
       <Td textAlign={'center'}>{data.id}</Td>
 

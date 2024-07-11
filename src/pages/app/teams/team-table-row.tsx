@@ -49,7 +49,7 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
   return (
     <Tr
       key={key}
-      border={'solid'}
+      border={'hidden'}
       borderColor={'rgba(0, 0, 0, 0.4)'}
       _hover={{
         transform: 'scale(1.05)',

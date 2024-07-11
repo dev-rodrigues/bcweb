@@ -65,9 +65,16 @@ export function Exercises() {
           <TableCaption>Exercises registered in the system</TableCaption>
           <Thead>
             <Tr>
-              {!isDrawerSidebar && <Th>Id</Th>}
-              <Th>Name</Th>
-              <Th style={{ textAlign: 'center' }}>Actions</Th>
+              {!isDrawerSidebar && (
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+              )}
+              <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Name</Th>
+              <Th
+                borderColor={'rgba(0, 0, 0, 0.4)'}
+                style={{ textAlign: 'center' }}
+              >
+                Actions
+              </Th>
             </Tr>
           </Thead>
           <Tbody borderWidth={0}>
@@ -85,8 +92,8 @@ export function Exercises() {
             })}
           </Tbody>
           <Tfoot>
-            <Tr border={'solid'} borderColor={'rgba(0, 0, 0, 0.4)'}>
-              <Td colSpan={3}>
+            <Tr border={'none'} borderColor={'rgba(0, 0, 0, 0.4)'}>
+              <Td colSpan={3} border={'none'}>
                 <Pagination
                   pageIndex={page}
                   totalCount={data?.total ? data?.total : 0}

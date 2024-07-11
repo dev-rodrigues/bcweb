@@ -11,21 +11,18 @@ type PlansTableRowProps = {
 export function PlansTableRow({ data }: PlansTableRowProps) {
   return (
     <Tr
-      border={'solid'}
-      borderColor={'rgba(0, 0, 0, 0.4)'}
+      borderBottom={'solid'}
+      borderColor={'rgba(0, 0, 0, 0.2)'}
       _hover={{
-        transform: 'scale(1.05)',
+        transform: 'scale(1.01)',
         transition: 'transform 0.3s',
         opacity: 0.4,
       }}
-      >
-      <Td textAlign={'center'}>{data.id}</Td>
-
-      <Td textAlign={'center'}>{data.type}</Td>
-
-      <Td textAlign={'center'}>{`R$ ${data.price}`}</Td>
-
-      <Td textAlign={'center'}>
+    >
+      <Td>{data.id}</Td>
+      <Td>{data.type}</Td>
+      <Td>{`R$ ${data.price}`}</Td>
+      <Td>
         <Button>
           <Edit className="h-3 w-3" />
         </Button>

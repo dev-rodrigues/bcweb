@@ -49,22 +49,16 @@ export function Teams() {
 
           <Thead>
             <Tr>
-              {isDrawerSidebar ? null : (
-                <Th>Detail</Th>
-              )}
+              {isDrawerSidebar ? null : <Th>Detail</Th>}
 
               <Th>Id</Th>
 
-              {isDrawerSidebar ? null : (
-                <Th>Created at</Th>
-              )}
+              {isDrawerSidebar ? null : <Th>Created at</Th>}
 
               <Th>Status</Th>
 
               <Th>Time</Th>
-              {isDrawerSidebar ? null : (
-                <Th>Action</Th>
-              )}
+              {isDrawerSidebar ? null : <Th>Action</Th>}
             </Tr>
           </Thead>
 

@@ -13,12 +13,10 @@ export function UserTableRow({ key, data }: UserTableRowProps) {
   return (
     <Tr
       key={key}
-      alignContent={'center'} 
-      alignItems={'center'}
-      border={'solid'}
-      borderColor={'rgba(0, 0, 0, 0.4)'}
+      borderBottom={'solid'}
+      borderColor={'rgba(0, 0, 0, 0.2)'}
       _hover={{
-        transform: 'scale(1.05)',
+        transform: 'scale(1.01)',
         transition: 'transform 0.3s',
         opacity: 0.4,
       }}
