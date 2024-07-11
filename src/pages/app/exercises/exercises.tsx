@@ -47,8 +47,8 @@ export function Exercises() {
 
       <TableContainer
         border={'inset'}
-        borderColor={'gray.300'}
-        borderWidth={0.5}
+        borderColor={'rgba(0, 0, 0, 0.4)'}
+        borderWidth={0.1}
         borderRadius={'5px'}
         px={10}
       >
@@ -74,9 +74,9 @@ export function Exercises() {
               <Th style={{ textAlign: 'center' }}>Actions</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          <Tbody borderWidth={0}>
             {isFetching && (
-              <Tr>
+              <Tr border={'solid'} borderColor={'rgba(0, 0, 0, 0.4)'}>
                 <Td colSpan={3}>
                   <VStack alignItems={'center'} alignContent={'center'}>
                     <LoadingSpinner />
@@ -89,7 +89,7 @@ export function Exercises() {
             })}
           </Tbody>
           <Tfoot>
-            <Tr>
+            <Tr border={'solid'} borderColor={'rgba(0, 0, 0, 0.4)'}>
               <Td colSpan={3}>
                 <Pagination
                   pageIndex={page}

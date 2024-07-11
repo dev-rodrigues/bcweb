@@ -57,11 +57,13 @@ export function ExerciseTableRow({
 
   return (
     <Tr
+      border={'solid'}
+      borderColor={'rgba(0, 0, 0, 0.4)'}
       key={key}
       _hover={{
-        transform: 'scale(1.02)',
+        transform: 'scale(1.05)',
         transition: 'transform 0.3s',
-        opacity: 0.8,
+        opacity: 0.4,
       }}
     >
       {!isDrawerSidebar && <Td style={{ textAlign: 'center' }}>{data.id}</Td>}
