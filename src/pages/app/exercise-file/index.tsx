@@ -6,7 +6,6 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { IoReturnDownBack } from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
-import { string } from 'zod'
 
 import { FileList } from '@/components/fileList'
 import { Upload } from '@/components/upload'
