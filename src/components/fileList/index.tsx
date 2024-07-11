@@ -1,7 +1,12 @@
 import { CircularProgressbar } from 'react-circular-progressbar'
-import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
+import { MdCheckCircle, MdError } from 'react-icons/md'
 
-import { Container, FileInfo, Preview } from '@/components/fileList/styled.ts'
+import {
+  Container,
+  FileInfo,
+  Preview,
+  VideoPreview,
+} from '@/components/fileList/styled.ts'
 import { UploadedFile } from '@/pages/app/exercise-file'
 
 interface Props {
@@ -14,12 +19,17 @@ export function FileList({ files }: Props) {
       {files.map((file, index) => (
         <li key={index}>
           <FileInfo>
-            <Preview src={file.preview} />
+            {file.type.includes('image') && <Preview src={file.preview} />}
+
+            {file.type.includes('video') && (
+              <VideoPreview>
+                <source src={file.preview} type={file.type} />
+              </VideoPreview>
+            )}
+
             <div>
               <strong>{file.name}</strong>
-              <span>
-                {file.readableSize} <button>Remove</button>
-              </span>
+              <span>{file.readableSize}</span>
             </div>
           </FileInfo>
           <div>
@@ -32,16 +42,6 @@ export function FileList({ files }: Props) {
                 strokeWidth={10}
                 value={file.progress}
               />
-            )}
-
-            {file.url && (
-              <a
-                href="https://via.placeholder.com/100"
-                target={'_blank'}
-                rel="noopener noreferrer"
-              >
-                <MdLink style={{ marginRight: 8 }} size={24} color={'#222'} />
-              </a>
             )}
 
             {file.uploaded && <MdCheckCircle size={24} color={'#78e5d5'} />}

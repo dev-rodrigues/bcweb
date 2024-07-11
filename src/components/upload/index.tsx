@@ -20,7 +20,14 @@ export function Upload({ onUpload }: Props) {
   }
 
   return (
-    <Dropzone accept={{ '*': [] }} onDropAccepted={onUpload}>
+    <Dropzone
+      accept={{
+        'video/*': [],
+      }}
+      onDropAccepted={onUpload}
+      maxFiles={3}
+      maxSize={52428800}
+    >
       {({ getRootProps, getInputProps, isDragActive, isDragReject }) => (
         <DropContainer
           {...getRootProps()}
