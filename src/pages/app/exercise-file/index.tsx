@@ -51,18 +51,10 @@ export function ExerciseFile() {
   }
 
   const processFile = async (it: File) => {
-    const responseAccess = await api.post<ResponseAccess>('/exercise-media', {
-      fileName: it.name,
-      contentType: it.type,
-      customerId: 2,
-      exerciseId: 2,
-    })
-
-    console.log()
-
-    const response = await axios.put(responseAccess.data.accessUrl, it, {
+    const response = await axios.put('url', it, {
       headers: {
         'Content-Type': it.type,
+        Origin: 'https://bcweb.vercel.app',
       },
     })
 
