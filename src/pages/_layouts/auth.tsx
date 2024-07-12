@@ -8,15 +8,18 @@ export function AuthLayout() {
       justifyContent="space-between"
       alignItems="center"
       minHeight="100vh"
+      bg={'blue.900'}
     >
       <Flex
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
         minHeight="100vh"
+        bg={'blue.900'}
       >
         <Flex
-          p="8"
+          bg={'blue.900'}
+          // p="8"
           borderRadius={8}
           flexDirection="column"
           alignItems="center"

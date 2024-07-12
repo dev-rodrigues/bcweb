@@ -8,6 +8,9 @@ export const theme = extendTheme({
     brown: {
       default: '#333333',
     },
+    blue: {
+      '900': '#02020F',
+    },
     gray: {
       wip: '#202232',
       '900': '#181b23',
@@ -26,7 +29,7 @@ export const theme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: '#333333',
+        bg: '#02020F',
         color: 'gray.50',
       },
     },

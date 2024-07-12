@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Stack } from '@chakra-ui/react'
+import { Button, Divider, Heading, Icon, Stack, Text } from '@chakra-ui/react'
 import { DumbbellIcon, Users } from 'lucide-react'
 import { BiExit, BiMoney } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
@@ -6,7 +6,6 @@ import { RiDashboardLine } from 'react-icons/ri'
 
 import { Section } from '@/components/sidebar/Section.tsx'
 
-import Teste from '../../assets/teste.png'
 import { useAuth } from '../../context/AuthContext'
 import { Item } from './Item'
 export function SidebarNavigation() {
@@ -17,22 +16,27 @@ export function SidebarNavigation() {
 
   return (
     <>
-      <Stack
-        alignItems={'center'}
-        marginLeft={{
-          base: 0,
-          lg: 8,
-        }}
-      >
-        <img
-          style={{
-            marginTop: '20px',
-            width: '140px',
-            height: '70px',
-          }}
-          src={Teste}
-          alt="Your SVG"
-        />
+      <Stack height={'100vh'} alignItems={'center'} paddingLeft={10}>
+        <Heading
+          mt={10}
+          size={'xl'}
+          fontStyle="italic"
+          color={'white'}
+          boxShadow="0 4px 20px rgba(0, 0, 0, 0.25)"
+        >
+          BC
+          <Text as="span" color="red">
+            .
+          </Text>
+          <Text
+            as="span"
+            style={{
+              display: 'inline-block',
+            }}
+          >
+            Team
+          </Text>
+        </Heading>
 
         <Section title="GERAL" mt={10}>
           <Item icon={RiDashboardLine} href="/">

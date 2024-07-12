@@ -13,7 +13,10 @@ import { Settings, Trash } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from '@/components/ui/button.tsx'
-import { ConfigureTraining } from '@/pages/app/training/components/configure-training.tsx'
+import {
+  ConfigureTraining,
+  ConfigureTrainingForm,
+} from '@/pages/app/training/components/configure-training.tsx'
 import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
 import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
@@ -21,11 +24,13 @@ interface Props {
   data: SearchExerciseResponse[]
   handleRemoveExercise: (index: number) => void
   phasing: GetCustomerPhasingType
+  handleUpdateBag: (key: string, config: ConfigureTrainingForm) => void
 }
 
 export function TabSelectedExerciseTable({
   data,
   handleRemoveExercise,
+  handleUpdateBag,
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -47,6 +52,7 @@ export function TabSelectedExerciseTable({
         isOpen={isOpen}
         onClose={handleClose}
         exercise={exercise}
+        handleUpdateBag={handleUpdateBag}
       />
       <TableContainer
         borderColor={'rgba(0, 0, 0, 0.4)'}
@@ -58,7 +64,9 @@ export function TabSelectedExerciseTable({
           <Thead>
             <Tr>
               <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
-              <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Exercise</Th>
+              <Th borderColor={'rgba(0, 0, 0, 0.4)'} maxW={'450px'}>
+                Exercise
+              </Th>
               <Th borderColor={'rgba(0, 0, 0, 0.4)'} textAlign={'center'}>
                 Actions
               </Th>

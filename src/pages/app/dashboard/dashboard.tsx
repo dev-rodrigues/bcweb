@@ -1,4 +1,4 @@
-import { Container, Heading, Stack } from '@chakra-ui/react'
+import { Container, Heading, SimpleGrid, Stack } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
 import { MonthRevenueUsersCard } from '@/pages/app/dashboard/month-revenue-users-card.tsx'
@@ -10,12 +10,17 @@ export function Dashboard() {
       <Helmet title={'Dashboard'} />
       <Container maxW={['100%', null, null, '70%']} px={'6'}>
         <Stack spacing={'4'}>
-          <Heading size="2xl" fontWeight="normal">
+          <Heading size="lg" fontWeight="normal">
             Dashboard
           </Heading>
-          <MonthRevenueUsersCard />
-          {/* <RevenueChart /> */}
-          <PopularTeamsChart />
+
+          <SimpleGrid
+            spacing={4}
+            templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+          >
+            <MonthRevenueUsersCard />
+            <PopularTeamsChart />
+          </SimpleGrid>
         </Stack>
       </Container>
     </>

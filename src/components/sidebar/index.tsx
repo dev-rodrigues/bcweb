@@ -1,5 +1,4 @@
 import {
-  Box,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -26,7 +25,7 @@ export default function BarraLateral() {
         <DrawerOverlay>
           <DrawerContent bg="gray.800" height={'100%'} padding="4">
             <DrawerCloseButton mt="6" />
-            <DrawerBody>
+            <DrawerBody overflow={'hidden'}>
               <SidebarNavigation />
             </DrawerBody>
           </DrawerContent>
@@ -35,16 +34,5 @@ export default function BarraLateral() {
     )
   }
 
-  return (
-    <Box
-      // bg="gray.800"
-      as="aside"
-      width={64}
-      marginRight={8}
-      display={'flex'}
-      alignItems={'center'}
-    >
-      <SidebarNavigation />
-    </Box>
-  )
+  return <SidebarNavigation />
 }

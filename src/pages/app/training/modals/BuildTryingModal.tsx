@@ -17,9 +17,11 @@ import { useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 import { toast } from 'sonner'
+import { v4 as uuidv4 } from 'uuid'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { api } from '@/lib/axios.ts'
+import { ConfigureTrainingForm } from '@/pages/app/training/components/configure-training.tsx'
 import { TabSelectedExerciseTable } from '@/pages/app/training/tabs/tab-selected-exercise-table.tsx'
 import {
   SearchExerciseResponse,
@@ -49,7 +51,10 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   const [loading, setLoading] = useState(false)
 
   const handleSelectExercise = (exercise: SearchExerciseResponse) => {
-    setSelected([...selected, exercise])
+    setSelected((prevSelected) => [
+      ...prevSelected,
+      { ...exercise, key: uuidv4() },
+    ])
     toast.success(`Exercise ${exercise.name} added to the list`)
   }
 
@@ -82,6 +87,17 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleUpdateBag = (key: string, bag: ConfigureTrainingForm) => {
+    const newSelected = selected.map((item) => {
+      if (item.key === key) {
+        return { ...item, bag }
+      }
+      return item
+    })
+
+    setSelected(newSelected)
   }
 
   return (
@@ -137,6 +153,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
               </TabPanel>
               <TabPanel maxH={390} minH={390}>
                 <TabSelectedExerciseTable
+                  handleUpdateBag={handleUpdateBag}
                   data={selected}
                   handleRemoveExercise={handleRemoveExercise}
                   phasing={phasing}

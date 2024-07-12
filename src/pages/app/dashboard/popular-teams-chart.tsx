@@ -1,14 +1,15 @@
+import { Card, CardBody, CardHeader, Heading } from '@chakra-ui/react'
 import { BarChart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts'
 import colors from 'tailwindcss/colors'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card.tsx'
+// import {
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   CardTitle,
+// } from '@/components/ui/card.tsx'
 import { useTop5Teams } from '@/services/team-hook.ts'
 
 const COLORS = [
@@ -37,16 +38,17 @@ export function PopularTeamsChart() {
   }, [top])
 
   return (
-    <Card className="col-span-3">
-      <CardHeader className="pb-8">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-medium">
-            Most popular times
-          </CardTitle>
-          <BarChart className={'h-4 w-4 text-muted-foreground'} />
-        </div>
+    <Card>
+      <CardHeader
+        alignItems={'center'}
+        display={'flex'}
+        flexDirection={'row'}
+        justifyContent={'space-between'}
+      >
+        <Heading size={'md'}>Most popular times</Heading>
+        <BarChart className={'h-4 w-4 text-muted-foreground'} />
       </CardHeader>
-      <CardContent>
+      <CardBody>
         <ResponsiveContainer width="100%" height={240}>
           <PieChart style={{ fontSize: 12 }}>
             <Pie
@@ -99,7 +101,7 @@ export function PopularTeamsChart() {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-      </CardContent>
+      </CardBody>
     </Card>
   )
 }

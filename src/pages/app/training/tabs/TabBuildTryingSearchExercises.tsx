@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { api } from '@/lib/axios.ts'
+import { ConfigureTrainingForm } from '@/pages/app/training/components/configure-training.tsx'
 import { TableSelectExerciseTable } from '@/pages/app/training/components/table-select-exercise-table.tsx'
 import { PageableSchemaType } from '@/types/common.ts'
 
@@ -16,7 +17,8 @@ interface SearchSelectExercise {
 export interface SearchExerciseResponse {
   id: number
   name: string
-  bag: any
+  key: string
+  bag: ConfigureTrainingForm
 }
 
 export interface SearchExercisePagedResponse {
