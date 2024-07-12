@@ -1,5 +1,6 @@
 import {
   Button,
+  Heading,
   Icon,
   Table,
   TableCaption,
@@ -17,7 +18,6 @@ import { BiPlus } from 'react-icons/bi'
 import { useParams } from 'react-router-dom'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
-import { TableHeader } from '@/components/ui/table.tsx'
 import { PhasingRow } from '@/pages/app/training/components/phasing-row.tsx'
 import { AddPhasingModal } from '@/pages/app/training/modals/AddPhasingModal.tsx'
 import { useCustomerPhasing } from '@/services/customer-phasing-hook.ts'
@@ -61,27 +61,23 @@ export function Training() {
           Add
         </Button>
 
+        <Heading>{`Create your student's training`}</Heading>
         <Table size={'sm'}>
-          <TableHeader
-            style={{
-              fontSize: '40px',
-            }}
-          >
-            {`Create your student's training`}
-          </TableHeader>
           <TableCaption>
             {`These are the divisions of your student's training`}
           </TableCaption>
           <Thead>
             <Tr>
-              <Th>Id</Th>
-              <Th>Serie</Th>
-              <Th>Actions</Th>
+              <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+              <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Serie</Th>
+              <Th borderColor={'rgba(0, 0, 0, 0.4)'} textAlign={'center'}>
+                Actions
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
             {isFetching && (
-              <Tr>
+              <Tr border={'solid'} borderColor={'rgba(0, 0, 0, 0.4)'}>
                 <Td colSpan={3}>
                   <VStack alignItems={'center'} alignContent={'center'}>
                     <LoadingSpinner />

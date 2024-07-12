@@ -53,14 +53,16 @@ export function PhasingRow({ data }: PhasingRowProps) {
       />
 
       <Tr
+        borderBottom={'solid'}
+        borderColor={'rgba(0, 0, 0, 0.2)'}
         _hover={{
-          transform: 'scale(1.02)',
+          transform: 'scale(1.01)',
           transition: 'transform 0.3s',
-          backgroundColor: 'rgba(0, 0, 0, 1)',
+          opacity: 0.4,
         }}
       >
         <Td>{data.id}</Td>
-        <Td textAlign={'center'}>{data.name}</Td>
+        <Td>{data.name}</Td>
         <Td textAlign={'center'}>
           <Button variant="outline" onClick={handleModalAddExercise}>
             <Icon as={Edit2Icon} />
