@@ -16,6 +16,7 @@ interface SearchSelectExercise {
 export interface SearchExerciseResponse {
   id: number
   name: string
+  bag: any
 }
 
 export interface SearchExercisePagedResponse {

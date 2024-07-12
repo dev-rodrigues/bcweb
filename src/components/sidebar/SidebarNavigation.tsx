@@ -6,9 +6,9 @@ import { RiDashboardLine } from 'react-icons/ri'
 
 import { Section } from '@/components/sidebar/Section.tsx'
 
+import Teste from '../../assets/teste.png'
 import { useAuth } from '../../context/AuthContext'
 import { Item } from './Item'
-
 export function SidebarNavigation() {
   const { logout, hasPermission } = useAuth()
 
@@ -19,15 +19,21 @@ export function SidebarNavigation() {
     <>
       <Stack
         alignItems={'center'}
-        marginTop={{
-          base: 8,
-          lg: 10,
-        }}
         marginLeft={{
           base: 0,
           lg: 8,
         }}
       >
+        <img
+          style={{
+            marginTop: '20px',
+            width: '140px',
+            height: '70px',
+          }}
+          src={Teste}
+          alt="Your SVG"
+        />
+
         <Section title="GERAL" mt={10}>
           <Item icon={RiDashboardLine} href="/">
             Home
