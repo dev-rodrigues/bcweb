@@ -21,14 +21,14 @@ import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTrying
 import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface Props {
-  data: SearchExerciseResponse[]
+  selected: SearchExerciseResponse[]
   handleRemoveExercise: (index: number) => void
   phasing: GetCustomerPhasingType
   handleUpdateBag: (key: string, config: ConfigureTrainingForm) => void
 }
 
 export function TabSelectedExerciseTable({
-  data,
+  selected,
   handleRemoveExercise,
   handleUpdateBag,
 }: Props) {
@@ -73,7 +73,7 @@ export function TabSelectedExerciseTable({
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((item, index) => (
+            {selected.map((item, index) => (
               <Tr
                 key={index}
                 borderBottom={'solid'}

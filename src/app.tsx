@@ -3,6 +3,7 @@ import './global.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+import Modal from 'react-modal'
 import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 
@@ -22,6 +23,8 @@ export const queryClient = new QueryClient({
     },
   },
 })
+
+Modal.setAppElement('#root')
 
 export function App() {
   return (

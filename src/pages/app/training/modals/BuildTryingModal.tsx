@@ -13,12 +13,13 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { SaveIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa'
 import Modal from 'react-modal'
 import { toast } from 'sonner'
 import { v4 as uuidv4 } from 'uuid'
 
+import { getExerciseSelectedByCustomerPhasingId } from '@/api/exercise-media.ts'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { api } from '@/lib/axios.ts'
 import { ConfigureTrainingForm } from '@/pages/app/training/components/configure-training.tsx'
@@ -38,6 +39,7 @@ interface Props {
 interface CustomerPhasingExerciseDTO {
   customerPhasing: number
   exerciseId: number
+  bag: ConfigureTrainingForm
 }
 
 interface CustomerPhasingExerciseResponseDTO {
@@ -71,6 +73,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
         (exercise) => ({
           customerPhasing: phasing.id,
           exerciseId: exercise.id,
+          bag: exercise.bag,
         }),
       )
 
@@ -100,15 +103,52 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     setSelected(newSelected)
   }
 
+  useEffect(() => {
+    let isMounted = true // Flag to track the mounted state of the component
+
+    const fetchData = async () => {
+      try {
+        const selectedData = await getExerciseSelectedByCustomerPhasingId(
+          phasing.id,
+        )
+        if (selectedData && isMounted) {
+          // Check if the component is still mounted
+          const newSelected = selectedData.map((item) => ({
+            id: item.id,
+            name: item.name,
+            key: uuidv4(),
+            bag: {
+              totalSeries: item.series,
+              totalRepetitions: item.repetitions,
+              rest: item.rest,
+              weight: item.weight,
+              method: item.exerciseMethodId.toString(),
+            },
+          }))
+          setSelected(newSelected)
+        }
+      } catch (error) {
+        console.error('Failed to fetch selected data', error)
+      }
+    }
+
+    fetchData()
+
+    return () => {
+      isMounted = false // Set the flag to false when the component unmounts
+    }
+  }, [phasing.id])
+
   return (
     <Modal
-      ariaHideApp={false}
       shouldCloseOnOverlayClick={false}
       className="react-modal-content"
       overlayClassName="react-modal-overlay"
       isOpen={isOpen}
       shouldCloseOnEsc={false}
-      onRequestClose={onRequestClose}
+      onRequestClose={async () => {
+        onRequestClose()
+      }}
     >
       <Flex justifyContent={'space-between'}>
         <Heading size="md" fontWeight="normal">
@@ -154,7 +194,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
               <TabPanel maxH={390} minH={390}>
                 <TabSelectedExerciseTable
                   handleUpdateBag={handleUpdateBag}
-                  data={selected}
+                  selected={selected}
                   handleRemoveExercise={handleRemoveExercise}
                   phasing={phasing}
                 />

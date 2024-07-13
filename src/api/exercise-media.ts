@@ -17,6 +17,23 @@ export interface ResponseExerciseMedia {
   fileName: string
 }
 
+export interface ResponseExerciseMethod {
+  id: number
+  name: string
+  goal: string
+  description: string
+}
+
+export interface ResponseSelectedExercise {
+  id: number
+  name: string
+  repetitions: number
+  rest: number
+  series: number
+  weight: number
+  exerciseMethodId: number
+}
+
 export const postExerciseMedia = async (
   uploadedFile: UploadedFile,
   customerId: number,
@@ -38,6 +55,23 @@ export const getExerciseMedia = async (
 ): Promise<ResponseExerciseMedia[]> => {
   const { data: response } = await api.get<ResponseExerciseMedia[]>(
     `/exercise-media/${customerId}/${exerciseId}`,
+  )
+  return response
+}
+
+export const getExerciseMethod = async (): Promise<
+  ResponseExerciseMethod[]
+> => {
+  const { data: response } =
+    await api.get<ResponseExerciseMethod[]>('/exercise-methods')
+  return response
+}
+
+export const getExerciseSelectedByCustomerPhasingId = async (
+  id: number,
+): Promise<ResponseSelectedExercise[]> => {
+  const { data: response } = await api.get<ResponseSelectedExercise[]>(
+    `/customer-phasing-exercise/${id}`,
   )
   return response
 }

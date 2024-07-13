@@ -8,15 +8,17 @@ import {
   DrawerHeader,
   DrawerOverlay,
   Flex,
+  Select,
 } from '@chakra-ui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { SearchExerciseResponse } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
+import { useExerciseMethod } from '@/services/exercises-hook.ts'
 
 const configureTrainingFormSchema = z.object({
   totalSeries: z
@@ -67,6 +69,7 @@ const configureTrainingFormSchema = z.object({
     .refine((val) => val <= 9999, {
       message: 'Weight must be at most 99 units',
     }),
+  method: z.string(),
 })
 
 export type ConfigureTrainingForm = z.infer<typeof configureTrainingFormSchema>
@@ -84,7 +87,10 @@ export function ConfigureTraining({
   isOpen,
   onClose,
 }: Props) {
+  const { data: methods } = useExerciseMethod()
+
   const {
+    control,
     register,
     handleSubmit,
     formState: { isSubmitting, errors },
@@ -149,6 +155,42 @@ export function ConfigureTraining({
               label={'Weight (Kg)'}
               {...register('weight')}
             />
+
+            <Controller
+              name="method"
+              control={control}
+              render={({ field }) => (
+                <Select {...field}>
+                  <option className="text-black" value="">
+                    Methods...
+                  </option>
+                  {methods?.map((it, key) => (
+                    <option
+                      className="text-black"
+                      key={key}
+                      value={it.id.toString()}
+                    >
+                      {it.name}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            />
+
+            {/* <Select> */}
+            {/*  <option className="text-black" value=""> */}
+            {/*    Methods... */}
+            {/*  </option> */}
+            {/*  {methods?.map((it, key) => ( */}
+            {/*    <option */}
+            {/*      className="text-black" */}
+            {/*      key={key} */}
+            {/*      value={it.id.toString()} */}
+            {/*    > */}
+            {/*      {it.name} */}
+            {/*    </option> */}
+            {/*  ))} */}
+            {/* </Select> */}
           </Flex>
           <Flex marginTop={10} gap={2} flexDirection={'column'}>
             <Divider mb={5} />
