@@ -1,10 +1,13 @@
 import {
-  Box,
   Button,
   Container,
-  Divider,
-  Flex,
-  Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Tab,
   TabList,
   TabPanel,
@@ -12,10 +15,7 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
-import { SaveIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { FaRegTimesCircle } from 'react-icons/fa'
-import Modal from 'react-modal'
 import { toast } from 'sonner'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -23,11 +23,11 @@ import { getExerciseSelectedByCustomerPhasingId } from '@/api/exercise-media.ts'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { api } from '@/lib/axios.ts'
 import { ConfigureTrainingForm } from '@/pages/app/training/components/configure-training.tsx'
-import { TabSelectedExerciseTable } from '@/pages/app/training/tabs/tab-selected-exercise-table.tsx'
 import {
   SearchExerciseResponse,
   TabBuildTryingSearchExercises,
 } from '@/pages/app/training/tabs/TabBuildTryingSearchExercises.tsx'
+import { TabSelectedExerciseTable } from '@/pages/app/training/tabs/TabSelectedExerciseTable.tsx'
 import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 
 interface Props {
@@ -104,7 +104,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   }
 
   useEffect(() => {
-    let isMounted = true // Flag to track the mounted state of the component
+    let isMounted = true
 
     const fetchData = async () => {
       try {
@@ -112,7 +112,6 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
           phasing.id,
         )
         if (selectedData && isMounted) {
-          // Check if the component is still mounted
           const newSelected = selectedData.map((item) => ({
             id: item.id,
             name: item.name,
@@ -135,89 +134,67 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     fetchData()
 
     return () => {
-      isMounted = false // Set the flag to false when the component unmounts
+      isMounted = false
     }
-  }, [phasing.id])
+  }, [])
 
   return (
     <Modal
-      shouldCloseOnOverlayClick={false}
-      className="react-modal-content"
-      overlayClassName="react-modal-overlay"
       isOpen={isOpen}
-      shouldCloseOnEsc={false}
-      onRequestClose={async () => {
-        onRequestClose()
-      }}
+      onClose={onRequestClose}
+      blockScrollOnMount={true}
+      closeOnOverlayClick={false}
+      closeOnEsc={false}
+      isCentered
+      size={'5xl'}
     >
-      <Flex justifyContent={'space-between'}>
-        <Heading size="md" fontWeight="normal">
-          {`Build Trying for you student: ${phasing.name.toUpperCase()}`}
-        </Heading>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>{`Build Trying for you student: ${phasing.name.toUpperCase()}`}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          {loading && (
+            <VStack alignItems={'center'} alignContent={'center'}>
+              <LoadingSpinner />
+            </VStack>
+          )}
+          {!loading && (
+            <Tabs size={'sm'} colorScheme={'red'}>
+              <TabList>
+                <Tab>Select</Tab>
+                <Tab>
+                  <Container>{`Selected ${selected.length}`}</Container>
+                </Tab>
+                <Tab isDisabled>Heat Map</Tab>
+              </TabList>
 
-        <Flex>
-          <Button
-            isLoading={loading}
-            type="button"
-            onClick={() => {
-              setSelected([])
-              onRequestClose()
-            }}
-          >
-            <FaRegTimesCircle size={25} />
+              <TabPanels>
+                <TabPanel maxH={390} minH={390}>
+                  <TabBuildTryingSearchExercises
+                    handleSelectExercise={handleSelectExercise}
+                  />
+                </TabPanel>
+                <TabPanel maxH={390} minH={390}>
+                  <TabSelectedExerciseTable
+                    handleUpdateBag={handleUpdateBag}
+                    selected={selected}
+                    handleRemoveExercise={handleRemoveExercise}
+                    phasing={phasing}
+                  />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          )}
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="red" mr={3} onClick={onRequestClose}>
+            Close
           </Button>
-        </Flex>
-      </Flex>
-
-      <Box flex="1" borderRadius={8} overflow={loading ? 'hidden' : 'auto'}>
-        {loading && (
-          <VStack alignItems={'center'} alignContent={'center'}>
-            <LoadingSpinner />
-          </VStack>
-        )}
-        {!loading && (
-          <Tabs size={'sm'} colorScheme={'red'}>
-            <TabList>
-              <Tab>Select</Tab>
-              <Tab>
-                <Container>{`Selected ${selected.length}`}</Container>
-              </Tab>
-              <Tab isDisabled>Heat Map</Tab>
-            </TabList>
-
-            <TabPanels>
-              <TabPanel maxH={390} minH={390}>
-                <TabBuildTryingSearchExercises
-                  handleSelectExercise={handleSelectExercise}
-                />
-              </TabPanel>
-              <TabPanel maxH={390} minH={390}>
-                <TabSelectedExerciseTable
-                  handleUpdateBag={handleUpdateBag}
-                  selected={selected}
-                  handleRemoveExercise={handleRemoveExercise}
-                  phasing={phasing}
-                />
-              </TabPanel>
-              <TabPanel>
-                <p>WIP!</p>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        )}
-      </Box>
-
-      <Divider my="6" borderColor="gray.700" />
-
-      <Button
-        isLoading={loading}
-        type={'button'}
-        bg={'green.500'}
-        rightIcon={<SaveIcon />}
-        onClick={handleSave}
-      >
-        Save
-      </Button>
+          <Button variant="ghost" onClick={handleSave}>
+            Save
+          </Button>
+        </ModalFooter>
+      </ModalContent>
     </Modal>
   )
 }

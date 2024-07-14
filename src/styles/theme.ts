@@ -1,6 +1,28 @@
+import { modalAnatomy as parts } from '@chakra-ui/anatomy'
 import { extendTheme } from '@chakra-ui/react'
+import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(parts.keys)
+
+const baseStyle = definePartsStyle({
+  overlay: {
+    bg: 'rgba(0, 0, 0, 0.6)',
+  },
+  dialog: {
+    borderRadius: 'md',
+    bg: `#211F2D`,
+  },
+})
+
+const modalTheme = defineMultiStyleConfig({
+  baseStyle,
+})
 
 export const theme = extendTheme({
+  components: {
+    Modal: modalTheme,
+  },
   colors: {
     red: {
       default: '#E11D47',
@@ -30,7 +52,7 @@ export const theme = extendTheme({
     global: {
       body: {
         bg: '#02020F',
-        color: 'gray.50',
+        color: 'gray.100',
       },
     },
   },

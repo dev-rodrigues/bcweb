@@ -53,12 +53,13 @@ export function Training() {
         <Button
           mt={5}
           mb={5}
+          size={'lg'}
           color={'white'}
           bg={'#E11D48'}
           rightIcon={<Icon as={BiPlus} />}
           onClick={handleModalPhasing}
         >
-          Add
+          New
         </Button>
 
         <Heading>{`Create your student's training`}</Heading>

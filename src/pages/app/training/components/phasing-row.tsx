@@ -1,7 +1,7 @@
-import { Icon, Td, Tr } from '@chakra-ui/react'
+import { Icon, Td, Tr, useDisclosure } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { Edit2Icon, TrashIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { deletePhasingByCustomer } from '@/api/phasing.ts'
@@ -16,7 +16,8 @@ interface PhasingRowProps {
 }
 
 export function PhasingRow({ data }: PhasingRowProps) {
-  const [openAddExercise, setOpenAddExercise] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const [handleDelete, setHandleDelete] = useState(false)
 
   const mutation = useMutation({
@@ -29,27 +30,23 @@ export function PhasingRow({ data }: PhasingRowProps) {
     },
   })
 
-  const handleModalAddExercise = () => {
-    setOpenAddExercise(!openAddExercise)
-  }
-
   const handleDeletePhasing = (id: number) => {
     setHandleDelete(true)
     mutation.mutate(id)
   }
 
-  useEffect(() => {
-    if (openAddExercise) {
-      document.body.style.overflow = 'hidden'
-    }
-  }, [openAddExercise])
+  // useEffect(() => {
+  //   if (openAddExercise) {
+  //     document.body.style.overflow = 'hidden'
+  //   }
+  // }, [openAddExercise])
 
   return (
     <>
       <BuildTryingModal
         phasing={data}
-        isOpen={openAddExercise}
-        onRequestClose={handleModalAddExercise}
+        isOpen={isOpen}
+        onRequestClose={onClose}
       />
 
       <Tr
@@ -64,7 +61,7 @@ export function PhasingRow({ data }: PhasingRowProps) {
         <Td>{data.id}</Td>
         <Td>{data.name}</Td>
         <Td textAlign={'center'}>
-          <Button variant="outline" onClick={handleModalAddExercise}>
+          <Button variant="outline" onClick={onOpen}>
             <Icon as={Edit2Icon} />
           </Button>
           <Button
