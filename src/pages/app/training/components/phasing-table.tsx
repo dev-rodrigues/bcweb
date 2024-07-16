@@ -1,6 +1,6 @@
 import {
   Button,
-  Icon,
+  ModalFooter,
   Table,
   TableCaption,
   TableContainer,
@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { BiSave } from 'react-icons/bi'
 import { toast } from 'sonner'
 
 import { postPhasingByCustomer } from '@/api/phasing.ts'
@@ -100,14 +99,8 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
         borderRadius={'5px'}
         px={10}
       >
+        <TableHeader>{`Available Phasing`}</TableHeader>
         <Table size={'sm'}>
-          <TableHeader
-            style={{
-              fontSize: '40px',
-            }}
-          >
-            {`Available Phasing`}
-          </TableHeader>
           <TableCaption>{`Phases of your student's training`}</TableCaption>
           <Thead>
             <Tr>
@@ -146,14 +139,12 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
           </Tbody>
         </Table>
       </TableContainer>
-      <Button
-        mt={10}
-        onClick={save}
-        backgroundColor="green.300"
-        rightIcon={<Icon as={BiSave} />}
-      >
-        Save
-      </Button>
+      <ModalFooter>
+        <Button colorScheme="red" mr={3} onClick={onRequestClose}>
+          Close
+        </Button>
+        <Button onClick={() => save()}>Save</Button>
+      </ModalFooter>
     </>
   )
 }
