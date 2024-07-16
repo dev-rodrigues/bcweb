@@ -81,7 +81,7 @@ export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
             variant="outline"
             onClick={() => onSubmit()}
           >
-            <Trash2 className="mr-2 h-3 w-3" />
+            <Trash2 className="h-3 w-3" />
           </Button>
 
           <Button>

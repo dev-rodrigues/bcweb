@@ -33,7 +33,7 @@ import { GetCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 interface Props {
   isOpen: boolean
   onRequestClose: () => void
-  phasing: GetCustomerPhasingType
+  phasing: GetCustomerPhasingType | undefined
 }
 
 interface CustomerPhasingExerciseDTO {
@@ -67,6 +67,11 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   }
 
   const handleSave = async () => {
+    if (!phasing) {
+      toast.error('Phasing data is missing')
+      return
+    }
+
     try {
       setLoading(true)
       const payload: CustomerPhasingExerciseDTO[] = selected.map(
@@ -104,6 +109,10 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   }
 
   useEffect(() => {
+    if (!phasing) {
+      return
+    }
+
     let isMounted = true
 
     const fetchData = async () => {
@@ -136,7 +145,11 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [phasing])
+
+  if (!phasing) {
+    return null
+  }
 
   return (
     <Modal
@@ -150,7 +163,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{`Build Trying for you student: ${phasing.name.toUpperCase()}`}</ModalHeader>
+        <ModalHeader>{`Build Trying for your student: ${phasing.name.toUpperCase()}`}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {loading && (
@@ -190,9 +203,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
           <Button colorScheme="red" mr={3} onClick={onRequestClose}>
             Close
           </Button>
-          <Button variant="ghost" onClick={handleSave}>
-            Save
-          </Button>
+          <Button onClick={handleSave}>Save</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

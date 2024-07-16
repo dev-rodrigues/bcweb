@@ -8,10 +8,9 @@ import { Phasing } from '@/types/common-phasing.ts'
 export const getCustomerPhasing = async (
   userId: number,
 ): Promise<GetCustomerPhasingType[]> => {
-  const { data: response } = await api.get<GetCustomerPhasingType[] | []>(
+  const { data: response } = await api.get<GetCustomerPhasingType[]>(
     `/customer-phasing/student/${userId}`,
   )
-
   return response
 }
 
