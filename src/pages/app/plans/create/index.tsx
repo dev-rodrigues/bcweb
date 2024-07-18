@@ -19,7 +19,6 @@ import Modal from 'react-modal'
 import { toast } from 'sonner'
 
 import { createPlan } from '@/api/plans.ts'
-import { queryClient } from '@/app.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import {
   Table,
@@ -28,6 +27,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table.tsx'
+import { queryClient } from '@/lib/react-query'
 import { PlanCreateRow } from '@/pages/app/plans/create/plan-create-row.tsx'
 import { GenericAppError } from '@/types/common.ts'
 import { createPlanForm, PlanFormType } from '@/types/common-plan.ts'

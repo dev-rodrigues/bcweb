@@ -25,9 +25,9 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { createExercise } from '@/api/exercise.ts'
-import { queryClient } from '@/app.tsx'
 import { InputForm } from '@/components/ui/form/Input.tsx'
 import { TableHeader } from '@/components/ui/table.tsx'
+import { queryClient } from '@/lib/react-query'
 import { ExerciseCreateMuscleGroupRow } from '@/pages/app/exercises/exercise-create-muscle-group-row.tsx'
 import {
   useExerciseMuscleGroup,

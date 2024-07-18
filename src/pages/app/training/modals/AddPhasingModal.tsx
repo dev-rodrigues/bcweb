@@ -32,20 +32,17 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{`Select training series`}</ModalHeader>
+        <ModalHeader display="flex" alignItems="center">
+          <span>{`Select training series`}</span>
+          {isFetching && <LoadingSpinner className="ml-2" />}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          {isFetching ? (
-            <div className="mb-4 mt-4 flex justify-center">
-              <LoadingSpinner />
-            </div>
-          ) : (
-            <PhasingTable
-              data={data}
-              onRequestClose={onRequestClose}
-              studentId={studentId}
-            />
-          )}
+          <PhasingTable
+            data={data}
+            onRequestClose={onRequestClose}
+            studentId={studentId}
+          />
         </ModalBody>
       </ModalContent>
     </Modal>

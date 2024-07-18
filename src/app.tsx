@@ -1,7 +1,7 @@
 import './global.css'
 
 import { ChakraProvider } from '@chakra-ui/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import Modal from 'react-modal'
 import { RouterProvider } from 'react-router-dom'
@@ -14,15 +14,16 @@ import { GlobalStyle } from '@/styles/global.ts'
 import { theme } from '@/styles/theme.ts'
 
 import { ThemeProvider } from './components/theme/theme-provider.tsx'
+import { queryClient } from './lib/react-query.ts'
 import { router } from './routes.tsx'
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: true,
-    },
-  },
-})
+// export const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       refetchOnWindowFocus: true,
+//     },
+//   },
+// })
 
 Modal.setAppElement('#root')
 

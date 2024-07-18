@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { deleteExercise } from '@/api/exercise.ts'
-import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
+import { queryClient } from '@/lib/react-query'
 import { ContentItemSchemaType } from '@/types/common-exercise.ts'
 
 type ExerciseTableRowProps = {

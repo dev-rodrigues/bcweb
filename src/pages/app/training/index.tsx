@@ -27,9 +27,9 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 
 import { deletePhasingByCustomer } from '@/api/phasing.ts'
-import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
+import { queryClient } from '@/lib/react-query'
 import { PhasingRow } from '@/pages/app/training/components/phasing-row.tsx'
 import { AddPhasingModal } from '@/pages/app/training/modals/AddPhasingModal.tsx'
 import { BuildTryingModal } from '@/pages/app/training/modals/BuildTryingModal.tsx'
@@ -85,7 +85,10 @@ export function Training() {
           <Button onClick={() => handleSelect(row.original.id)}>
             <Search className="h-3 w-3" />
           </Button>
-          <Button onClick={() => handleDeletePhasing(row.original.id)}>
+          <Button
+            disabled={isFetching}
+            onClick={() => handleDeletePhasing(row.original.id)}
+          >
             <Trash2 className="h-3 w-3" />
           </Button>
         </HStack>
@@ -134,7 +137,10 @@ export function Training() {
             base: 'lg',
             sm: 'md',
           }}
-        >{`Create your student's training`}</Heading>
+        >
+          {`Create your student's training`}
+          {isFetching && <LoadingSpinner className="ml-2" />}
+        </Heading>
         <Table>
           <TableCaption>
             {`These are the divisions of your student's training`}
@@ -143,7 +149,8 @@ export function Training() {
             {table.getHeaderGroups().map((headerGroup) => (
               <Tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
-                  const meta: any = header.column.columnDef.meta
+                  const meta: { isNumeric?: boolean } | undefined =
+                    header.column.columnDef.meta
                   return (
                     <Th
                       key={header.id}
@@ -161,15 +168,6 @@ export function Training() {
             ))}
           </Thead>
           <Tbody>
-            {isFetching && (
-              <Tr border="solid" borderColor="rgba(0, 0, 0, 0.4)">
-                <Td colSpan={3}>
-                  <VStack alignItems="center" alignContent="center">
-                    <LoadingSpinner />
-                  </VStack>
-                </Td>
-              </Tr>
-            )}
             {table.getRowModel().rows.map((row) => (
               <PhasingRow key={row.id} row={row} />
             ))}

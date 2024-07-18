@@ -15,9 +15,9 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { postPhasingByCustomer } from '@/api/phasing.ts'
-import { queryClient } from '@/app.tsx'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
 import { TableHeader } from '@/components/ui/table.tsx'
+import { queryClient } from '@/lib/react-query'
 import { PostCustomerPhasingType } from '@/types/common-customer-phasing.ts'
 import { Phasing } from '@/types/common-phasing.ts'
 
