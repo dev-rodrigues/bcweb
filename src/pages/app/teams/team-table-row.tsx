@@ -3,8 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Search, X } from 'lucide-react'
 
 import { updateStatus } from '@/api/sign-up.ts'
-import { queryClient } from '@/app.tsx'
 import { Button } from '@/components/ui/button.tsx'
+import { queryClient } from '@/lib/react-query'
 import { calculateTimeDifference } from '@/types/common-date.ts'
 import { ContentItemSchemaType } from '@/types/common-team.ts'
 
