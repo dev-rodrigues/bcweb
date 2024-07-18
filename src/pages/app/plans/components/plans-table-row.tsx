@@ -10,15 +10,7 @@ type PlansTableRowProps = {
 
 export function PlansTableRow({ data }: PlansTableRowProps) {
   return (
-    <Tr
-      borderBottom={'solid'}
-      borderColor={'rgba(0, 0, 0, 0.2)'}
-      _hover={{
-        transform: 'scale(1.01)',
-        transition: 'transform 0.3s',
-        opacity: 0.4,
-      }}
-    >
+    <Tr>
       <Td>{data.id}</Td>
       <Td>{data.type}</Td>
       <Td>{`R$ ${data.price}`}</Td>

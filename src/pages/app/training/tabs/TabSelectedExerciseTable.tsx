@@ -74,16 +74,7 @@ export function TabSelectedExerciseTable({
           </Thead>
           <Tbody>
             {selected.map((item, index) => (
-              <Tr
-                key={index}
-                borderBottom={'solid'}
-                borderColor={'rgba(0, 0, 0, 0.2)'}
-                _hover={{
-                  transform: 'scale(1.01)',
-                  transition: 'transform 0.3s',
-                  opacity: 0.4,
-                }}
-              >
+              <Tr key={index}>
                 <Td>{item.id}</Td>
                 <Td>{item.name}</Td>
                 <Td>

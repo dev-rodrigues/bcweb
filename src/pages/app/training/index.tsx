@@ -115,18 +115,26 @@ export function Training() {
         onRequestClose={onCloseSearch}
       />
 
-      <Button className={'mb-4'} onClick={onOpen}>
-        New
-      </Button>
+      <Flex>
+        <Button className={'mb-4'} onClick={onOpen}>
+          New
+        </Button>
+      </Flex>
 
       <TableContainer
         border="inset"
         borderColor="gray.300"
         borderWidth={0.1}
         borderRadius="5px"
-        px={10}
+        px={0}
       >
-        <Heading>{`Create your student's training`}</Heading>
+        <Heading
+          textAlign={'center'}
+          size={{
+            base: 'lg',
+            sm: 'md',
+          }}
+        >{`Create your student's training`}</Heading>
         <Table>
           <TableCaption>
             {`These are the divisions of your student's training`}

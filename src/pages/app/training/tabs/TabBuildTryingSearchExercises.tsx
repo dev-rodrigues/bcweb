@@ -18,6 +18,7 @@ export interface SearchExerciseResponse {
   id: number
   name: string
   key: string
+  selected: number
   bag: ConfigureTrainingForm
 }
 
@@ -98,11 +99,18 @@ export function TabBuildTryingSearchExercises({ handleSelectExercise }: Props) {
   }, [page])
 
   return (
-    <Flex dir={'row'}>
+    <Flex
+      direction={{
+        base: 'column',
+        md: 'row',
+      }}
+    >
       <Flex
-        w={'50%'}
-        flex={1}
         mr={10}
+        mb={{
+          base: 5,
+          md: 0,
+        }}
         as="form"
         flexDirection="row"
         onSubmit={handleSubmit(onSubmit)}
@@ -114,8 +122,9 @@ export function TabBuildTryingSearchExercises({ handleSelectExercise }: Props) {
           id="type"
           type="text"
           mr={2}
-          style={{
-            width: '400px',
+          minW={{
+            base: '380px',
+            md: '400px',
           }}
           {...register('value')}
         />
@@ -124,7 +133,16 @@ export function TabBuildTryingSearchExercises({ handleSelectExercise }: Props) {
           <Icon as={SearchIcon} />
         </Button>
       </Flex>
-      <Flex w={'50%'} flex={1} mr={10} as="form" flexDirection="row">
+      <Flex
+        w={{
+          base: '100%',
+          md: '50%',
+        }}
+        flex={1}
+        mr={10}
+        as="form"
+        flexDirection="row"
+      >
         <TableSelectExerciseTable
           setPage={setPage}
           data={exercises}

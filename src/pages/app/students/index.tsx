@@ -44,7 +44,7 @@ export function Students() {
               </Th>
             </Tr>
           </Thead>
-          <Tbody borderWidth={0}>
+          <Tbody>
             {isFetching && (
               <Tr border={'solid'} borderColor={'rgba(0, 0, 0, 0.4)'}>
                 <Td colSpan={3}>

@@ -41,9 +41,9 @@ export function Users() {
             <TableCaption>Users registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Nome</Th>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Action</Th>
+                <Th>Id</Th>
+                <Th>Nome</Th>
+                <Th>Action</Th>
               </Tr>
             </Thead>
             <Tbody>

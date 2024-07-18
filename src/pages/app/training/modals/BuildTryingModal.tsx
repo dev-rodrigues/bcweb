@@ -15,6 +15,7 @@ import {
   Tabs,
   VStack,
 } from '@chakra-ui/react'
+import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { v4 as uuidv4 } from 'uuid'
@@ -38,6 +39,7 @@ interface Props {
 
 interface CustomerPhasingExerciseDTO {
   customerPhasing: number
+  selected: number
   exerciseId: number
   bag: ConfigureTrainingForm
 }
@@ -50,6 +52,9 @@ interface CustomerPhasingExerciseResponseDTO {
 
 export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   const [selected, setSelected] = useState<SearchExerciseResponse[]>([])
+  const [selectedRemoved, setSelectedRemoved] = useState<
+    SearchExerciseResponse[]
+  >([])
   const [loading, setLoading] = useState(false)
 
   const handleSelectExercise = (exercise: SearchExerciseResponse) => {
@@ -61,6 +66,12 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   }
 
   const handleRemoveExercise = (index: number) => {
+    const exercise = selected[index]
+    if (exercise.selected != null || exercise.selected !== undefined) {
+      console.log(`Exercise ${exercise.id} putted in removed list`)
+      setSelectedRemoved((prevSelected) => [...prevSelected, exercise])
+    }
+
     const newSelected = selected.filter((_, i) => i !== index)
     setSelected(newSelected)
     toast.success('Exercise removed from the list')
@@ -77,21 +88,40 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
       const payload: CustomerPhasingExerciseDTO[] = selected.map(
         (exercise) => ({
           customerPhasing: phasing.id,
+          selected: exercise.selected,
           exerciseId: exercise.id,
           bag: exercise.bag,
         }),
       )
 
+      const newsData = payload.filter(
+        (it) => it.selected === null || it.selected === undefined,
+      )
+
       await api.post<CustomerPhasingExerciseResponseDTO[]>(
         '/customer-phasing-exercise',
-        payload,
+        newsData,
       )
+
+      debugger
+      if (selectedRemoved.length > 0) {
+        await api.delete('/customer-phasing-exercise', {
+          data: selectedRemoved.map((it) => it.selected),
+        })
+      }
 
       toast.success(`Training successfully added to ${phasing.name}`)
       setSelected([])
       onRequestClose()
     } catch (error) {
-      toast.error('Error to add training')
+      if (error instanceof AxiosError && error.response) {
+        toast.error(
+          `Error to add training: ${error.response.data.message || 'Unknown error'}`,
+        )
+      } else {
+        toast.error('Error to add training')
+      }
+      console.error(error)
     } finally {
       setLoading(false)
     }
@@ -109,22 +139,25 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
   }
 
   useEffect(() => {
-    if (!phasing) {
+    if (!phasing || !isOpen) {
       return
     }
 
-    let isMounted = true
+    const isMounted = true
 
     const fetchData = async () => {
       try {
         const selectedData = await getExerciseSelectedByCustomerPhasingId(
           phasing.id,
         )
+
+        console.log('DADOS SELECIONADOS', selectedData)
         if (selectedData && isMounted) {
           const newSelected = selectedData.map((item) => ({
             id: item.id,
             name: item.name,
             key: uuidv4(),
+            selected: item.selected,
             bag: {
               totalSeries: item.series,
               totalRepetitions: item.repetitions,
@@ -133,6 +166,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
               method: item.exerciseMethodId.toString(),
             },
           }))
+
           setSelected(newSelected)
         }
       } catch (error) {
@@ -141,11 +175,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
     }
 
     fetchData()
-
-    return () => {
-      isMounted = false
-    }
-  }, [phasing])
+  }, [phasing, isOpen])
 
   if (!phasing) {
     return null
@@ -199,7 +229,7 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
             </Tabs>
           )}
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter mt={20}>
           <Button colorScheme="red" mr={3} onClick={onRequestClose}>
             Close
           </Button>

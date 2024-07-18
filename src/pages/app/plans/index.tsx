@@ -55,10 +55,10 @@ export function Plans() {
             <TableCaption>Yours plans registered in the system</TableCaption>
             <Thead>
               <Tr>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Type</Th>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Price</Th>
-                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Actions</Th>
+                <Th>Id</Th>
+                <Th>Type</Th>
+                <Th>Price</Th>
+                <Th>Actions</Th>
               </Tr>
             </Thead>
             <Tbody>

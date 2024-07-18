@@ -1,27 +1,43 @@
-import { modalAnatomy as parts } from '@chakra-ui/anatomy'
-import { extendTheme } from '@chakra-ui/react'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
+import { modalAnatomy, tableAnatomy } from '@chakra-ui/anatomy'
+import { createMultiStyleConfigHelpers, extendTheme } from '@chakra-ui/react'
 
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys)
-
-const baseStyle = definePartsStyle({
+const modalHelpers = createMultiStyleConfigHelpers(modalAnatomy.keys)
+const baseModalStyle = modalHelpers.definePartsStyle({
   overlay: {
     bg: 'rgba(0, 0, 0, 0.6)',
   },
   dialog: {
     borderRadius: 'md',
-    bg: `#211F2D`,
+    bg: '#211F2D',
   },
 })
+const modalTheme = modalHelpers.defineMultiStyleConfig({
+  baseStyle: baseModalStyle,
+})
 
-const modalTheme = defineMultiStyleConfig({
-  baseStyle,
+const tableHelpers = createMultiStyleConfigHelpers(tableAnatomy.keys)
+const baseTableStyle = tableHelpers.definePartsStyle({
+  tbody: {
+    borderWidth: '0',
+  },
+  tr: {
+    border: 'hidden',
+
+    _hover: {
+      transform: 'scale(1)',
+      transaction: 'transform 0.3s',
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+    },
+  },
+})
+const tableTheme = tableHelpers.defineMultiStyleConfig({
+  baseStyle: baseTableStyle,
 })
 
 export const theme = extendTheme({
   components: {
     Modal: modalTheme,
+    Table: tableTheme,
   },
   colors: {
     red: {

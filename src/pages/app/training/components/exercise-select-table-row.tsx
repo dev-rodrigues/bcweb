@@ -12,14 +12,7 @@ type Props = {
 
 export function ExerciseSelectTableRow({ id, data, handleAddExercise }: Props) {
   return (
-    <Tr
-      key={id}
-      _hover={{
-        transform: 'scale(1.02)',
-        transition: 'transform 0.3s',
-        backgroundColor: 'rgba(0, 0, 0, 1)',
-      }}
-    >
+    <Tr key={id}>
       <Td>{data.id}</Td>
       <Td>{data.name}</Td>
       <Td>

@@ -32,6 +32,7 @@ export interface ResponseSelectedExercise {
   series: number
   weight: number
   exerciseMethodId: number
+  selected: number
 }
 
 export const postExerciseMedia = async (
