@@ -6,12 +6,10 @@ import {
   TableCaption,
   TableContainer,
   Tbody,
-  Td,
   Th,
   Thead,
   Tr,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import {
@@ -85,7 +83,10 @@ export function Training() {
           <Button onClick={() => handleSelect(row.original.id)}>
             <Search className="h-3 w-3" />
           </Button>
-          <Button onClick={() => handleDeletePhasing(row.original.id)}>
+          <Button
+            disabled={isFetching}
+            onClick={() => handleDeletePhasing(row.original.id)}
+          >
             <Trash2 className="h-3 w-3" />
           </Button>
         </HStack>
@@ -126,7 +127,10 @@ export function Training() {
         borderRadius="5px"
         px={10}
       >
-        <Heading>{`Create your student's training`}</Heading>
+        <Flex alignItems="center">
+          <Heading>{`Create your student's training`}</Heading>
+          {isFetching && <LoadingSpinner className="ml-2" />}
+        </Flex>
         <Table>
           <TableCaption>
             {`These are the divisions of your student's training`}
@@ -135,7 +139,8 @@ export function Training() {
             {table.getHeaderGroups().map((headerGroup) => (
               <Tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
-                  const meta: any = header.column.columnDef.meta
+                  const meta: { isNumeric?: boolean } | undefined =
+                    header.column.columnDef.meta
                   return (
                     <Th
                       key={header.id}
@@ -153,15 +158,6 @@ export function Training() {
             ))}
           </Thead>
           <Tbody>
-            {isFetching && (
-              <Tr border="solid" borderColor="rgba(0, 0, 0, 0.4)">
-                <Td colSpan={3}>
-                  <VStack alignItems="center" alignContent="center">
-                    <LoadingSpinner />
-                  </VStack>
-                </Td>
-              </Tr>
-            )}
             {table.getRowModel().rows.map((row) => (
               <PhasingRow key={row.id} row={row} />
             ))}
