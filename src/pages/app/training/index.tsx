@@ -6,12 +6,10 @@ import {
   TableCaption,
   TableContainer,
   Tbody,
-  Td,
   Th,
   Thead,
   Tr,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react'
 import { useMutation } from '@tanstack/react-query'
 import {
