@@ -99,7 +99,7 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
         borderRadius={'5px'}
         px={10}
       >
-        <TableHeader>{`Available Phasing`}</TableHeader>
+        <TableHeader>Available Phasing</TableHeader>
         <Table size={'sm'}>
           <TableCaption>{`Phases of your student's training`}</TableCaption>
           <Thead>
@@ -112,15 +112,7 @@ export function PhasingTable({ data, onRequestClose, studentId }: Props) {
           <Tbody>
             {it?.map((it, i) => {
               return (
-                <Tr
-                  key={i}
-                  height={10}
-                  _hover={{
-                    transform: 'scale(1.02)',
-                    transition: 'transform 0.3s',
-                    opacity: 0.8,
-                  }}
-                >
+                <Tr key={i}>
                   <Td textAlign={'center'}>
                     <Checkbox
                       onCheckedChange={(checked: boolean) => {

@@ -43,12 +43,6 @@ export function SidebarNavigation() {
             Home
           </Item>
 
-          {canViewEditUsers && (
-            <Item icon={Users} href="/teams">
-              Teams
-            </Item>
-          )}
-
           {canViewEditExercises && (
             <Item icon={FaUsers} href="/students">
               Students
@@ -63,6 +57,12 @@ export function SidebarNavigation() {
         </Section>
 
         <Section title={'ADMIN'} mt={5}>
+          {canViewEditUsers && (
+            <Item icon={Users} href="/teams">
+              Teams
+            </Item>
+          )}
+
           {canViewEditExercises && (
             <Item icon={DumbbellIcon} href="/exercises">
               Exercises

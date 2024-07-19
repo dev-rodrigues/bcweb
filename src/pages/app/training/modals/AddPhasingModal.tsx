@@ -33,7 +33,7 @@ export function AddPhasingModal({ isOpen, onRequestClose, studentId }: Props) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader display="flex" alignItems="center">
-          <span>{`Select training series`}</span>
+          Select training series
           {isFetching && <LoadingSpinner className="ml-2" />}
         </ModalHeader>
         <ModalCloseButton />

@@ -2,14 +2,15 @@ import { Container, Td, Tr } from '@chakra-ui/react'
 import { Edit, Search } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-import { Button as UIButton } from '@/components/ui/button.tsx'
+import { Button } from '@/components/ui/button.tsx'
 import { GetStudentTypeType } from '@/types/common-students.ts'
 
 type StudentsTableRowProps = {
   data: GetStudentTypeType
+  onOpen: () => void
 }
 
-export function StudentsTableRow({ data }: StudentsTableRowProps) {
+export function StudentsTableRow({ data, onOpen }: StudentsTableRowProps) {
   const navigate = useNavigate()
 
   const handleEditClick = () => {
@@ -28,13 +29,13 @@ export function StudentsTableRow({ data }: StudentsTableRowProps) {
           justifyContent="center"
           alignItems="center"
         >
-          <UIButton variant="outline" color="white" onClick={handleEditClick}>
+          <Button variant="outline" color="white" onClick={handleEditClick}>
             <Edit className="h-3 w-3" />
-          </UIButton>
+          </Button>
 
-          <UIButton>
+          <Button onClick={onOpen}>
             <Search className="h-3 w-3" />
-          </UIButton>
+          </Button>
         </Container>
       </Td>
     </Tr>

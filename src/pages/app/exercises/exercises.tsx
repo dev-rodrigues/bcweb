@@ -85,7 +85,7 @@ export function Exercises() {
             })}
           </Tbody>
           <Tfoot>
-            <Tr border={'none'} borderColor={'rgba(0, 0, 0, 0.4)'}>
+            <Tr borderColor={'rgba(0, 0, 0, 0.4)'}>
               <Td colSpan={3} border={'none'}>
                 <Pagination
                   pageIndex={page}

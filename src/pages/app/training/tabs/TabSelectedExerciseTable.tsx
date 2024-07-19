@@ -7,6 +7,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { Settings, Trash } from 'lucide-react'
@@ -32,6 +33,11 @@ export function TabSelectedExerciseTable({
   handleRemoveExercise,
   handleUpdateBag,
 }: Props) {
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [exercise, setExercise] = useState<SearchExerciseResponse | null>(null)
@@ -56,14 +62,17 @@ export function TabSelectedExerciseTable({
       />
       <TableContainer
         borderColor={'rgba(0, 0, 0, 0.4)'}
+        overflowX={'hidden'}
         borderWidth={0.1}
         borderRadius={'5px'}
         px={10}
       >
-        <Table overflow="scroll">
+        <Table>
           <Thead>
             <Tr>
-              <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+              {!isDrawerSidebar && (
+                <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
+              )}
               <Th borderColor={'rgba(0, 0, 0, 0.4)'} maxW={'450px'}>
                 Exercise
               </Th>
@@ -75,10 +84,17 @@ export function TabSelectedExerciseTable({
           <Tbody>
             {selected.map((item, index) => (
               <Tr key={index}>
-                <Td>{item.id}</Td>
+                {!isDrawerSidebar && <Td>{item.id}</Td>}
                 <Td>{item.name}</Td>
                 <Td>
-                  <Flex gap={2} justifyContent={'center'} w={'100%'}>
+                  <Flex
+                    gap={1}
+                    justifyContent={'center'}
+                    direction={{
+                      base: 'column',
+                      lg: 'row',
+                    }}
+                  >
                     <Button
                       type={'button'}
                       onClick={() => handleRemoveExercise(index)}

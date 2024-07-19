@@ -123,7 +123,7 @@ export function Training() {
       </Flex>
 
       <TableContainer
-        borderColor="gray.300"
+        borderColor={'rgba(0, 0, 0, 0.4)'}
         borderWidth={0.1}
         borderRadius="5px"
       >

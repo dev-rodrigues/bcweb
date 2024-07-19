@@ -8,21 +8,25 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 
 import { LoadingSpinner } from '@/components/ui/spinner.tsx'
+import { StudentModal } from '@/pages/app/students/modals/StudentModal.tsx'
 import { StudentsTableRow } from '@/pages/app/students/students-table-row.tsx'
 import { useStudents } from '@/services/students.ts'
 
 export function Students() {
   const { data, isFetching } = useStudents()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
       <Helmet title="My Students" />
 
+      <StudentModal isOpen={isOpen} onRequestClose={onClose} />
       <TableContainer
         borderColor={'rgba(0, 0, 0, 0.4)'}
         borderWidth={0.1}
@@ -56,7 +60,7 @@ export function Students() {
             )}
 
             {data?.map((it, i) => {
-              return <StudentsTableRow key={i} data={it} />
+              return <StudentsTableRow key={i} data={it} onOpen={onOpen} />
             })}
           </Tbody>
         </Table>
