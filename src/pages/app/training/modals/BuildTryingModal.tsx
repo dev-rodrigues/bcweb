@@ -83,8 +83,14 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
       return
     }
 
+    if (selected.length === 0) {
+      toast.error('No exercise selected')
+      return
+    }
+
     try {
       setLoading(true)
+
       const payload: CustomerPhasingExerciseDTO[] = selected.map(
         (exercise) => ({
           customerPhasing: phasing.id,
@@ -94,21 +100,42 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
         }),
       )
 
-      const newsData = payload.filter(
+      const newData = payload.filter(
         (it) => it.selected === null || it.selected === undefined,
       )
-
-      await api.post<CustomerPhasingExerciseResponseDTO[]>(
-        '/customer-phasing-exercise',
-        newsData,
+      const updatedData = payload.filter(
+        (it) => it.selected !== null && it.selected !== undefined,
       )
 
-      debugger
-      if (selectedRemoved.length > 0) {
-        await api.delete('/customer-phasing-exercise', {
-          data: selectedRemoved.map((it) => it.selected),
-        })
+      const requests: Promise<any>[] = []
+
+      if (newData.length > 0) {
+        requests.push(
+          api.post<CustomerPhasingExerciseResponseDTO[]>(
+            '/customer-phasing-exercise',
+            newData,
+          ),
+        )
       }
+
+      if (selectedRemoved.length > 0) {
+        requests.push(
+          api.delete('/customer-phasing-exercise', {
+            data: selectedRemoved.map((it) => it.selected),
+          }),
+        )
+      }
+
+      if (updatedData.length > 0) {
+        requests.push(
+          api.put<CustomerPhasingExerciseResponseDTO[]>(
+            '/customer-phasing-exercise',
+            updatedData,
+          ),
+        )
+      }
+
+      await Promise.all(requests)
 
       toast.success(`Training successfully added to ${phasing.name}`)
       setSelected([])
@@ -151,7 +178,6 @@ export function BuildTryingModal({ phasing, isOpen, onRequestClose }: Props) {
           phasing.id,
         )
 
-        console.log('DADOS SELECIONADOS', selectedData)
         if (selectedData && isMounted) {
           const newSelected = selectedData.map((item) => ({
             id: item.id,

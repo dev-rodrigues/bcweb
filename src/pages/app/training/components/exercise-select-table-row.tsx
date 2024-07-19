@@ -1,4 +1,4 @@
-import { HStack, Td, Tr } from '@chakra-ui/react'
+import { HStack, Td, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { PlusIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button.tsx'
@@ -11,9 +11,13 @@ type Props = {
 }
 
 export function ExerciseSelectTableRow({ id, data, handleAddExercise }: Props) {
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
   return (
     <Tr key={id}>
-      <Td>{data.id}</Td>
+      {!isDrawerSidebar && <Td>{data.id}</Td>}
       <Td>{data.name}</Td>
       <Td>
         <HStack>

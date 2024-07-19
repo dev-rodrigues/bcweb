@@ -123,11 +123,9 @@ export function Training() {
       </Flex>
 
       <TableContainer
-        border="inset"
         borderColor="gray.300"
         borderWidth={0.1}
         borderRadius="5px"
-        px={0}
       >
         <Heading
           textAlign={'center'}
