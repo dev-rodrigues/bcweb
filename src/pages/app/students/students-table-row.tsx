@@ -1,4 +1,4 @@
-import { Container, Td, Tr } from '@chakra-ui/react'
+import { Container, Td, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { Edit, Search } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,9 +16,21 @@ export function StudentsTableRow({ data, onOpen }: StudentsTableRowProps) {
   const handleEditClick = () => {
     navigate(`/training/${data.id}`)
   }
+  
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
 
   return (
     <Tr>
+      {isDrawerSidebar ? null : (
+        <Td>
+          <Button onClick={onOpen}>
+            <Search className="h-3 w-3" />
+          </Button>
+        </Td>
+      )}
       <Td>{data.id}</Td>
       <Td>{data.name}</Td>
 
@@ -31,10 +43,6 @@ export function StudentsTableRow({ data, onOpen }: StudentsTableRowProps) {
         >
           <Button variant="outline" color="white" onClick={handleEditClick}>
             <Edit className="h-3 w-3" />
-          </Button>
-
-          <Button onClick={onOpen}>
-            <Search className="h-3 w-3" />
           </Button>
         </Container>
       </Td>

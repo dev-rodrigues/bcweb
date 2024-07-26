@@ -9,6 +9,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -22,6 +23,11 @@ export function Users() {
   const [page, setPage] = useState(0)
   const size = 10
   const { data, isFetching } = useUsers(page, size)
+  
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
 
   return (
     <>
@@ -41,6 +47,7 @@ export function Users() {
             <TableCaption>Users registered in the system</TableCaption>
             <Thead>
               <Tr>
+                {isDrawerSidebar ? null : <Th>Detail</Th>}
                 <Th>Id</Th>
                 <Th>Nome</Th>
                 <Th>Action</Th>

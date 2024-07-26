@@ -29,6 +29,7 @@ export function Exercises() {
   const [page, setPage] = useState(0)
   const size = 10
   const { data, isFetching } = useExercises(page, size)
+
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     lg: false,
@@ -65,6 +66,7 @@ export function Exercises() {
           <TableCaption>Exercises registered in the system</TableCaption>
           <Thead>
             <Tr>
+              {isDrawerSidebar ? null : <Th>Detail</Th>}
               {!isDrawerSidebar && <Th>Id</Th>}
               <Th>Name</Th>
               <Th style={{ textAlign: 'center' }}>Actions</Th>
