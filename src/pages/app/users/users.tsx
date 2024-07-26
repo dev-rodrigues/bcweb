@@ -9,6 +9,8 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -17,15 +19,24 @@ import Loading from '@/components/loading.tsx'
 import { Pagination } from '@/components/pagination.tsx'
 import { UserTableRow } from '@/pages/app/users/user-table-row.tsx'
 import { useUsers } from '@/services/users-hook.ts'
+import { UserModal } from './modals/UserModal'
 
 export function Users() {
   const [page, setPage] = useState(0)
   const size = 10
   const { data, isFetching } = useUsers(page, size)
+  
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
       <Helmet title="Users" />
+      <UserModal isOpen={isOpen} onRequestClose={onClose}/>
       {isFetching ? (
         <Loading />
       ) : (
@@ -41,6 +52,7 @@ export function Users() {
             <TableCaption>Users registered in the system</TableCaption>
             <Thead>
               <Tr>
+                {isDrawerSidebar ? null : <Th>Detail</Th>}
                 <Th>Id</Th>
                 <Th>Nome</Th>
                 <Th>Action</Th>
@@ -48,7 +60,7 @@ export function Users() {
             </Thead>
             <Tbody>
               {data?.content.map((it, i) => {
-                return <UserTableRow key={i} data={it} />
+                return <UserTableRow key={i} data={it} onOpen={onOpen}/>
               })}
             </Tbody>
             <Tfoot>

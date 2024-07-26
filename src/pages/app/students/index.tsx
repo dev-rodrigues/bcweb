@@ -8,6 +8,7 @@ import {
   Th,
   Thead,
   Tr,
+  useBreakpointValue,
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
@@ -21,6 +22,11 @@ import { useStudents } from '@/services/students.ts'
 export function Students() {
   const { data, isFetching } = useStudents()
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const isDrawerSidebar = useBreakpointValue({
+    base: true,
+    lg: false,
+  })
 
   return (
     <>
@@ -38,6 +44,7 @@ export function Students() {
           <TableCaption>Yours students registered in the system</TableCaption>
           <Thead>
             <Tr>
+              {isDrawerSidebar ? null : <Th>Detail</Th>}
               <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Id</Th>
               <Th borderColor={'rgba(0, 0, 0, 0.4)'}>Nome</Th>
               <Th

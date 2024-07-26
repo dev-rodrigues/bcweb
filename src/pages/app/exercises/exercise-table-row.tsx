@@ -14,9 +14,10 @@ type ExerciseTableRowProps = {
   key: number
   data: ContentItemSchemaType
   currentPage: number
+  onOpen: () => void
 }
 
-export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
+export function ExerciseTableRow({ data, currentPage, onOpen }: ExerciseTableRowProps) {
   const navigate = useNavigate()
 
   const isDrawerSidebar = useBreakpointValue({
@@ -53,6 +54,14 @@ export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
 
   return (
     <Tr>
+      {isDrawerSidebar ? null : (
+        <Td>
+          <Button onClick={onOpen}>
+            <Search className="h-3 w-3" />
+          </Button>
+        </Td>
+      )}
+
       {!isDrawerSidebar && <Td>{data.id}</Td>}
 
       <Td>{data.name}</Td>
@@ -76,9 +85,7 @@ export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
             <Trash2 className="h-3 w-3" />
           </Button>
 
-          <Button>
-            <Search className="h-3 w-3" />
-          </Button>
+          
 
           <Button onClick={() => navigateToMedia(data)}>
             <Cog className="h-4 w-4" />
