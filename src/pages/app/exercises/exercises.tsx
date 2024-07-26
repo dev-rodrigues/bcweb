@@ -12,6 +12,7 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
 import { useState } from 'react'
@@ -23,6 +24,7 @@ import { LoadingSpinner } from '@/components/ui/spinner.tsx'
 import { ExerciseCreate } from '@/pages/app/exercises/exercise-create.tsx'
 import { ExerciseTableRow } from '@/pages/app/exercises/exercise-table-row.tsx'
 import { useExercises } from '@/services/exercises-hook.ts'
+import { ExerciseModal } from './modals/ExerciseModal'
 
 export function Exercises() {
   const [open, setOpen] = useState(false)
@@ -35,6 +37,8 @@ export function Exercises() {
     lg: false,
   })
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Helmet title="Exercises" />
@@ -45,6 +49,7 @@ export function Exercises() {
         setModalOpen={setOpen}
       />
 
+      <ExerciseModal isOpen={isOpen} onRequestClose={onClose} />
       <TableContainer
         borderColor={'rgba(0, 0, 0, 0.4)'}
         borderWidth={0.1}
@@ -83,7 +88,7 @@ export function Exercises() {
               </Tr>
             )}
             {data?.content.map((it, i) => {
-              return <ExerciseTableRow key={i} data={it} currentPage={page} />
+              return <ExerciseTableRow key={i} data={it} currentPage={page} onOpen={onOpen} />
             })}
           </Tbody>
           <Tfoot>

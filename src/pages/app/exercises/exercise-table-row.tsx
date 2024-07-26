@@ -14,9 +14,10 @@ type ExerciseTableRowProps = {
   key: number
   data: ContentItemSchemaType
   currentPage: number
+  onOpen: () => void
 }
 
-export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
+export function ExerciseTableRow({ data, currentPage, onOpen }: ExerciseTableRowProps) {
   const navigate = useNavigate()
 
   const isDrawerSidebar = useBreakpointValue({
@@ -55,7 +56,7 @@ export function ExerciseTableRow({ data, currentPage }: ExerciseTableRowProps) {
     <Tr>
       {isDrawerSidebar ? null : (
         <Td>
-          <Button>
+          <Button onClick={onOpen}>
             <Search className="h-3 w-3" />
           </Button>
         </Td>

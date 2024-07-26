@@ -7,9 +7,10 @@ import { ContentItemSchemaType } from '@/types/common-users.ts'
 type UserTableRowProps = {
   key: number
   data: ContentItemSchemaType
+  onOpen: () => void
 }
 
-export function UserTableRow({ key, data }: UserTableRowProps) {
+export function UserTableRow({ key, data, onOpen }: UserTableRowProps) {
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     lg: false,
@@ -19,7 +20,7 @@ export function UserTableRow({ key, data }: UserTableRowProps) {
     <Tr key={key}>
       {isDrawerSidebar ? null : (
         <Td>
-          <Button>
+          <Button onClick={onOpen}>
             <Search className="h-3 w-3" />
           </Button>
         </Td>
