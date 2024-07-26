@@ -10,6 +10,7 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -19,6 +20,7 @@ import { TableHeader } from '@/components/ui/table.tsx'
 import { useTeamPaged } from '@/services/team-hook.ts'
 
 import { TeamTableRow } from './team-table-row'
+import { TeamModal } from './modals/TeamModal'
 
 export function Teams() {
   const [page] = useState(0)
@@ -31,10 +33,13 @@ export function Teams() {
     lg: false,
   })
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Helmet title="Teams" />
 
+      <TeamModal  isOpen={isOpen} onRequestClose={onClose}/>
       <TableContainer
         borderColor={'rgba(0, 0, 0, 0.4)'}
         borderWidth={0.1}
@@ -64,7 +69,7 @@ export function Teams() {
 
           <Tbody>
             {data?.content.map((it, i) => {
-              return <TeamTableRow key={i} data={it} />
+              return <TeamTableRow key={i} data={it} onOpen={onOpen}/>
             })}
           </Tbody>
           <Tfoot>

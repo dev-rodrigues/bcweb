@@ -11,13 +11,14 @@ import { ContentItemSchemaType } from '@/types/common-team.ts'
 type TeamTableRowProps = {
   key: number
   data: ContentItemSchemaType
+  onOpen: () => void
 }
 
 type UpdateTeamType = {
   status: string
 }
 
-export function TeamTableRow({ key, data }: TeamTableRowProps) {
+export function TeamTableRow({ key, data, onOpen }: TeamTableRowProps) {
   const isDrawerSidebar = useBreakpointValue({
     base: true,
     lg: false,
@@ -50,7 +51,7 @@ export function TeamTableRow({ key, data }: TeamTableRowProps) {
     <Tr key={key}>
       {isDrawerSidebar ? null : (
         <Td>
-          <Button>
+          <Button onClick={onOpen}>
             <Search className="h-3 w-3" />
           </Button>
         </Td>
